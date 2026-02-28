@@ -1,0 +1,11 @@
+model User {
+    id String @id @default(uuid())
+    nickname String @unique
+    email String @unique'
+    passwordHash String
+    birthDate String? @map("birth_date")
+    about String?
+    avatar Avatar?
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+}

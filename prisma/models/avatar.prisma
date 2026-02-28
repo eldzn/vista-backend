@@ -1,0 +1,8 @@
+model Avatar {
+    id String @id default(uuid())
+    path String
+    userId String @unique
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+}
