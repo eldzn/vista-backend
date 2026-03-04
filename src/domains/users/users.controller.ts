@@ -34,7 +34,7 @@ export class UserController {
     return this.userService.updateProfile(userId, dto);
   }
 
-  @Post('change-password')
+  @Patch('change-password')
   @UseGuards(JwtAuthGuard)
   async changePassword(@Body() dto: ChangePasswordDto, @Req() req: Request) {
     const userId = (req as any).user?.userId;
