@@ -5,12 +5,13 @@ import {
   Req,
   UnauthorizedException,
   Patch,
-  Body,
+  Body, Post,
 } from '@nestjs/common';
 import type { Request } from 'express';
 import { UserService } from './users.service';
 import { JwtAuthGuard } from '../../tokens/guards/jwt-auth.guard';
 import { UpdateProfileDto } from '../auth/dtos/update-profile.dto';
+import { ChangePasswordDto } from './dtos/change-password.dto';
 
 @Controller('user')
 export class UserController {
@@ -31,5 +32,14 @@ export class UserController {
     if (!userId) throw new UnauthorizedException('Не авторизован');
 
     return this.userService.updateProfile(userId, dto);
+  }
+
+  @Post('change-password')
+  @UseGuards(JwtAuthGuard)
+  async changePassword(@Body() dto: ChangePasswordDto, @Req() req: Request) {
+    const userId = (req as any).user?.userId;
+    if (!userId) throw new UnauthorizedException('Не авторизован')
+
+    return this.userService.changePassword(userId, dto);
   }
 }
