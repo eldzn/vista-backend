@@ -9,7 +9,6 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 import { TokensService } from '../../tokens/tokens.service';
 import { RegisterDto } from './dtos/register.dto';
 import { LoginDto } from './dtos/login.dto';
-import { UpdateProfileDto } from './dtos/update-profile.dto';
 
 @Injectable()
 export class AuthService {
@@ -43,6 +42,7 @@ export class AuthService {
         passwordHash,
         about: dto.about,
         birthDate: dto.birthDate,
+        passwordChangeAt: new Date(),
       },
     });
 

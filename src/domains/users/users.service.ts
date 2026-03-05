@@ -8,8 +8,6 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 import { UpdateProfileDto } from '../auth/dtos/update-profile.dto';
 import { ChangePasswordDto } from './dtos/change-password.dto';
 import * as bcrypt from 'bcrypt';
-import { compare } from 'bcrypt';
-import { RecoveryPasswordDto } from './dtos/recovery-password.dto';
 
 @Injectable()
 export class UserService {
@@ -92,34 +90,24 @@ export class UserService {
 
     await this.prisma.user.update({
       where: { id: userId },
-      data: { passwordHash },
+      data: {
+        passwordHash,
+        passwordChangeAt: new Date(),
+      },
     })
   }
 
-  async recoveryPassword(userId: string, dto: RecoveryPasswordDto) {
+  async getLastPasswordChange(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, email: true },
-    })
-
-    if(!user) {
+      select: {
+        passwordChangeAt: true,
+        createdAt: true
+      }
+    });
+    if (!user) {
       throw new UnauthorizedException('Пользователь не найден')
     }
-
-    if(dto.currentEmail !== user.email) {
-      throw new BadRequestException('Неверный текущий email')
-    }
-
-    if(dto.newPassword !== dto.confirmPassword) {
-      throw new BadRequestException('Новые пароли не совпадают');
-    }
-
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(dto.confirmPassword, saltRounds);
-
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { passwordHash },
-    });
+    return user.passwordChangeAt || user.createdAt
   }
 }
