@@ -8,23 +8,12 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(uuid())
-  nickname         String   @unique
-  email            String   @unique
-  passwordHash     String
-  passwordChangeAt DateTime @map("password_change_at")
-  about            String?
-  birthDate        String?  @map("birth_date")
-  avatar           Avatar?
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt @map("updated_at")
-}
-
-model Avatar {
-  id        String   @id @default(uuid())
-  path      String
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id           String   @id @default(uuid())
+  nickname     String   @unique
+  email        String   @unique
+  passwordHash String
+  about        String?
+  birthDate    String?  @map("birth_date")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 }

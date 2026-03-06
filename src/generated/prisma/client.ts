@@ -44,8 +44,3 @@ export { Prisma }
  * 
  */
 export type User = Prisma.UserModel
-/**
- * Model Avatar
- * 
- */
-export type Avatar = Prisma.AvatarModel

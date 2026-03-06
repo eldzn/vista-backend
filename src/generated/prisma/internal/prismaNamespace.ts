@@ -384,8 +384,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
-  User: 'User',
-  Avatar: 'Avatar'
+  User: 'User'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +400,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "avatar"
+    modelProps: "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -479,80 +478,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Avatar: {
-      payload: Prisma.$AvatarPayload<ExtArgs>
-      fields: Prisma.AvatarFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.AvatarFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.AvatarFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        findFirst: {
-          args: Prisma.AvatarFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.AvatarFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        findMany: {
-          args: Prisma.AvatarFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>[]
-        }
-        create: {
-          args: Prisma.AvatarCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        createMany: {
-          args: Prisma.AvatarCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.AvatarCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>[]
-        }
-        delete: {
-          args: Prisma.AvatarDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        update: {
-          args: Prisma.AvatarUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        deleteMany: {
-          args: Prisma.AvatarDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.AvatarUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AvatarUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>[]
-        }
-        upsert: {
-          args: Prisma.AvatarUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AvatarPayload>
-        }
-        aggregate: {
-          args: Prisma.AvatarAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateAvatar>
-        }
-        groupBy: {
-          args: Prisma.AvatarGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AvatarGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.AvatarCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AvatarCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -597,7 +522,6 @@ export const UserScalarFieldEnum = {
   nickname: 'nickname',
   email: 'email',
   passwordHash: 'passwordHash',
-  passwordChangeAt: 'passwordChangeAt',
   about: 'about',
   birthDate: 'birthDate',
   createdAt: 'createdAt',
@@ -605,17 +529,6 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const AvatarScalarFieldEnum = {
-  id: 'id',
-  path: 'path',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AvatarScalarFieldEnum = (typeof AvatarScalarFieldEnum)[keyof typeof AvatarScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -785,7 +698,6 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
-  avatar?: Prisma.AvatarOmit
 }
 
 /* Types for Logging */
