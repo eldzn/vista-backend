@@ -521,10 +521,10 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
    * @example
    * // Get all Users
-   * const users = await prisma.user.findMany()
+   * const user = await prisma.user.findMany()
    * 
    * // Get first 10 Users
-   * const users = await prisma.user.findMany({ take: 10 })
+   * const user = await prisma.user.findMany({ take: 10 })
    * 
    * // Only select the `id`
    * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
@@ -729,7 +729,7 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * @example
    * // Ordered by age ascending
    * // Where email contains prisma.io
-   * // Limited to the 10 users
+   * // Limited to the 10 user
    * const aggregations = await prisma.user.aggregate({
    *   _avg: {
    *     age: true,
