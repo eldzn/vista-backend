@@ -3,7 +3,8 @@ import { Body, Controller, Get, Patch, Req,  UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { UpdateUserDto } from './dtos/update-user.dto';
+import { UpdateDataUserDto } from './dtos/update-data-user.dto';
+import {UpdatePasswordUserDto} from "./dtos/update-password-user.dto";
 
 @Controller('users')
 export class UserController {
@@ -20,10 +21,19 @@ export class UserController {
 
   @Patch('me')
   @UseGuards(AuthGuard('jwt'))
-  async updateMe(@Req() req: Request, @Body() dto: UpdateUserDto) {
+  async updateMe(@Req() req: Request, @Body() dto: UpdateDataUserDto) {
     const userId = (req as any).user?.id;
 
     const user = await this.userService.updateDataUser(userId, dto);
     return { message: 'User updated', user };
+  }
+
+  @Patch('password')
+  @UseGuards(AuthGuard('jwt'))
+  async updatePassword(@Req() req: Request, @Body() dto: UpdatePasswordUserDto) {
+    const userId = (req as any).user?.id;
+
+    const password = await this.userService.updatePasswordUser(userId, dto);
+    return { message: 'Password updated', password };
   }
 }

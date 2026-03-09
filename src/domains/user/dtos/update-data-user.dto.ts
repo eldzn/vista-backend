@@ -6,7 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class UpdateUserDto {
+export class UpdateDataUserDto {
   @IsNotEmpty({ message: 'Nickname is required' })
   @IsString({ message: 'Nickname is a string' })
   @MinLength(5, { message: 'Nickname must be at least 5 characters long' })
