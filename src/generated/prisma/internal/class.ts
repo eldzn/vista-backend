@@ -95,7 +95,7 @@ export interface PrismaClientConstructor {
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
  * // Fetch zero or more Users
- * const user = await prisma.user.findMany()
+ * const users = await prisma.user.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -193,7 +193,7 @@ export interface PrismaClient<
     * Example usage:
     * ```ts
     * // Fetch zero or more Users
-    * const user = await prisma.user.findMany()
+    * const users = await prisma.user.findMany()
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;

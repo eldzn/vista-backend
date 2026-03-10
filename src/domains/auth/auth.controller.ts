@@ -49,8 +49,11 @@ export class AuthController {
   }
 
   @Post('sign-out')
+  @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  signOut(@Res({ passthrough: true }) res: Response) {
+  signOut(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    const userId = (req as any).user?.id;
+    this.authService.signOut(userId)
     clearAuthCookies(res);
     return { message: 'Signed out successfully!' };
   }
