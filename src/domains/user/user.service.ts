@@ -8,6 +8,7 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 import { UpdateDataUserDto } from './dtos/update-data-user.dto';
 import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
 import * as bcrypt from 'bcrypt';
+import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 
 @Injectable()
 export class UserService {
@@ -89,5 +90,49 @@ export class UserService {
       data: { passwordHash: hashedPassword },
     });
     return { message: 'Password updated successfully' };
+  }
+  
+  async updateEmailUser(userId: string, dto: UpdateEmailUserDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        email: true,
+        passwordHash: true,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const isPasswordValid = await bcrypt.compare(
+      dto.password,
+      user.passwordHash,
+    );
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Current password is incorrect');
+    }
+    if(dto.emailNew !== dto.emailConfirm) {
+      throw new BadRequestException(
+        'New email and confirmation do not match',
+      );
+    }
+    const existingEmail = await this.prisma.user.findFirst({
+      where: {
+        email: dto.emailNew,
+        id: { not: userId },
+      },
+    });
+    if (existingEmail) {
+      throw new BadRequestException('Email already exists');
+    }
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        email: dto.emailNew
+      },
+    });
+    return { message: 'Email updated successfully' };
   }
 }
