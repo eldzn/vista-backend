@@ -23,6 +23,7 @@ export class UserService {
         nickname: true,
         about: true,
         birthDate: true,
+        passwordChangeAt: true
       },
     });
 
@@ -87,7 +88,10 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(dto.passwordNew, 10);
     await this.prisma.user.update({
       where: { id: userId },
-      data: { passwordHash: hashedPassword },
+      data: {
+        passwordHash: hashedPassword,
+        passwordChangeAt: new Date()
+      },
     });
     return { message: 'Password updated successfully' };
   }

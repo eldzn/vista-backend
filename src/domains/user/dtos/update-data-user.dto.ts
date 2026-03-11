@@ -21,4 +21,7 @@ export class UpdateDataUserDto {
   @IsString({ message: 'About is a string' })
   @MaxLength(250)
   about?: string;
+
+  @IsOptional()
+  passwordChangeAt?: string
 }

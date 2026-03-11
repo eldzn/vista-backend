@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
-  nickname     String   @unique
-  email        String   @unique
-  passwordHash String
-  about        String?
-  birthDate    String?  @map("birth_date")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  id               String    @id @default(uuid())
+  nickname         String    @unique
+  email            String    @unique
+  passwordHash     String
+  about            String?
+  birthDate        String?   @map("birth_date")
+  passwordChangeAt DateTime? @default(now()) @map("password_change_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
 }
