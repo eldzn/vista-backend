@@ -7,7 +7,7 @@ export class UpdateEmailUserDto {
 
   @IsNotEmpty({ message: 'Email is required' })
   @IsEmail()
-    emailConfirm: string;
+  emailConfirm: string;
 
   @IsNotEmpty({ message: 'Password is required' })
   @IsString({ message: 'Password is a string' })

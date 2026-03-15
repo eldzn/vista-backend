@@ -71,8 +71,13 @@ export class AuthService {
   }
 
   async signIn(dto: SignInDto) {
-    const user = await this.prisma.user.findUnique({
-      where: { email: dto.email },
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { email: dto.email },
+          { backupEmail: dto.email },
+        ],
+      },
     });
 
     if (!user) {
@@ -144,6 +149,6 @@ export class AuthService {
 
   signOut(userId: string) {
     console.log(`User ${userId} signed out`);
-    return {message: 'Signed out successfully!'}
+    return { message: 'Signed out successfully!' };
   }
 }

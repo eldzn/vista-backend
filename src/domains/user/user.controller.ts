@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
-import { Body, Controller, Get, Patch, Req,  UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Patch,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -48,5 +56,21 @@ export class UserController {
 
     const email = await this.userService.updateEmailUser(userId, dto);
     return { message: 'Email updated', email };
+  }
+
+  @Patch('backup-email')
+  @UseGuards(AuthGuard('jwt'))
+  async addBackupEmail(@Req() req: Request, @Body() dto: { backupEmail: string }) {
+    const userId = (req as any).user?.id;
+    const result = await this.userService.addBackupEmail(userId, dto.backupEmail);
+    return result;
+  }
+
+  @Delete('backup-email')
+  @UseGuards(AuthGuard('jwt'))
+  async removeBackupEmail(@Req() req: Request) {
+    const userId = (req as any).user?.id;
+    const result = await this.userService.deleteBackupEmail(userId);
+    return result;
   }
 }

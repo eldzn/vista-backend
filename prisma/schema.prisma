@@ -11,6 +11,7 @@ model User {
   id               String    @id @default(uuid())
   nickname         String    @unique
   email            String    @unique
+  backupEmail      String?   @unique @map("backup_email")
   passwordHash     String
   about            String?
   birthDate        String?   @map("birth_date")

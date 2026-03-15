@@ -20,10 +20,11 @@ export class UserService {
       select: {
         id: true,
         email: true,
+        backupEmail: true,
         nickname: true,
         about: true,
         birthDate: true,
-        passwordChangeAt: true
+        passwordChangeAt: true,
       },
     });
 
@@ -138,5 +139,27 @@ export class UserService {
       },
     });
     return { message: 'Email updated successfully' };
+  }
+
+  async addBackupEmail(userId: string, backupEmail: string) {
+    const existing = await this.prisma.user.findFirst({
+      where: { backupEmail },
+    });
+    if (existing) {
+      throw new BadRequestException('Backup email already in use');
+    }
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { backupEmail },
+    });
+    return { message: 'Backup email added successfully' };
+  }
+
+  async deleteBackupEmail(userId: string) {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { backupEmail: null },
+    });
+    return { message: 'Backup email removed successfully' };
   }
 }
