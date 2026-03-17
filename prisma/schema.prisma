@@ -16,6 +16,7 @@ model User {
   about            String?
   birthDate        String?   @map("birth_date")
   passwordChangeAt DateTime? @default(now()) @map("password_change_at")
+  avatarFileName   String?   @map("avatar_file_name")
   createdAt        DateTime  @default(now()) @map("created_at")
   updatedAt        DateTime  @updatedAt @map("updated_at")
 }

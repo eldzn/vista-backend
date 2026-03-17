@@ -91,12 +91,12 @@ export class UserService {
       where: { id: userId },
       data: {
         passwordHash: hashedPassword,
-        passwordChangeAt: new Date()
+        passwordChangeAt: new Date(),
       },
     });
     return { message: 'Password updated successfully' };
   }
-  
+
   async updateEmailUser(userId: string, dto: UpdateEmailUserDto) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -118,10 +118,8 @@ export class UserService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Current password is incorrect');
     }
-    if(dto.emailNew !== dto.emailConfirm) {
-      throw new BadRequestException(
-        'New email and confirmation do not match',
-      );
+    if (dto.emailNew !== dto.emailConfirm) {
+      throw new BadRequestException('New email and confirmation do not match');
     }
     const existingEmail = await this.prisma.user.findFirst({
       where: {
@@ -135,7 +133,7 @@ export class UserService {
     await this.prisma.user.update({
       where: { id: userId },
       data: {
-        email: dto.emailNew
+        email: dto.emailNew,
       },
     });
     return { message: 'Email updated successfully' };
@@ -161,5 +159,13 @@ export class UserService {
       data: { backupEmail: null },
     });
     return { message: 'Backup email removed successfully' };
+  }
+
+  async updateAvatar(userId: string, fileName: string) {
+    const result = await this.prisma.user.update({
+      where: { id: userId },
+      data: { avatarFileName: fileName },
+    });
+    return result;
   }
 }
