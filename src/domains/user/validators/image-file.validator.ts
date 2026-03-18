@@ -1,4 +1,4 @@
-import { FileValidator } from '@nestjs/common'
+import { FileValidator } from '@nestjs/common';
 
 export class ImageFileValidator extends FileValidator<{
   fileTypePattern: RegExp;
@@ -19,6 +19,6 @@ export class ImageFileValidator extends FileValidator<{
   }
 
   buildErrorMessage(file: Express.Multer.File): string {
-    return `Validation failed (current file type is ${file.mimetype}, expected type matching pattern ${this.pattern})`;
+    return `Validation failed (current file type is ${file.mimetype}, expected image/png, image/jpeg or image/gif)`;
   }
 }

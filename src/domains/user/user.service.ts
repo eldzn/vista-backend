@@ -9,6 +9,8 @@ import { UpdateDataUserDto } from './dtos/update-data-user.dto';
 import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class UserService {
@@ -167,5 +169,37 @@ export class UserService {
       data: { avatarFileName: fileName },
     });
     return result;
+  }
+
+  async deleteAvatar(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId
+      },
+      select: {
+        avatarFileName: true
+      }
+    })
+    if(!user) {
+      throw new NotFoundException('User not found')
+    }
+    if(!user.avatarFileName) {
+      return { message: 'No avatar to delete'}
+    }
+    const filePath = path.join(process.cwd(), 'uploads', 'avatars', user.avatarFileName)
+    try {
+      await fs.promises.unlink(filePath)
+    } catch (error) {
+      console.log(error)
+    }
+    await this.prisma.user.update({
+      where: {
+        id: userId
+      },
+      data: {
+        avatarFileName: null
+      }
+    })
+    return { message: 'Avatar delete' }
   }
 }

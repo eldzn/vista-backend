@@ -113,12 +113,24 @@ export class UserController {
       userId,
       file.filename,
     );
+    const avatarUrl = `http://localhost:3000/uploads/avatars/${file.filename}`;
     return {
       message: 'Avatar uploaded',
       filename: file.filename,
       mimeType: file.mimetype,
       avatarFileName: updatedUser.avatarFileName,
+      avatarUrl,
       userId,
     };
+  }
+
+  @Delete('avatar')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteAvatar(@Req() req: Request) {
+    const userId = (req as any).user?.id
+    const updateUser = await this.userService.deleteAvatar(userId)
+    return {
+      user: updateUser
+    }
   }
 }
