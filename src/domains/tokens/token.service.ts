@@ -32,16 +32,6 @@ export class TokenService {
     } as any);
   }
 
-  verifyAccessToken(token: string) {
-    try {
-      return this.jwt.verify<TokenPayload>(token, {
-        secret: this.config.getOrThrow<string>('JWT_ACCESS_SECRET'),
-      });
-    } catch {
-      return null;
-    }
-  }
-
   verifyRefreshToken(token: string) {
     try {
       return this.jwt.verify<TokenPayload>(token, {

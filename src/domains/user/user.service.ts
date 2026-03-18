@@ -27,6 +27,7 @@ export class UserService {
         about: true,
         birthDate: true,
         passwordChangeAt: true,
+        avatarFileName: true,
       },
     });
 
@@ -41,53 +42,43 @@ export class UserService {
       const existingNickname = await this.prisma.user.findFirst({
         where: {
           nickname: dto.nickname,
-          id: {
-            not: userId,
-          },
+          id: { not: userId },
         },
       });
       if (existingNickname) {
         throw new BadRequestException('Nickname already exists');
       }
     }
-    const user = await this.prisma.user.update({
-      where: {
-        id: userId,
-      },
+    return this.prisma.user.update({
+      where: { id: userId },
       data: {
         nickname: dto.nickname,
         birthDate: dto.birthDate,
         about: dto.about,
       },
     });
-    return user;
   }
 
   async updatePasswordUser(userId: string, dto: UpdatePasswordUserDto) {
     const user = await this.prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        id: true,
-        passwordHash: true,
-      },
+      where: { id: userId },
+      select: { id: true, passwordHash: true },
     });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    if (!user) throw new NotFoundException('User not found');
+
     const isPasswordValid = await bcrypt.compare(
       dto.password,
       user.passwordHash,
     );
-    if (!isPasswordValid) {
+    if (!isPasswordValid)
       throw new UnauthorizedException('Current password is incorrect');
-    }
+
     if (dto.passwordNew !== dto.passwordConfirm) {
       throw new BadRequestException(
         'New password and confirmation do not match',
       );
     }
+
     const hashedPassword = await bcrypt.hash(dto.passwordNew, 10);
     await this.prisma.user.update({
       where: { id: userId },
@@ -101,42 +92,30 @@ export class UserService {
 
   async updateEmailUser(userId: string, dto: UpdateEmailUserDto) {
     const user = await this.prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        id: true,
-        email: true,
-        passwordHash: true,
-      },
+      where: { id: userId },
+      select: { id: true, email: true, passwordHash: true },
     });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    if (!user) throw new NotFoundException('User not found');
+
     const isPasswordValid = await bcrypt.compare(
       dto.password,
       user.passwordHash,
     );
-    if (!isPasswordValid) {
+    if (!isPasswordValid)
       throw new UnauthorizedException('Current password is incorrect');
-    }
+
     if (dto.emailNew !== dto.emailConfirm) {
       throw new BadRequestException('New email and confirmation do not match');
     }
+
     const existingEmail = await this.prisma.user.findFirst({
-      where: {
-        email: dto.emailNew,
-        id: { not: userId },
-      },
+      where: { email: dto.emailNew, id: { not: userId } },
     });
-    if (existingEmail) {
-      throw new BadRequestException('Email already exists');
-    }
+    if (existingEmail) throw new BadRequestException('Email already exists');
+
     await this.prisma.user.update({
       where: { id: userId },
-      data: {
-        email: dto.emailNew,
-      },
+      data: { email: dto.emailNew },
     });
     return { message: 'Email updated successfully' };
   }
@@ -145,9 +124,8 @@ export class UserService {
     const existing = await this.prisma.user.findFirst({
       where: { backupEmail },
     });
-    if (existing) {
-      throw new BadRequestException('Backup email already in use');
-    }
+    if (existing) throw new BadRequestException('Backup email already in use');
+
     await this.prisma.user.update({
       where: { id: userId },
       data: { backupEmail },
@@ -164,42 +142,39 @@ export class UserService {
   }
 
   async updateAvatar(userId: string, fileName: string) {
-    const result = await this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id: userId },
       data: { avatarFileName: fileName },
     });
-    return result;
   }
 
   async deleteAvatar(userId: string) {
     const user = await this.prisma.user.findUnique({
-      where: {
-        id: userId
-      },
-      select: {
-        avatarFileName: true
-      }
-    })
-    if(!user) {
-      throw new NotFoundException('User not found')
-    }
-    if(!user.avatarFileName) {
-      return { message: 'No avatar to delete'}
-    }
-    const filePath = path.join(process.cwd(), 'uploads', 'avatars', user.avatarFileName)
+      where: { id: userId },
+      select: { avatarFileName: true },
+    });
+
+    if (!user) throw new NotFoundException('User not found');
+    if (!user.avatarFileName) return { message: 'No avatar to delete' };
+
+    const filePath = path.join(
+      process.cwd(),
+      'uploads',
+      'avatars',
+      user.avatarFileName,
+    );
+
     try {
-      await fs.promises.unlink(filePath)
+      await fs.promises.unlink(filePath);
     } catch (error) {
-      console.log(error)
+      console.warn(`Failed to delete file ${filePath}: ${error.message}`);
     }
+
     await this.prisma.user.update({
-      where: {
-        id: userId
-      },
-      data: {
-        avatarFileName: null
-      }
-    })
-    return { message: 'Avatar delete' }
+      where: { id: userId },
+      data: { avatarFileName: null },
+    });
+
+    return { message: 'Avatar deleted successfully' };
   }
 }

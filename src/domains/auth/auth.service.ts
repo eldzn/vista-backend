@@ -147,8 +147,7 @@ export class AuthService {
     };
   }
 
-  signOut(userId: string) {
-    console.log(`User ${userId} signed out`);
+  signOut(_userId: string) {
     return { message: 'Signed out successfully!' };
   }
 }

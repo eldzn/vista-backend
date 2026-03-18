@@ -4,7 +4,6 @@ import { PrismaModule } from './core/prisma/prisma.module';
 import { AuthModule } from './domains/auth/auth.module';
 import { TokensModule } from './domains/tokens/token.module';
 import { UserModule } from './domains/user/user.module';
-import { MulterModule } from '@nestjs/platform-express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
