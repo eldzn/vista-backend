@@ -4,9 +4,14 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
+  ParseFilePipeBuilder,
   Patch,
+  Post,
   Req,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { UserService } from './user.service';
@@ -14,6 +19,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { UpdateDataUserDto } from './dtos/update-data-user.dto';
 import {UpdatePasswordUserDto} from "./dtos/update-password-user.dto";
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ImageFileValidator } from './validators/image-file.validator';
 
 @Controller('users')
 export class UserController {
@@ -60,9 +67,15 @@ export class UserController {
 
   @Patch('backup-email')
   @UseGuards(AuthGuard('jwt'))
-  async addBackupEmail(@Req() req: Request, @Body() dto: { backupEmail: string }) {
+  async addBackupEmail(
+    @Req() req: Request,
+    @Body() dto: { backupEmail: string },
+  ) {
     const userId = (req as any).user?.id;
-    const result = await this.userService.addBackupEmail(userId, dto.backupEmail);
+    const result = await this.userService.addBackupEmail(
+      userId,
+      dto.backupEmail,
+    );
     return result;
   }
 
@@ -72,5 +85,52 @@ export class UserController {
     const userId = (req as any).user?.id;
     const result = await this.userService.deleteBackupEmail(userId);
     return result;
+  }
+
+  @Post('avatar')
+  @UseGuards(AuthGuard('jwt'))
+  @UseInterceptors(FileInterceptor('avatar'))
+  async uploadAvatar(
+    @Req() req: Request,
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addValidator(
+          new ImageFileValidator({
+            fileTypePattern: /^image\/(png|jpeg|gif)$/,
+          }),
+        )
+        .addMaxSizeValidator({
+          maxSize: 5 * 1024 * 1024,
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+        }),
+    )
+    file: Express.Multer.File,
+  ) {
+    const userId = (req as any).user?.id;
+    const updatedUser = await this.userService.updateAvatar(
+      userId,
+      file.filename,
+    );
+    const avatarUrl = `http://localhost:3000/uploads/avatars/${file.filename}`;
+    return {
+      message: 'Avatar uploaded',
+      filename: file.filename,
+      mimeType: file.mimetype,
+      avatarFileName: updatedUser.avatarFileName,
+      avatarUrl,
+      userId,
+    };
+  }
+
+  @Delete('avatar')
+  @UseGuards(AuthGuard('jwt'))
+  async deleteAvatar(@Req() req: Request) {
+    const userId = (req as any).user?.id
+    const updateUser = await this.userService.deleteAvatar(userId)
+    return {
+      user: updateUser
+    }
   }
 }
