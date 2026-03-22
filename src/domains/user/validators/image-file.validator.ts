@@ -1,7 +1,7 @@
 import { FileValidator } from '@nestjs/common';
 
 export class ImageFileValidator extends FileValidator<{
-  fileTypePattern: RegExp;
+  fileTypePattern: RegExp
 }> {
   private readonly pattern: RegExp;
 

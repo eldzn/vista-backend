@@ -6,6 +6,7 @@ import { TokensModule } from './domains/tokens/token.module';
 import { UserModule } from './domains/user/user.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { VideoModule } from './domains/videos/video.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { join } from 'path';
     AuthModule,
     TokensModule,
     UserModule,
+    VideoModule
   ],
 })
 export class AppModule {}

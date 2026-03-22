@@ -58,8 +58,7 @@ export class AuthService {
         },
       });
 
-      const { id, nickname, email, about, birthDate, createdAt, updatedAt } =
-        user;
+      const { id, nickname, email, about, birthDate, createdAt, updatedAt } = user;
 
       return {
         message: 'Sign up successfully!',

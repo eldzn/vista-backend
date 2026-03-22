@@ -53,7 +53,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   signOut(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const userId = (req as any).user?.id;
-    this.authService.signOut(userId)
+    this.authService.signOut(userId);
     clearAuthCookies(res);
     return { message: 'Signed out successfully!' };
   }
@@ -61,8 +61,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   getMe(@Req() req: Request) {
-    const user: any = (req as any).user;
-
+    const user = (req as any).user;
     return {
       message: 'You are authenticated!',
       user,
@@ -76,11 +75,12 @@ export class AuthController {
     @Body() dto: { rememberMe?: boolean },
     @Res({ passthrough: true }) res: Response,
   ) {
-    const refreshToken = req.cookies?.refreshToken;
+    const refreshToken = (req as any).cookies?.refreshToken;
 
     if (!refreshToken) {
       throw new UnauthorizedException('Refresh token not found');
     }
+
     const result = await this.authService.refresh(
       refreshToken,
       dto.rememberMe ?? false,

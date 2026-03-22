@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Video
+ * 
+ */
+export type Video = Prisma.VideoModel
