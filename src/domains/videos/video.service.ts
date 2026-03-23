@@ -5,10 +5,23 @@ import {
 import { PrismaService } from '../../core/prisma/prisma.service';
 import * as fs from 'fs';
 import * as path from 'path';
+import { CreateVideoDto } from './dtos/create-video.dto';
 
 @Injectable()
 export class VideoService {
   constructor(private prisma: PrismaService) {}
+
+  async getCategories() {
+    return this.prisma.category.findMany({
+      orderBy: { name: 'asc' },
+    });
+  }
+
+  async getAgeRating() {
+    return this.prisma.ageRating.findMany({
+      orderBy: { code: 'asc' },
+    });
+  }
 
   async uploadVideo(
     userId: string,
@@ -16,6 +29,7 @@ export class VideoService {
     originalName: string,
     mimetype: string,
     size: number,
+    dto: CreateVideoDto,
   ) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
@@ -25,15 +39,47 @@ export class VideoService {
       throw new NotFoundException('User not found!');
     }
 
+    if (dto.categoryId) {
+      const category = await this.prisma.category.findUnique({
+        where: {
+          id: dto.categoryId,
+        },
+      });
+
+      if (!category) {
+        throw new NotFoundException('Category not found');
+      }
+    }
+
+    if (dto.ageRatingId) {
+      const rating = await this.prisma.ageRating.findUnique({
+        where: {
+          id: dto.ageRatingId,
+        },
+      });
+      if (!rating) {
+        throw new NotFoundException('Age rating not found');
+      }
+    }
+
     const video = await this.prisma.video.create({
       data: {
         fileName: fileName,
         originalName: originalName,
         mimetype: mimetype,
         size: size,
+        title: dto.title,
+        description: dto.description,
+        isPublic: dto.isPublic ?? true,
         author: {
           connect: { id: userId },
         },
+        category: dto.categoryId
+          ? { connect: { id: dto.categoryId } }
+          : undefined,
+        ageRating: dto.ageRatingId
+          ? { connect: { id: dto.ageRatingId } }
+          : undefined,
       },
     });
 
@@ -48,11 +94,14 @@ export class VideoService {
       throw new NotFoundException('User not found!');
     }
 
-    const videos = await this.prisma.video.findMany({
-      where: { userId: userId },
+    return this.prisma.video.findMany({
+      where: { userId },
+      include: {
+        category: true,
+        ageRating: true,
+      },
+      orderBy: { createdAt: 'desc' },
     });
-
-    return videos;
   }
 
   async streamVideo(id: string, userId: string) {

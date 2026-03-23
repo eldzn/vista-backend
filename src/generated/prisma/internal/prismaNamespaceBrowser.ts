@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Video: 'Video'
+  Video: 'Video',
+  Category: 'Category',
+  AgeRating: 'AgeRating'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -94,11 +96,34 @@ export const VideoScalarFieldEnum = {
   originalName: 'originalName',
   mimetype: 'mimetype',
   size: 'size',
+  title: 'title',
+  description: 'description',
+  isPublic: 'isPublic',
   createdAt: 'createdAt',
-  userId: 'userId'
+  userId: 'userId',
+  categoryId: 'categoryId',
+  ageRatingId: 'ageRatingId'
 } as const
 
 export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
+
+
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const AgeRatingScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  createdAt: 'createdAt'
+} as const
+
+export type AgeRatingScalarFieldEnum = (typeof AgeRatingScalarFieldEnum)[keyof typeof AgeRatingScalarFieldEnum]
 
 
 export const SortOrder = {

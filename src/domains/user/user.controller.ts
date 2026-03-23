@@ -17,7 +17,7 @@ import { Request } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateDataUserDto } from './dtos/update-data-user.dto';
-import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
+import {UpdatePasswordUserDto} from "./dtos/update-password-user.dto";
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageFileValidator } from './validators/image-file.validator';
@@ -30,26 +30,16 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async getMe(@Req() req: Request) {
     const userId = (req as any).user?.id;
+
     const user = await this.userService.getDataUser(userId);
-
-    let avatarUrl: string | null = null;
-    if (user.avatarFileName) {
-      avatarUrl = `http://localhost:3000/uploads/avatars/${user.avatarFileName}`;
-    }
-
-    return {
-      message: 'User retrieved',
-      user: {
-        ...user,
-        avatarUrl,
-      },
-    };
+    return { message: 'User retrieved', user };
   }
 
   @Patch('me')
   @UseGuards(AuthGuard('jwt'))
   async updateMe(@Req() req: Request, @Body() dto: UpdateDataUserDto) {
     const userId = (req as any).user?.id;
+
     const user = await this.userService.updateDataUser(userId, dto);
     return { message: 'User updated', user };
   }
@@ -61,16 +51,18 @@ export class UserController {
     @Body() dto: UpdatePasswordUserDto,
   ) {
     const userId = (req as any).user?.id;
-    const result = await this.userService.updatePasswordUser(userId, dto);
-    return { message: 'Password updated', result };
+
+    const password = await this.userService.updatePasswordUser(userId, dto);
+    return { message: 'Password updated', password };
   }
 
   @Patch('email')
   @UseGuards(AuthGuard('jwt'))
   async updateEmail(@Req() req: Request, @Body() dto: UpdateEmailUserDto) {
     const userId = (req as any).user?.id;
-    const result = await this.userService.updateEmailUser(userId, dto);
-    return { message: 'Email updated', result };
+
+    const email = await this.userService.updateEmailUser(userId, dto);
+    return { message: 'Email updated', email };
   }
 
   @Patch('backup-email')
@@ -107,8 +99,12 @@ export class UserController {
             fileTypePattern: /^image\/(png|jpeg|gif)$/,
           }),
         )
-        .addMaxSizeValidator({ maxSize: 5 * 1024 * 1024 }) // 5MB
-        .build({ errorHttpStatusCode: HttpStatus.BAD_REQUEST }),
+        .addMaxSizeValidator({
+          maxSize: 5 * 1024 * 1024,
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.BAD_REQUEST,
+        }),
     )
     file: Express.Multer.File,
   ) {
@@ -117,9 +113,7 @@ export class UserController {
       userId,
       file.filename,
     );
-
     const avatarUrl = `http://localhost:3000/uploads/avatars/${file.filename}`;
-
     return {
       message: 'Avatar uploaded',
       filename: file.filename,
@@ -133,21 +127,10 @@ export class UserController {
   @Delete('avatar')
   @UseGuards(AuthGuard('jwt'))
   async deleteAvatar(@Req() req: Request) {
-    const userId = (req as any).user?.id;
-    const result = await this.userService.deleteAvatar(userId);
-
-    const updatedUser = await this.userService.getDataUser(userId);
-    let avatarUrl: string | null = null;
-    if (updatedUser.avatarFileName) {
-      avatarUrl = `http://localhost:3000/uploads/avatars/${updatedUser.avatarFileName}`;
-    }
-
+    const userId = (req as any).user?.id
+    const updateUser = await this.userService.deleteAvatar(userId)
     return {
-      message: result.message,
-      user: {
-        ...updatedUser,
-        avatarUrl,
-      },
-    };
+      user: updateUser
+    }
   }
 }
