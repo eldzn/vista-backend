@@ -11,13 +11,19 @@ import * as bcrypt from 'bcrypt';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async getDataUser(userId: string) {
-    const user = await this.prisma.user.findUnique({
+  async getById(
+    userId: string,
+    client?: Prisma.TransactionClient | PrismaService,
+  ) {
+    const db = client || this.prisma;
+
+    const user = await db.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -37,7 +43,13 @@ export class UserService {
     return user;
   }
 
+  async getDataUser(userId: string) {
+    return this.getById(userId);
+  }
+
   async updateDataUser(userId: string, dto: UpdateDataUserDto) {
+    await this.getById(userId);
+
     if (dto.nickname) {
       const existingNickname = await this.prisma.user.findFirst({
         where: {
@@ -49,6 +61,7 @@ export class UserService {
         throw new BadRequestException('Nickname already exists');
       }
     }
+
     return this.prisma.user.update({
       where: { id: userId },
       data: {
@@ -60,15 +73,18 @@ export class UserService {
   }
 
   async updatePasswordUser(userId: string, dto: UpdatePasswordUserDto) {
-    const user = await this.prisma.user.findUnique({
+    await this.getById(userId);
+
+    const userData = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, passwordHash: true },
+      select: { passwordHash: true },
     });
-    if (!user) throw new NotFoundException('User not found');
+
+    if (!userData) throw new NotFoundException('User not found');
 
     const isPasswordValid = await bcrypt.compare(
       dto.password,
-      user.passwordHash,
+      userData.passwordHash,
     );
     if (!isPasswordValid)
       throw new UnauthorizedException('Current password is incorrect');
@@ -80,26 +96,28 @@ export class UserService {
     }
 
     const hashedPassword = await bcrypt.hash(dto.passwordNew, 10);
-    await this.prisma.user.update({
+
+    return this.prisma.user.update({
       where: { id: userId },
       data: {
         passwordHash: hashedPassword,
         passwordChangeAt: new Date(),
       },
     });
-    return { message: 'Password updated successfully' };
   }
 
   async updateEmailUser(userId: string, dto: UpdateEmailUserDto) {
-    const user = await this.prisma.user.findUnique({
+    await this.getById(userId);
+
+    const userData = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, email: true, passwordHash: true },
+      select: { passwordHash: true },
     });
-    if (!user) throw new NotFoundException('User not found');
+    if (!userData) throw new NotFoundException('User not found');
 
     const isPasswordValid = await bcrypt.compare(
       dto.password,
-      user.passwordHash,
+      userData.passwordHash,
     );
     if (!isPasswordValid)
       throw new UnauthorizedException('Current password is incorrect');
@@ -113,38 +131,49 @@ export class UserService {
     });
     if (existingEmail) throw new BadRequestException('Email already exists');
 
-    await this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id: userId },
-      data: { email: dto.emailNew },
+      data: {
+        email: dto.emailNew,
+      },
     });
-    return { message: 'Email updated successfully' };
   }
 
   async addBackupEmail(userId: string, backupEmail: string) {
+    await this.getById(userId);
+
     const existing = await this.prisma.user.findFirst({
       where: { backupEmail },
     });
     if (existing) throw new BadRequestException('Backup email already in use');
 
-    await this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id: userId },
-      data: { backupEmail },
+      data: {
+        backupEmail,
+      },
     });
-    return { message: 'Backup email added successfully' };
   }
 
   async deleteBackupEmail(userId: string) {
-    await this.prisma.user.update({
+    await this.getById(userId);
+
+    return this.prisma.user.update({
       where: { id: userId },
-      data: { backupEmail: null },
+      data: {
+        backupEmail: null,
+      },
     });
-    return { message: 'Backup email removed successfully' };
   }
 
   async updateAvatar(userId: string, fileName: string) {
+    await this.getById(userId);
+
     return this.prisma.user.update({
       where: { id: userId },
-      data: { avatarFileName: fileName },
+      data: {
+        avatarFileName: fileName,
+      },
     });
   }
 
@@ -167,14 +196,14 @@ export class UserService {
     try {
       await fs.promises.unlink(filePath);
     } catch (error) {
-      console.warn(`Failed to delete file ${filePath}: ${error.message}`);
+      console.warn(`Failed to delete file ${filePath}: ${error}`);
     }
 
-    await this.prisma.user.update({
+    return this.prisma.user.update({
       where: { id: userId },
-      data: { avatarFileName: null },
+      data: {
+        avatarFileName: null,
+      },
     });
-
-    return { message: 'Avatar deleted successfully' };
   }
 }

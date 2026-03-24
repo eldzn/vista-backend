@@ -57,37 +57,14 @@ export class VideoController {
   ) {
     const userId = (req as any).user?.id;
 
-    const title = req.body.title;
-    const description = req.body.description;
-    const categoryId = req.body.categoryId;
-    const ageRatingId = req.body.ageRatingId;
-    const isPublic = req.body.isPublic === 'true';
-
-    if (!title) {
-      throw new Error('Title is required');
-    }
-
-    const createVideoDto: CreateVideoDto = {
-      title,
-      description,
-      categoryId,
-      ageRatingId,
-      isPublic,
-    };
-
-    const createdVideo = await this.videoService.uploadVideo(
+    return this.videoService.uploadVideo(
       userId,
       video.filename,
       video.originalname,
       video.mimetype,
       video.size,
-      createVideoDto,
-    );
-
-    return {
-      message: 'Video uploaded successfully',
-      video: createdVideo,
-    };
+      req.body,
+    );  
   }
 
   @Get('get-videos')
@@ -121,9 +98,6 @@ export class VideoController {
 
       return new StreamableFile(stream);
     } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
       throw new NotFoundException('File not found or unreadable');
     }
   }

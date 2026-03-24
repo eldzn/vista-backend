@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { VideoController } from './video.controller';
 import { VideoService } from './video.service';
-import { PrismaModule } from '../../core/prisma/prisma.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
-    PrismaModule,
+    UserModule,
     MulterModule.register({
       dest: './uploads/videos'
     })

@@ -10,7 +10,7 @@ import {
 export class CreateVideoDto {
   @IsNotEmpty()
   @IsString()
-  @MaxLength(100)
+  @MaxLength(50)
   title: string;
 
   @IsOptional()
@@ -18,7 +18,7 @@ export class CreateVideoDto {
   @MaxLength(500)
   description?: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsUUID()
   categoryId: string;
 
@@ -29,4 +29,9 @@ export class CreateVideoDto {
   @IsNotEmpty()
   @IsBoolean()
   isPublic: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(500)
+  tags?: string;
 }

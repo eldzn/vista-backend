@@ -1,26 +1,62 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../core/prisma/prisma.service';
+import { UserService } from '../user/user.service';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateVideoDto } from './dtos/create-video.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class VideoService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private userService: UserService,
+  ) {}
 
   async getCategories() {
-    return this.prisma.category.findMany({
-      orderBy: { name: 'asc' },
-    });
+    return this.prisma.category.findMany({ orderBy: { name: 'asc' } });
   }
 
   async getAgeRating() {
-    return this.prisma.ageRating.findMany({
-      orderBy: { code: 'asc' },
+    return this.prisma.ageRating.findMany({ orderBy: { code: 'asc' } });
+  }
+
+  private async getCategoryById(
+    categoryId: string,
+    client?: Prisma.TransactionClient | PrismaService,
+  ) {
+    const db = client || this.prisma;
+
+    const category = await db.category.findUnique({
+      where: { id: categoryId },
+      select: { id: true, name: true },
     });
+
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+    return category;
+  }
+
+  private async getAgeRatingById(
+    ratingId: string,
+    client?: Prisma.TransactionClient | PrismaService,
+  ) {
+    const db = client || this.prisma;
+
+    const rating = await db.ageRating.findUnique({
+      where: { id: ratingId },
+      select: { id: true, code: true },
+    });
+
+    if (!rating) {
+      throw new NotFoundException('Age rating not found');
+    }
+    return rating;
   }
 
   async uploadVideo(
@@ -31,82 +67,77 @@ export class VideoService {
     size: number,
     dto: CreateVideoDto,
   ) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-    });
+    return this.prisma.$transaction(async (tx) => {
+      await this.userService.getById(userId, tx);
+      const category = await this.getCategoryById(dto.categoryId, tx);
+      await this.getAgeRatingById(dto.ageRatingId, tx);
 
-    if (!user) {
-      throw new NotFoundException('User not found!');
-    }
+      const isOtherCategory = category.name === 'Другое';
+      let tagNames: string[] = [];
+      if (dto.tags) {
+        tagNames = dto.tags
+          .split(',')
+          .map((t) => t.trim())
+          .filter((t) => t.length > 0);
+      }
 
-    if (dto.categoryId) {
-      const category = await this.prisma.category.findUnique({
-        where: {
-          id: dto.categoryId,
+      if (isOtherCategory && tagNames.length === 0) {
+        throw new BadRequestException('You must specify at least one tag.');
+      }
+
+      const tagsConnect: { id: string }[] = [];
+      for (const name of tagNames) {
+        const tag = await tx.tag.upsert({
+          where: { name },
+          update: {},
+          create: { name },
+        });
+        tagsConnect.push({ id: tag.id });
+      }
+
+      return tx.video.create({
+        data: {
+          fileName,
+          originalName,
+          mimetype,
+          size,
+          title: dto.title,
+          description: dto.description,
+          isPublic: dto.isPublic,
+          author: { connect: { id: userId } },
+          category: { connect: { id: dto.categoryId } },
+          ageRating: { connect: { id: dto.ageRatingId } },
+          tags: tagsConnect.length > 0 ? { connect: tagsConnect } : undefined,
+        },
+        include: {
+          category: true,
+          ageRating: true,
+          tags: true,
+          author: { select: { id: true, nickname: true } },
         },
       });
-
-      if (!category) {
-        throw new NotFoundException('Category not found');
-      }
-    }
-
-    if (dto.ageRatingId) {
-      const rating = await this.prisma.ageRating.findUnique({
-        where: {
-          id: dto.ageRatingId,
-        },
-      });
-      if (!rating) {
-        throw new NotFoundException('Age rating not found');
-      }
-    }
-
-    const video = await this.prisma.video.create({
-      data: {
-        fileName: fileName,
-        originalName: originalName,
-        mimetype: mimetype,
-        size: size,
-        title: dto.title,
-        description: dto.description,
-        isPublic: dto.isPublic ?? true,
-        author: {
-          connect: { id: userId },
-        },
-        category: dto.categoryId
-          ? { connect: { id: dto.categoryId } }
-          : undefined,
-        ageRating: dto.ageRatingId
-          ? { connect: { id: dto.ageRatingId } }
-          : undefined,
-      },
     });
-
-    return video;
   }
 
   async getUserVideos(userId: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-    });
-    if (!user) {
-      throw new NotFoundException('User not found!');
-    }
+    await this.userService.getById(userId);
 
     return this.prisma.video.findMany({
       where: { userId },
       include: {
         category: true,
         ageRating: true,
+        tags: true,
       },
       orderBy: { createdAt: 'desc' },
     });
   }
 
   async streamVideo(id: string, userId: string) {
+    await this.userService.getById(userId);
+
     const video = await this.prisma.video.findUnique({
-      where: { id: id },
+      where: { id },
     });
 
     if (!video || video.userId !== userId) {
@@ -115,10 +146,12 @@ export class VideoService {
 
     const filePath = path.join(process.cwd(), 'uploads/videos', video.fileName);
 
-    const stream = fs.createReadStream(filePath);
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundException('File not found on disk');
+    }
 
     return {
-      stream,
+      stream: fs.createReadStream(filePath),
       mimetype: video.mimetype,
       size: video.size,
     };
