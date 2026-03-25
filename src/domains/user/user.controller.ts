@@ -15,11 +15,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateDataUserDto } from './dtos/update-data-user.dto';
-import {UpdatePasswordUserDto} from "./dtos/update-password-user.dto";
+import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageFileValidator } from './validators/image-file.validator';
@@ -30,13 +30,12 @@ export class UserController {
 
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  @Header('Cache-Control', 'no-store, no-cache, must-revalidate, private') // Запрещаем кэш
+  @Header('Cache-Control', 'no-store, no-cache, must-revalidate, private')
   @Header('Pragma', 'no-cache')
   @Header('Expires', '0')
   async getMe(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const userId = (req as any).user?.id;
     const user = await this.userService.getDataUser(userId);
-
     return { message: 'User retrieved', user };
   }
 
@@ -44,7 +43,6 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async updateMe(@Req() req: Request, @Body() dto: UpdateDataUserDto) {
     const userId = (req as any).user?.id;
-
     const user = await this.userService.updateDataUser(userId, dto);
     return { message: 'User updated', user };
   }
@@ -56,7 +54,6 @@ export class UserController {
     @Body() dto: UpdatePasswordUserDto,
   ) {
     const userId = (req as any).user?.id;
-
     const password = await this.userService.updatePasswordUser(userId, dto);
     return { message: 'Password updated', password };
   }
@@ -65,7 +62,6 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async updateEmail(@Req() req: Request, @Body() dto: UpdateEmailUserDto) {
     const userId = (req as any).user?.id;
-
     const email = await this.userService.updateEmailUser(userId, dto);
     return { message: 'Email updated', email };
   }
@@ -119,6 +115,7 @@ export class UserController {
       file.filename,
     );
     const avatarUrl = `http://localhost:3000/uploads/avatars/${file.filename}`;
+
     return {
       message: 'Avatar uploaded',
       filename: file.filename,
@@ -134,8 +131,6 @@ export class UserController {
   async deleteAvatar(@Req() req: Request) {
     const userId = (req as any).user?.id;
     const updateUser = await this.userService.deleteAvatar(userId);
-    return {
-      user: updateUser,
-    };
+    return { user: updateUser };
   }
 }

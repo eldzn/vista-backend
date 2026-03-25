@@ -17,12 +17,31 @@ export class VideoService {
     private userService: UserService,
   ) {}
 
+  async getPublicVideos() {
+    return this.prisma.video.findMany({
+      where: { isPublic: true },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+          },
+        },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   async getCategories() {
-    return this.prisma.category.findMany({ orderBy: { name: 'asc' } });
+    return this.prisma.category.findMany({ orderBy: { name: 'desc' } });
   }
 
   async getAgeRating() {
-    return this.prisma.ageRating.findMany({ orderBy: { code: 'asc' } });
+    return this.prisma.ageRating.findMany({ orderBy: { code: 'desc' } });
   }
 
   private async getCategoryById(
@@ -113,7 +132,13 @@ export class VideoService {
           category: true,
           ageRating: true,
           tags: true,
-          author: { select: { id: true, nickname: true } },
+          author: {
+            select: {
+              id: true,
+              nickname: true,
+              avatarFileName: true,
+            },
+          },
         },
       });
     });

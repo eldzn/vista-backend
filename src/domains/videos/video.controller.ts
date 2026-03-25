@@ -29,6 +29,11 @@ import { CreateVideoDto } from './dtos/create-video.dto';
 export class VideoController {
   constructor(private videoService: VideoService) {}
 
+  @Get()
+  async getPublicVideos() {
+    return this.videoService.getPublicVideos();
+  }
+
   @Get('categories')
   async getCategories() {
     return this.videoService.getCategories();
