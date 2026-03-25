@@ -4,11 +4,13 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpStatus,
   ParseFilePipeBuilder,
   Patch,
   Post,
   Req,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -28,10 +30,13 @@ export class UserController {
 
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  async getMe(@Req() req: Request) {
+  @Header('Cache-Control', 'no-store, no-cache, must-revalidate, private') // Запрещаем кэш
+  @Header('Pragma', 'no-cache')
+  @Header('Expires', '0')
+  async getMe(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     const userId = (req as any).user?.id;
-
     const user = await this.userService.getDataUser(userId);
+
     return { message: 'User retrieved', user };
   }
 
@@ -127,10 +132,10 @@ export class UserController {
   @Delete('avatar')
   @UseGuards(AuthGuard('jwt'))
   async deleteAvatar(@Req() req: Request) {
-    const userId = (req as any).user?.id
-    const updateUser = await this.userService.deleteAvatar(userId)
+    const userId = (req as any).user?.id;
+    const updateUser = await this.userService.deleteAvatar(userId);
     return {
-      user: updateUser
-    }
+      user: updateUser,
+    };
   }
 }

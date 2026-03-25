@@ -15,6 +15,8 @@ import {
   NotFoundException,
   HttpCode,
   HttpStatus,
+  BadRequestException,
+  Body,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -53,18 +55,27 @@ export class VideoController {
         ],
       }),
     )
-    video: Express.Multer.File,
+    file: Express.Multer.File,
+    @Body() body: any,
   ) {
     const userId = (req as any).user?.id;
+    const dto: CreateVideoDto = {
+      title: body.title,
+      description: body.description,
+      categoryId: body.categoryId,
+      ageRatingId: body.ageRatingId,
+      tags: body.tags,
+      isPublic: body.isPublic === 'true',
+    };
 
     return this.videoService.uploadVideo(
       userId,
-      video.filename,
-      video.originalname,
-      video.mimetype,
-      video.size,
-      req.body,
-    );  
+      file.filename,
+      file.originalname,
+      file.mimetype,
+      file.size,
+      dto,
+    );
   }
 
   @Get('get-videos')

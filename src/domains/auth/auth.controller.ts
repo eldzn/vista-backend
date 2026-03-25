@@ -72,7 +72,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async refresh(
     @Req() req: Request,
-    @Body() dto: { rememberMe?: boolean },
+    @Body() dto: { rememberMe?: boolean } = {},
     @Res({ passthrough: true }) res: Response,
   ) {
     const refreshToken = (req as any).cookies?.refreshToken;
