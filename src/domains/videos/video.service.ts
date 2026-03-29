@@ -8,7 +8,7 @@ import { UserService } from '../user/user.service';
 import * as fs from 'fs';
 import * as path from 'path';
 import { CreateVideoDto } from './dtos/create-video.dto';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../generated/prisma';
 
 @Injectable()
 export class VideoService {
@@ -153,6 +153,13 @@ export class VideoService {
         category: true,
         ageRating: true,
         tags: true,
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+          },
+        },
       },
       orderBy: { createdAt: 'desc' },
     });

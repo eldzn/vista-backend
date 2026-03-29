@@ -11,7 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '../../generated/prisma';
 
 @Injectable()
 export class UserService {
