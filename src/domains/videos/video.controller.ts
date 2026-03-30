@@ -15,8 +15,8 @@ import {
   NotFoundException,
   HttpCode,
   HttpStatus,
-  BadRequestException,
   Body,
+  Query,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -24,6 +24,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { VideoFileValidator } from './validators/video-file.validator';
 import { VideoService } from './video.service';
 import { CreateVideoDto } from './dtos/create-video.dto';
+import { FilterVideoDto } from './dtos/filter-video.dto';
+import { SearchVideoDto } from './dtos/search-video.dto';
+import { SortVideoDto } from './dtos/sort-video.dto';
 
 @Controller('videos')
 export class VideoController {
@@ -116,5 +119,20 @@ export class VideoController {
     } catch (error) {
       throw new NotFoundException('File not found or unreadable');
     }
+  }
+
+  @Get('filter')
+  async getFilteredVideos(@Query() dto: FilterVideoDto) {
+    return this.videoService.getFilteredVideos(dto);
+  }
+
+  @Get('search')
+  async searchByTitle(@Query() dto: SearchVideoDto) {
+    return this.videoService.searchByTitle(dto);
+  }
+
+  @Get('sorted')
+  async getSortedVideos(@Query() dto: SortVideoDto) {
+    return this.videoService.getSortedVideos(dto);
   }
 }

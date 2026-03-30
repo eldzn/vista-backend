@@ -9,6 +9,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { CreateVideoDto } from './dtos/create-video.dto';
 import { Prisma } from '../../generated/prisma';
+import { FilterVideoDto } from './dtos/filter-video.dto';
+import { SearchVideoDto } from './dtos/search-video.dto';
+import { SortVideoDto } from './dtos/sort-video.dto';
 
 @Injectable()
 export class VideoService {
@@ -16,6 +19,10 @@ export class VideoService {
     private prisma: PrismaService,
     private userService: UserService,
   ) {}
+
+  private getSortOrder(sortBy?: 'new' | 'old'): Prisma.SortOrder {
+    return sortBy === 'old' ? 'asc' : 'desc';
+  }
 
   async getPublicVideos() {
     return this.prisma.video.findMany({
@@ -187,5 +194,83 @@ export class VideoService {
       mimetype: video.mimetype,
       size: video.size,
     };
+  }
+
+  async getFilteredVideos(dto: FilterVideoDto) {
+    const whereCondition: Prisma.VideoWhereInput = {
+      isPublic: true,
+    };
+
+    if (dto.categoryId) {
+      whereCondition.categoryId = dto.categoryId;
+    }
+
+    if (dto.ageRatingId) {
+      whereCondition.ageRatingId = dto.ageRatingId;
+    }
+
+    if (dto.tagQuery && dto.tagQuery.trim()) {
+      whereCondition.tags = {
+        some: {
+          name: {
+            contains: dto.tagQuery.trim(),
+            mode: 'insensitive',
+          },
+        },
+      };
+    }
+    const sortOrder = this.getSortOrder(dto.sortBy);
+    return this.prisma.video.findMany({
+      where: whereCondition,
+      include: {
+        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+      orderBy: { createdAt: sortOrder },
+    });
+  }
+
+  async searchByTitle(dto: SearchVideoDto) {
+    if (!dto.titleQuery || !dto.titleQuery.trim()) {
+      return [];
+    }
+    const sortOrder = this.getSortOrder(dto.sortBy);
+    return this.prisma.video.findMany({
+      where: {
+        isPublic: true,
+        title: {
+          contains: dto.titleQuery.trim(),
+          mode: 'insensitive',
+        },
+      },
+      include: {
+        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+      orderBy: { createdAt: sortOrder },
+    });
+  }
+
+  async getSortedVideos(dto: SortVideoDto) {
+    const sortOrder = this.getSortOrder(dto.sortBy);
+
+    return this.prisma.video.findMany({
+      where: {
+        isPublic: true,
+      },
+      include: {
+        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+      orderBy: {
+        createdAt: sortOrder,
+      },
+    });
   }
 }
