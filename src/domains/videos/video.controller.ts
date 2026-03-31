@@ -16,7 +16,8 @@ import {
   HttpCode,
   HttpStatus,
   Body,
-  Query, Delete,
+  Query,
+  Delete,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -165,8 +166,38 @@ export class VideoController {
   }
 
   @Get(':id')
-  async getVideoById(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
-    const userId = req.user?.id
-    return this.videoService.getVideoById(id, userId)
+  async getVideoById(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    const userId = req.user?.id;
+    return this.videoService.getVideoById(id, userId);
+  }
+
+  @Post(':id/like')
+  @UseGuards(AuthGuard('jwt'))
+  async addLike(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+    const userId = req.user?.id;
+    await this.videoService.addLikeVideo(userId, id);
+  }
+
+  @Delete(':id/like')
+  @UseGuards(AuthGuard('jwt'))
+  async removeLike(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+    const userId = req.user?.id;
+    await this.videoService.removeLikeVideo(userId, id);
+  }
+
+  @Get(':id/likes')
+  async getLikeCount(@Param('id') id: string) {
+    const count = await this.videoService.getLikeCount(id);
+    return { count };
+  }
+  @Get(':id/like/status')
+  @UseGuards(AuthGuard('jwt'))
+  async getLikeStatus(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+    const userId = req.user?.id;
+    const isLiked = await this.videoService.checkUserLike(userId, id);
+    return { isLiked };
   }
 }

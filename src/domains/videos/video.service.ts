@@ -365,4 +365,72 @@ export class VideoService {
     }
     return video;
   }
+
+  async addLikeVideo(userId: string, videoId: string) {
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      select: { id: true },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found!');
+    }
+    await this.prisma.video.update({
+      where: { id: videoId },
+      data: {
+        likedBy: {
+          connect: { id: userId },
+        },
+      },
+    });
+  }
+
+  async removeLikeVideo(userId: string, videoId: string) {
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      select: { id: true },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found!');
+    }
+    await this.prisma.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        likedBy: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  }
+
+  async getLikeCount(videoId: string): Promise<number> {
+    const video = await this.prisma.video.findUnique({
+      where: {
+        id: videoId,
+      },
+      select: {
+        _count: {
+          select: {
+            likedBy: true,
+          },
+        },
+      },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+    return video._count.likedBy;
+  }
+  async checkUserLike(userId: string, videoId: string): Promise<boolean> {
+    const like = await this.prisma.video.findFirst({
+      where: {
+        id: videoId,
+        likedBy: { some: { id: userId } },
+      },
+    });
+    return !!like;
+  }
 }
