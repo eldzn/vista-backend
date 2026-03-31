@@ -21,6 +21,8 @@ model User {
   updatedAt        DateTime  @updatedAt @map("updated_at")
   videos           Video[]
   favoriteVideos   Video[]   @relation("FavoriteVideos")
+  likesVideo       Video[]   @relation("LikesVideo")
+  comments         Comment[]
 }
 
 model Video {
@@ -41,6 +43,8 @@ model Video {
   ageRatingId  String?
   tags         Tag[]      @relation("VideoTags")
   favoritedBy  User[]     @relation("FavoriteVideos")
+  likedBy      User[]     @relation("LikesVideo")
+  comments     Comment[]
 }
 
 model Tag {
@@ -62,4 +66,18 @@ model AgeRating {
   code      String   @unique
   videos    Video[]
   createdAt DateTime @default(now()) @map("created_at")
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [userId], references: [id])
+  userId    String
+  video     Video    @relation(fields: [videoId], references: [id])
+  videoId   String
+
+  @@index([videoId])
+  @@index([userId])
 }
