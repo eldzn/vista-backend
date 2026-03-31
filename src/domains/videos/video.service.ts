@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -272,5 +273,96 @@ export class VideoService {
         createdAt: sortOrder,
       },
     });
+  }
+
+  async addFavorites(userId: string, videoId: string) {
+    await this.userService.getById(userId);
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      select: { id: true },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found!');
+    }
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        favoriteVideos: {
+          connect: { id: videoId },
+        },
+      },
+    });
+  }
+
+  async removeFavorites(userId: string, videoId: string) {
+    await this.userService.getById(userId);
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      select: { id: true },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found!');
+    }
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        favoriteVideos: {
+          disconnect: {
+            id: videoId,
+          },
+        },
+      },
+    });
+  }
+
+  async getFavoriteVideos(userId: string) {
+    await this.userService.getById(userId);
+    const video = await this.prisma.video.findMany({
+      where: {
+        favoritedBy: {
+          some: { id: userId },
+        },
+      },
+      select: {
+        id: true,
+        title: true,
+        fileName: true,
+        createdAt: true,
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+    return video;
+  }
+
+  async getVideoById(videoId: string, userId: string) {
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+          },
+        },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+    if (!video.isPublic && video.userId !== userId) {
+      throw new ForbiddenException('You do not have access to this video');
+    }
+    return video;
   }
 }

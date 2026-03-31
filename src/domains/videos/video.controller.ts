@@ -16,7 +16,7 @@ import {
   HttpCode,
   HttpStatus,
   Body,
-  Query,
+  Query, Delete,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
@@ -27,6 +27,7 @@ import { CreateVideoDto } from './dtos/create-video.dto';
 import { FilterVideoDto } from './dtos/filter-video.dto';
 import { SearchVideoDto } from './dtos/search-video.dto';
 import { SortVideoDto } from './dtos/sort-video.dto';
+import { AuthenticatedRequest } from '../../types/authenticated-request';
 
 @Controller('videos')
 export class VideoController {
@@ -134,5 +135,38 @@ export class VideoController {
   @Get('sorted')
   async getSortedVideos(@Query() dto: SortVideoDto) {
     return this.videoService.getSortedVideos(dto);
+  }
+
+  @Post(':id/favorite')
+  @UseGuards(AuthGuard('jwt'))
+  async addToFavorites(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    const userId = req.user?.id;
+    return this.videoService.addFavorites(userId, id);
+  }
+
+  @Delete(':id/favorite')
+  @UseGuards(AuthGuard('jwt'))
+  async removeToFavorites(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    const userId = req.user?.id;
+    return this.videoService.removeFavorites(userId, id);
+  }
+
+  @Get('favorites')
+  @UseGuards(AuthGuard('jwt'))
+  async getFavoritesVideos(@Req() req: AuthenticatedRequest) {
+    const userId = req.user?.id;
+    return this.videoService.getFavoriteVideos(userId);
+  }
+
+  @Get(':id')
+  async getVideoById(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+    const userId = req.user?.id
+    return this.videoService.getVideoById(id, userId)
   }
 }
