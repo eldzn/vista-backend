@@ -6,9 +6,11 @@ import {
   Get,
   Header,
   HttpStatus,
+  Param,
   ParseFilePipeBuilder,
   Patch,
   Post,
+  Query,
   Req,
   Res,
   UploadedFile,
@@ -23,6 +25,7 @@ import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageFileValidator } from './validators/image-file.validator';
+import { AuthenticatedRequest } from '../../types/authenticated-request';
 
 @Controller('users')
 export class UserController {
@@ -132,5 +135,48 @@ export class UserController {
     const userId = (req as any).user?.id;
     const updateUser = await this.userService.deleteAvatar(userId);
     return { user: updateUser };
+  }
+
+  @Post(':id/follow')
+  @UseGuards(AuthGuard('jwt'))
+  async followUser(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+    const followerId = req.user?.id;
+    await this.userService.followUser(followerId, followingId);
+    return { message: 'Successfully followed' };
+  }
+
+  @Delete(':id/follow')
+  @UseGuards(AuthGuard('jwt'))
+  async unfollowUser(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+    const followerId = req.user?.id;
+    await this.userService.unfollowUser(followerId, followingId);
+    return { message: 'Successfully unfollowed' };
+  }
+
+  @Get(':id/followers/count')
+  async getFollowersCount(@Param('id') id: string) {
+    const count = await this.userService.getFollowersCount(id);
+    return { count };
+  }
+
+  @Get(':id/following/count')
+  async getFollowingCount(@Param('id') id: string) {
+    const count = await this.userService.getFollowingCount(id);
+    return { count };
+  }
+
+  @Get(':id/following/check')
+  @UseGuards(AuthGuard('jwt'))
+  async checkFollowing(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+    const followerId = req.user?.id;
+    const isFollowing = await this.userService.isFollowing(followerId, followingId);
+    return { isFollowing };
+  }
+
+  @Get('popular')
+  async getPopularUsers(@Query('limit') limit?: string) {
+    const limitNum = limit ? parseInt(limit, 10) : 5;
+    const users = await this.userService.getPopularUsers(limitNum);
+    return { users };
   }
 }

@@ -206,4 +206,120 @@ export class UserService {
       },
     });
   }
+
+  async followUser(followerId: string, followingId: string) {
+    if (followerId === followingId) {
+      throw new BadRequestException('You cannot follow yourself');
+    }
+    const user = await this.prisma.user.findUnique({
+      where: { id: followingId },
+      select: { id: true },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const existing = await this.prisma.user.findFirst({
+      where: {
+        id: followerId,
+        following: { some: { id: followingId } },
+      },
+    });
+    if (existing) {
+      throw new BadRequestException('Already following this user');
+    }
+    return this.prisma.user.update({
+      where: { id: followerId },
+      data: {
+        following: {
+          connect: { id: followingId },
+        },
+      },
+    });
+  }
+
+  async unfollowUser(followerId: string, followingId: string) {
+    if (followerId === followingId) {
+      throw new BadRequestException('You cannot unfollow yourself');
+    }
+
+    return this.prisma.user.update({
+      where: { id: followerId },
+      data: {
+        following: {
+          disconnect: { id: followingId },
+        },
+      },
+    });
+  }
+
+  async getFollowersCount(userId: string): Promise<number> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        _count: {
+          select: {
+            followers: true,
+          },
+        },
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user._count?.followers ?? 0;
+  }
+
+  async getFollowingCount(userId: string): Promise<number> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        _count: {
+          select: {
+            following: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user._count?.following ?? 0;
+  }
+
+  async isFollowing(followerId: string, followingId: string): Promise<boolean> {
+    const relation = await this.prisma.user.findFirst({
+      where: {
+        id: followerId,
+        following: { some: { id: followingId } },
+      },
+    });
+    return !!relation;
+  }
+
+  async getPopularUsers(limit: number = 5) {
+    const users = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        nickname: true,
+        avatarFileName: true,
+        _count: {
+          select: { followers: true },
+        },
+      },
+      orderBy: {
+        followers: {
+          _count: 'desc',
+        },
+      },
+      take: limit,
+    });
+    return users.map((user) => ({
+      id: user.id,
+      nickname: user.nickname,
+      avatarFileName: user.avatarFileName,
+      followersCount: user._count.followers,
+    }));
+  }
 }

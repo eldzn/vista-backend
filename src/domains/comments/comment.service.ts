@@ -7,10 +7,17 @@ import {
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { CreateCommentDto } from './dtos/create-comment.dto';
 import { UpdateCommentDto } from './dtos/update-comment.dto';
+import { Prisma } from '../../generated/prisma';
+import { SortVideoDto } from '../videos/dtos/sort-video.dto';
+import { SortCommentDto } from './dtos/sort-comment.dto';
 
 @Injectable()
 export class CommentService {
   constructor(private prisma: PrismaService) {}
+
+  private getSortOrder(sortBy?: 'new' | 'old'): Prisma.SortOrder {
+    return sortBy === 'old' ? 'asc' : 'desc';
+  }
 
   async createComment(userId: string, dto: CreateCommentDto) {
     const video = await this.prisma.video.findUnique({
@@ -124,11 +131,24 @@ export class CommentService {
     });
   }
 
-  async getCommentCount(videoId: string) {
-    const result = await this.prisma.comment.aggregate({
-      where: { videoId },
-      _count: { id: true },
+  async getSortedComments(videoId: string, dto: SortCommentDto) {
+    const sortOrder = this.getSortOrder(dto.sortBy);
+    return this.prisma.comment.findMany({
+      where: {
+        videoId,
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true
+          }
+        },
+      },
+      orderBy: {
+        createdAt: sortOrder,
+      },
     });
-    return result._count.id;
   }
 }

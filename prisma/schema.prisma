@@ -23,6 +23,10 @@ model User {
   favoriteVideos   Video[]   @relation("FavoriteVideos")
   likesVideo       Video[]   @relation("LikesVideo")
   comments         Comment[]
+  following        User[]    @relation("UserFollowing")
+  followers        User[]    @relation("UserFollowing")
+
+  @@index([nickname])
 }
 
 model Video {
