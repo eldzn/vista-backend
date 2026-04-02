@@ -29,6 +29,7 @@ import { FilterVideoDto } from './dtos/filter-video.dto';
 import { SearchVideoDto } from './dtos/search-video.dto';
 import { SortVideoDto } from './dtos/sort-video.dto';
 import { AuthenticatedRequest } from '../../types/authenticated-request';
+import { memoryStorage } from 'Multer';
 
 @Controller('videos')
 export class VideoController {
@@ -51,7 +52,7 @@ export class VideoController {
 
   @Post('upload')
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(FileInterceptor('video'))
+  @UseInterceptors(FileInterceptor('video', {storage: memoryStorage()}))
   @HttpCode(HttpStatus.CREATED)
   async uploadVideo(
     @Req() req: Request,
@@ -80,10 +81,7 @@ export class VideoController {
 
     return this.videoService.uploadVideo(
       userId,
-      file.filename,
-      file.originalname,
-      file.mimetype,
-      file.size,
+      file,
       dto,
     );
   }
@@ -195,9 +193,20 @@ export class VideoController {
   }
   @Get(':id/like/status')
   @UseGuards(AuthGuard('jwt'))
-  async getLikeStatus(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+  async getLikeStatus(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
     const userId = req.user?.id;
     const isLiked = await this.videoService.checkUserLike(userId, id);
     return { isLiked };
+  }
+
+  @Get(':id/favorite/status')
+  @UseGuards(AuthGuard('jwt'))
+  async getFavoriteStatus(@Req() req: AuthenticatedRequest, @Param('id') id: string) {
+    const userId = req.user?.id;
+    const isFavorite = await this.videoService.checkUserFavorite(userId, id);
+    return { isFavorite };
   }
 }

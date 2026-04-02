@@ -8,7 +8,6 @@ import { PrismaService } from '../../core/prisma/prisma.service';
 import { CreateCommentDto } from './dtos/create-comment.dto';
 import { UpdateCommentDto } from './dtos/update-comment.dto';
 import { Prisma } from '../../generated/prisma';
-import { SortVideoDto } from '../videos/dtos/sort-video.dto';
 import { SortCommentDto } from './dtos/sort-comment.dto';
 
 @Injectable()
@@ -54,6 +53,7 @@ export class CommentService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
       },
@@ -71,6 +71,7 @@ export class CommentService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
       },
@@ -110,6 +111,7 @@ export class CommentService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
       },
@@ -142,7 +144,8 @@ export class CommentService {
           select: {
             id: true,
             nickname: true,
-            avatarFileName: true
+            avatarFileName: true,
+            avatarUrl: true
           }
         },
       },

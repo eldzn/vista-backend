@@ -12,10 +12,14 @@ import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Prisma } from '../../generated/prisma';
+import { UploadsService } from '../uploads/uploads.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private uploadsService: UploadsService,
+  ) {}
 
   async getById(
     userId: string,
@@ -34,6 +38,7 @@ export class UserService {
         birthDate: true,
         passwordChangeAt: true,
         avatarFileName: true,
+        avatarUrl: true,
       },
     });
 
@@ -166,13 +171,23 @@ export class UserService {
     });
   }
 
-  async updateAvatar(userId: string, fileName: string) {
+  async updateAvatar(
+    userId: string,
+    file: Express.Multer.File,
+  ) {
     await this.getById(userId);
-
+    const uploaded = await this.uploadsService.uploadFile(file, ['avatars']);
     return this.prisma.user.update({
       where: { id: userId },
       data: {
-        avatarFileName: fileName,
+        avatarFileName: uploaded.name,
+        avatarUrl: uploaded.url,
+      },
+      select: {
+        id: true,
+        nickname: true,
+        avatarFileName: true,
+        avatarUrl: true,
       },
     });
   }
@@ -186,23 +201,11 @@ export class UserService {
     if (!user) throw new NotFoundException('User not found');
     if (!user.avatarFileName) return { message: 'No avatar to delete' };
 
-    const filePath = path.join(
-      process.cwd(),
-      'uploads',
-      'avatars',
-      user.avatarFileName,
-    );
-
-    try {
-      await fs.promises.unlink(filePath);
-    } catch (error) {
-      console.warn(`Failed to delete file ${filePath}: ${error}`);
-    }
-
     return this.prisma.user.update({
       where: { id: userId },
       data: {
         avatarFileName: null,
+        avatarUrl: null,
       },
     });
   }
@@ -304,6 +307,7 @@ export class UserService {
         id: true,
         nickname: true,
         avatarFileName: true,
+        avatarUrl: true,
         _count: {
           select: { followers: true },
         },
@@ -319,6 +323,7 @@ export class UserService {
       id: user.id,
       nickname: user.nickname,
       avatarFileName: user.avatarFileName,
+      avatarUrl: user.avatarUrl,
       followersCount: user._count.followers,
     }));
   }

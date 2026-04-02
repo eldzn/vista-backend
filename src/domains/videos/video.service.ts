@@ -13,12 +13,14 @@ import { Prisma } from '../../generated/prisma';
 import { FilterVideoDto } from './dtos/filter-video.dto';
 import { SearchVideoDto } from './dtos/search-video.dto';
 import { SortVideoDto } from './dtos/sort-video.dto';
+import { UploadsService } from '../uploads/uploads.service';
 
 @Injectable()
 export class VideoService {
   constructor(
     private prisma: PrismaService,
     private userService: UserService,
+    private uploadsService: UploadsService,
   ) {}
 
   private getSortOrder(sortBy?: 'new' | 'old'): Prisma.SortOrder {
@@ -34,6 +36,7 @@ export class VideoService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
         category: true,
@@ -88,12 +91,10 @@ export class VideoService {
 
   async uploadVideo(
     userId: string,
-    fileName: string,
-    originalName: string,
-    mimetype: string,
-    size: number,
+    file: Express.Multer.File,
     dto: CreateVideoDto,
   ) {
+    const uploadedFile = await this.uploadsService.uploadFile(file, ['videos'])
     return this.prisma.$transaction(async (tx) => {
       await this.userService.getById(userId, tx);
       const category = await this.getCategoryById(dto.categoryId, tx);
@@ -124,10 +125,7 @@ export class VideoService {
 
       return tx.video.create({
         data: {
-          fileName,
-          originalName,
-          mimetype,
-          size,
+          ...uploadedFile,
           title: dto.title,
           description: dto.description,
           isPublic: dto.isPublic,
@@ -145,6 +143,7 @@ export class VideoService {
               id: true,
               nickname: true,
               avatarFileName: true,
+              avatarUrl: true,
             },
           },
         },
@@ -166,6 +165,7 @@ export class VideoService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
       },
@@ -184,7 +184,7 @@ export class VideoService {
       throw new NotFoundException('Video not found!');
     }
 
-    const filePath = path.join(process.cwd(), 'uploads/videos', video.fileName);
+    const filePath = path.join(process.cwd(), 'uploads/videos', video.originalName);
 
     if (!fs.existsSync(filePath)) {
       throw new NotFoundException('File not found on disk');
@@ -224,7 +224,14 @@ export class VideoService {
     return this.prisma.video.findMany({
       where: whereCondition,
       include: {
-        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+            avatarUrl: true
+          },
+        },
         category: true,
         ageRating: true,
         tags: true,
@@ -247,7 +254,7 @@ export class VideoService {
         },
       },
       include: {
-        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        author: { select: { id: true, nickname: true, avatarFileName: true, avatarUrl: true } },
         category: true,
         ageRating: true,
         tags: true,
@@ -264,7 +271,7 @@ export class VideoService {
         isPublic: true,
       },
       include: {
-        author: { select: { id: true, nickname: true, avatarFileName: true } },
+        author: { select: { id: true, nickname: true, avatarFileName: true, avatarUrl: true } },
         category: true,
         ageRating: true,
         tags: true,
@@ -317,28 +324,27 @@ export class VideoService {
 
   async getFavoriteVideos(userId: string) {
     await this.userService.getById(userId);
-    const video = await this.prisma.video.findMany({
+    return this.prisma.video.findMany({
       where: {
         favoritedBy: {
           some: { id: userId },
         },
       },
-      select: {
-        id: true,
-        title: true,
-        fileName: true,
-        createdAt: true,
+      include: {
         author: {
           select: {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
+        category: true,
+        ageRating: true,
+        tags: true,
       },
       orderBy: { createdAt: 'desc' },
     });
-    return video;
   }
 
   async getVideoById(videoId: string, userId: string) {
@@ -350,6 +356,7 @@ export class VideoService {
             id: true,
             nickname: true,
             avatarFileName: true,
+            avatarUrl: true,
           },
         },
         category: true,
@@ -432,5 +439,15 @@ export class VideoService {
       },
     });
     return !!like;
+  }
+
+  async checkUserFavorite(userId: string, videoId: string): Promise<boolean> {
+    const favorite = await this.prisma.video.findFirst({
+      where: {
+        id: videoId,
+        favoritedBy: { some: { id: userId } },
+      },
+    });
+    return !!favorite;
   }
 }

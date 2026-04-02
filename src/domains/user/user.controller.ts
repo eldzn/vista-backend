@@ -26,6 +26,7 @@ import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageFileValidator } from './validators/image-file.validator';
 import { AuthenticatedRequest } from '../../types/authenticated-request';
+import { memoryStorage } from 'Multer';
 
 @Controller('users')
 export class UserController {
@@ -93,14 +94,14 @@ export class UserController {
 
   @Post('avatar')
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(FileInterceptor('avatar'))
+  @UseInterceptors(FileInterceptor('avatar', { storage: memoryStorage() }))
   async uploadAvatar(
     @Req() req: Request,
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addValidator(
           new ImageFileValidator({
-            fileTypePattern: /^image\/(png|jpeg|gif)$/,
+            fileTypePattern: /^image\/(png|jpeg|gif|webp)$/,
           }),
         )
         .addMaxSizeValidator({
@@ -113,18 +114,12 @@ export class UserController {
     file: Express.Multer.File,
   ) {
     const userId = (req as any).user?.id;
-    const updatedUser = await this.userService.updateAvatar(
-      userId,
-      file.filename,
-    );
-    const avatarUrl = `http://localhost:3000/uploads/avatars/${file.filename}`;
+    const updatedUser = await this.userService.updateAvatar(userId, file);
 
     return {
       message: 'Avatar uploaded',
-      filename: file.filename,
-      mimeType: file.mimetype,
+      avatarUrl: updatedUser.avatarUrl,
       avatarFileName: updatedUser.avatarFileName,
-      avatarUrl,
       userId,
     };
   }
@@ -133,13 +128,16 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async deleteAvatar(@Req() req: Request) {
     const userId = (req as any).user?.id;
-    const updateUser = await this.userService.deleteAvatar(userId);
-    return { user: updateUser };
+    const updatedUser = await this.userService.deleteAvatar(userId);
+    return { user: updatedUser };
   }
 
   @Post(':id/follow')
   @UseGuards(AuthGuard('jwt'))
-  async followUser(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+  async followUser(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') followingId: string,
+  ) {
     const followerId = req.user?.id;
     await this.userService.followUser(followerId, followingId);
     return { message: 'Successfully followed' };
@@ -147,7 +145,10 @@ export class UserController {
 
   @Delete(':id/follow')
   @UseGuards(AuthGuard('jwt'))
-  async unfollowUser(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+  async unfollowUser(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') followingId: string,
+  ) {
     const followerId = req.user?.id;
     await this.userService.unfollowUser(followerId, followingId);
     return { message: 'Successfully unfollowed' };
@@ -167,9 +168,15 @@ export class UserController {
 
   @Get(':id/following/check')
   @UseGuards(AuthGuard('jwt'))
-  async checkFollowing(@Req() req: AuthenticatedRequest, @Param('id') followingId: string) {
+  async checkFollowing(
+    @Req() req: AuthenticatedRequest,
+    @Param('id') followingId: string,
+  ) {
     const followerId = req.user?.id;
-    const isFollowing = await this.userService.isFollowing(followerId, followingId);
+    const isFollowing = await this.userService.isFollowing(
+      followerId,
+      followingId,
+    );
     return { isFollowing };
   }
 

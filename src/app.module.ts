@@ -8,6 +8,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { VideoModule } from './domains/videos/video.module';
 import { CommentsModule } from './domains/comments/comment.module';
+import { UploadsModule } from './src/domains/uploads/uploads.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CommentsModule } from './domains/comments/comment.module';
     UserModule,
     VideoModule,
     CommentsModule,
+    UploadsModule,
   ],
 })
 export class AppModule {}

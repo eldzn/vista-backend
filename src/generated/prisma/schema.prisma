@@ -17,18 +17,24 @@ model User {
   birthDate        String?   @map("birth_date")
   passwordChangeAt DateTime? @default(now()) @map("password_change_at")
   avatarFileName   String?   @map("avatar_file_name")
+  avatarUrl        String?   @map("avatar_url")
   createdAt        DateTime  @default(now()) @map("created_at")
   updatedAt        DateTime  @updatedAt @map("updated_at")
   videos           Video[]
   favoriteVideos   Video[]   @relation("FavoriteVideos")
   likesVideo       Video[]   @relation("LikesVideo")
   comments         Comment[]
+  following        User[]    @relation("UserFollowing")
+  followers        User[]    @relation("UserFollowing")
+
+  @@index([nickname])
 }
 
 model Video {
   id           String     @id @default(uuid())
-  fileName     String     @map("file_name")
   originalName String     @map("original_name")
+  url          String
+  name         String
   mimetype     String
   size         Int
   title        String
