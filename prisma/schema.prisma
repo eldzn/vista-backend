@@ -8,49 +8,52 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(uuid())
-  nickname         String    @unique
-  email            String    @unique
-  backupEmail      String?   @unique @map("backup_email")
+  id               String     @id @default(uuid())
+  nickname         String     @unique
+  email            String     @unique
+  backupEmail      String?    @unique @map("backup_email")
   passwordHash     String
   about            String?
-  birthDate        String?   @map("birth_date")
-  passwordChangeAt DateTime? @default(now()) @map("password_change_at")
-  avatarFileName   String?   @map("avatar_file_name")
-  avatarUrl        String?   @map("avatar_url")
-  createdAt        DateTime  @default(now()) @map("created_at")
-  updatedAt        DateTime  @updatedAt @map("updated_at")
+  birthDate        String?    @map("birth_date")
+  passwordChangeAt DateTime?  @default(now()) @map("password_change_at")
+  avatarFileName   String?    @map("avatar_file_name")
+  avatarUrl        String?    @map("avatar_url")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
   videos           Video[]
-  favoriteVideos   Video[]   @relation("FavoriteVideos")
-  likesVideo       Video[]   @relation("LikesVideo")
+  favoriteVideos   Video[]    @relation("FavoriteVideos")
+  likesVideo       Video[]    @relation("LikesVideo")
   comments         Comment[]
-  following        User[]    @relation("UserFollowing")
-  followers        User[]    @relation("UserFollowing")
+  following        User[]     @relation("UserFollowing")
+  followers        User[]     @relation("UserFollowing")
+  playlist         PlayList[]
 
   @@index([nickname])
 }
 
 model Video {
-  id           String     @id @default(uuid())
-  originalName String     @map("original_name")
-  url          String
-  name         String
-  mimetype     String
-  size         Int
-  title        String
-  description  String?
-  isPublic     Boolean    @default(true)
-  createdAt    DateTime   @default(now()) @map("created_at")
-  author       User       @relation(fields: [userId], references: [id])
-  userId       String
-  category     Category?  @relation(fields: [categoryId], references: [id])
-  categoryId   String?
-  ageRating    AgeRating? @relation(fields: [ageRatingId], references: [id])
-  ageRatingId  String?
-  tags         Tag[]      @relation("VideoTags")
-  favoritedBy  User[]     @relation("FavoriteVideos")
-  likedBy      User[]     @relation("LikesVideo")
-  comments     Comment[]
+  id             String          @id @default(uuid())
+  originalName   String          @map("original_name")
+  url            String
+  name           String
+  mimetype       String
+  size           Int
+  title          String
+  description    String?
+  isPublic       Boolean         @default(true)
+  createdAt      DateTime        @default(now()) @map("created_at")
+  author         User            @relation(fields: [userId], references: [id])
+  userId         String
+  category       Category?       @relation(fields: [categoryId], references: [id])
+  categoryId     String?
+  ageRating      AgeRating?      @relation(fields: [ageRatingId], references: [id])
+  ageRatingId    String?
+  tags           Tag[]           @relation("VideoTags")
+  favoritedBy    User[]          @relation("FavoriteVideos")
+  likedBy        User[]          @relation("LikesVideo")
+  views          Int             @default(0)
+  comments       Comment[]
+  playlistVideos PlayListVideo[]
 }
 
 model Tag {
@@ -86,4 +89,27 @@ model Comment {
 
   @@index([videoId])
   @@index([userId])
+}
+
+model PlayList {
+  id             String          @id @default(uuid())
+  title          String
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @default(now()) @map("updated_at")
+  user           User?           @relation(fields: [userId], references: [id])
+  userId         String
+  playListVideos PlayListVideo[]
+}
+
+model PlayListVideo {
+  id         String   @id @default(uuid())
+  playlistId String
+  videoId    String
+  addedAt    DateTime @default(now()) @map("added_at")
+  playlist   PlayList @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  video      Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, videoId])
+  @@index([playlistId])
+  @@index([videoId])
 }

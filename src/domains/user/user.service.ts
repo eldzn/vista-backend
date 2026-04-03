@@ -9,8 +9,6 @@ import { UpdateDataUserDto } from './dtos/update-data-user.dto';
 import { UpdatePasswordUserDto } from './dtos/update-password-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
-import * as fs from 'fs';
-import * as path from 'path';
 import { Prisma } from '../../generated/prisma';
 import { UploadsService } from '../uploads/uploads.service';
 

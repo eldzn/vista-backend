@@ -148,7 +148,8 @@ exports.Prisma.VideoScalarFieldEnum = {
   createdAt: 'createdAt',
   userId: 'userId',
   categoryId: 'categoryId',
-  ageRatingId: 'ageRatingId'
+  ageRatingId: 'ageRatingId',
+  views: 'views'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
@@ -178,6 +179,21 @@ exports.Prisma.CommentScalarFieldEnum = {
   videoId: 'videoId'
 };
 
+exports.Prisma.PlayListScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+};
+
+exports.Prisma.PlayListVideoScalarFieldEnum = {
+  id: 'id',
+  playlistId: 'playlistId',
+  videoId: 'videoId',
+  addedAt: 'addedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -200,7 +216,9 @@ exports.Prisma.ModelName = {
   Tag: 'Tag',
   Category: 'Category',
   AgeRating: 'AgeRating',
-  Comment: 'Comment'
+  Comment: 'Comment',
+  PlayList: 'PlayList',
+  PlayListVideo: 'PlayListVideo'
 };
 
 /**

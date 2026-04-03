@@ -43,6 +43,16 @@ export type AgeRating = $Result.DefaultSelection<Prisma.$AgeRatingPayload>
  * 
  */
 export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
+ * Model PlayList
+ * 
+ */
+export type PlayList = $Result.DefaultSelection<Prisma.$PlayListPayload>
+/**
+ * Model PlayListVideo
+ * 
+ */
+export type PlayListVideo = $Result.DefaultSelection<Prisma.$PlayListVideoPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -224,6 +234,26 @@ export class PrismaClient<
     * ```
     */
   get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playList`: Exposes CRUD operations for the **PlayList** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayLists
+    * const playLists = await prisma.playList.findMany()
+    * ```
+    */
+  get playList(): Prisma.PlayListDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.playListVideo`: Exposes CRUD operations for the **PlayListVideo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PlayListVideos
+    * const playListVideos = await prisma.playListVideo.findMany()
+    * ```
+    */
+  get playListVideo(): Prisma.PlayListVideoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -663,7 +693,9 @@ export namespace Prisma {
     Tag: 'Tag',
     Category: 'Category',
     AgeRating: 'AgeRating',
-    Comment: 'Comment'
+    Comment: 'Comment',
+    PlayList: 'PlayList',
+    PlayListVideo: 'PlayListVideo'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -679,7 +711,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "video" | "tag" | "category" | "ageRating" | "comment"
+      modelProps: "user" | "video" | "tag" | "category" | "ageRating" | "comment" | "playList" | "playListVideo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1127,6 +1159,154 @@ export namespace Prisma {
           }
         }
       }
+      PlayList: {
+        payload: Prisma.$PlayListPayload<ExtArgs>
+        fields: Prisma.PlayListFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlayListFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlayListFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          findFirst: {
+            args: Prisma.PlayListFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlayListFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          findMany: {
+            args: Prisma.PlayListFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>[]
+          }
+          create: {
+            args: Prisma.PlayListCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          createMany: {
+            args: Prisma.PlayListCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlayListCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>[]
+          }
+          delete: {
+            args: Prisma.PlayListDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          update: {
+            args: Prisma.PlayListUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlayListDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlayListUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlayListUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlayListUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListPayload>
+          }
+          aggregate: {
+            args: Prisma.PlayListAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayList>
+          }
+          groupBy: {
+            args: Prisma.PlayListGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlayListGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlayListCountArgs<ExtArgs>
+            result: $Utils.Optional<PlayListCountAggregateOutputType> | number
+          }
+        }
+      }
+      PlayListVideo: {
+        payload: Prisma.$PlayListVideoPayload<ExtArgs>
+        fields: Prisma.PlayListVideoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PlayListVideoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PlayListVideoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          findFirst: {
+            args: Prisma.PlayListVideoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PlayListVideoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          findMany: {
+            args: Prisma.PlayListVideoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>[]
+          }
+          create: {
+            args: Prisma.PlayListVideoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          createMany: {
+            args: Prisma.PlayListVideoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PlayListVideoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>[]
+          }
+          delete: {
+            args: Prisma.PlayListVideoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          update: {
+            args: Prisma.PlayListVideoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          deleteMany: {
+            args: Prisma.PlayListVideoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PlayListVideoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PlayListVideoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>[]
+          }
+          upsert: {
+            args: Prisma.PlayListVideoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PlayListVideoPayload>
+          }
+          aggregate: {
+            args: Prisma.PlayListVideoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePlayListVideo>
+          }
+          groupBy: {
+            args: Prisma.PlayListVideoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PlayListVideoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PlayListVideoCountArgs<ExtArgs>
+            result: $Utils.Optional<PlayListVideoCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1241,6 +1421,8 @@ export namespace Prisma {
     category?: CategoryOmit
     ageRating?: AgeRatingOmit
     comment?: CommentOmit
+    playList?: PlayListOmit
+    playListVideo?: PlayListVideoOmit
   }
 
   /* Types for Logging */
@@ -1327,6 +1509,7 @@ export namespace Prisma {
     comments: number
     following: number
     followers: number
+    playlist: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1336,6 +1519,7 @@ export namespace Prisma {
     comments?: boolean | UserCountOutputTypeCountCommentsArgs
     following?: boolean | UserCountOutputTypeCountFollowingArgs
     followers?: boolean | UserCountOutputTypeCountFollowersArgs
+    playlist?: boolean | UserCountOutputTypeCountPlaylistArgs
   }
 
   // Custom InputTypes
@@ -1391,6 +1575,13 @@ export namespace Prisma {
     where?: UserWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPlaylistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayListWhereInput
+  }
+
 
   /**
    * Count Type VideoCountOutputType
@@ -1401,6 +1592,7 @@ export namespace Prisma {
     favoritedBy: number
     likedBy: number
     comments: number
+    playlistVideos: number
   }
 
   export type VideoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1408,6 +1600,7 @@ export namespace Prisma {
     favoritedBy?: boolean | VideoCountOutputTypeCountFavoritedByArgs
     likedBy?: boolean | VideoCountOutputTypeCountLikedByArgs
     comments?: boolean | VideoCountOutputTypeCountCommentsArgs
+    playlistVideos?: boolean | VideoCountOutputTypeCountPlaylistVideosArgs
   }
 
   // Custom InputTypes
@@ -1447,6 +1640,13 @@ export namespace Prisma {
    */
   export type VideoCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CommentWhereInput
+  }
+
+  /**
+   * VideoCountOutputType without action
+   */
+  export type VideoCountOutputTypeCountPlaylistVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayListVideoWhereInput
   }
 
 
@@ -1540,6 +1740,37 @@ export namespace Prisma {
    */
   export type AgeRatingCountOutputTypeCountVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VideoWhereInput
+  }
+
+
+  /**
+   * Count Type PlayListCountOutputType
+   */
+
+  export type PlayListCountOutputType = {
+    playListVideos: number
+  }
+
+  export type PlayListCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playListVideos?: boolean | PlayListCountOutputTypeCountPlayListVideosArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PlayListCountOutputType without action
+   */
+  export type PlayListCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListCountOutputType
+     */
+    select?: PlayListCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PlayListCountOutputType without action
+   */
+  export type PlayListCountOutputTypeCountPlayListVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayListVideoWhereInput
   }
 
 
@@ -1773,6 +2004,7 @@ export namespace Prisma {
     comments?: boolean | User$commentsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
+    playlist?: boolean | User$playlistArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1829,6 +2061,7 @@ export namespace Prisma {
     comments?: boolean | User$commentsArgs<ExtArgs>
     following?: boolean | User$followingArgs<ExtArgs>
     followers?: boolean | User$followersArgs<ExtArgs>
+    playlist?: boolean | User$playlistArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1843,6 +2076,7 @@ export namespace Prisma {
       comments: Prisma.$CommentPayload<ExtArgs>[]
       following: Prisma.$UserPayload<ExtArgs>[]
       followers: Prisma.$UserPayload<ExtArgs>[]
+      playlist: Prisma.$PlayListPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2257,6 +2491,7 @@ export namespace Prisma {
     comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     following<T extends User$followingArgs<ExtArgs> = {}>(args?: Subset<T, User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    playlist<T extends User$playlistArgs<ExtArgs> = {}>(args?: Subset<T, User$playlistArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2830,6 +3065,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.playlist
+   */
+  export type User$playlistArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    where?: PlayListWhereInput
+    orderBy?: PlayListOrderByWithRelationInput | PlayListOrderByWithRelationInput[]
+    cursor?: PlayListWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlayListScalarFieldEnum | PlayListScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2862,10 +3121,12 @@ export namespace Prisma {
 
   export type VideoAvgAggregateOutputType = {
     size: number | null
+    views: number | null
   }
 
   export type VideoSumAggregateOutputType = {
     size: number | null
+    views: number | null
   }
 
   export type VideoMinAggregateOutputType = {
@@ -2882,6 +3143,7 @@ export namespace Prisma {
     userId: string | null
     categoryId: string | null
     ageRatingId: string | null
+    views: number | null
   }
 
   export type VideoMaxAggregateOutputType = {
@@ -2898,6 +3160,7 @@ export namespace Prisma {
     userId: string | null
     categoryId: string | null
     ageRatingId: string | null
+    views: number | null
   }
 
   export type VideoCountAggregateOutputType = {
@@ -2914,16 +3177,19 @@ export namespace Prisma {
     userId: number
     categoryId: number
     ageRatingId: number
+    views: number
     _all: number
   }
 
 
   export type VideoAvgAggregateInputType = {
     size?: true
+    views?: true
   }
 
   export type VideoSumAggregateInputType = {
     size?: true
+    views?: true
   }
 
   export type VideoMinAggregateInputType = {
@@ -2940,6 +3206,7 @@ export namespace Prisma {
     userId?: true
     categoryId?: true
     ageRatingId?: true
+    views?: true
   }
 
   export type VideoMaxAggregateInputType = {
@@ -2956,6 +3223,7 @@ export namespace Prisma {
     userId?: true
     categoryId?: true
     ageRatingId?: true
+    views?: true
   }
 
   export type VideoCountAggregateInputType = {
@@ -2972,6 +3240,7 @@ export namespace Prisma {
     userId?: true
     categoryId?: true
     ageRatingId?: true
+    views?: true
     _all?: true
   }
 
@@ -3075,6 +3344,7 @@ export namespace Prisma {
     userId: string
     categoryId: string | null
     ageRatingId: string | null
+    views: number
     _count: VideoCountAggregateOutputType | null
     _avg: VideoAvgAggregateOutputType | null
     _sum: VideoSumAggregateOutputType | null
@@ -3110,6 +3380,7 @@ export namespace Prisma {
     userId?: boolean
     categoryId?: boolean
     ageRatingId?: boolean
+    views?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3117,6 +3388,7 @@ export namespace Prisma {
     favoritedBy?: boolean | Video$favoritedByArgs<ExtArgs>
     likedBy?: boolean | Video$likedByArgs<ExtArgs>
     comments?: boolean | Video$commentsArgs<ExtArgs>
+    playlistVideos?: boolean | Video$playlistVideosArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["video"]>
 
@@ -3134,6 +3406,7 @@ export namespace Prisma {
     userId?: boolean
     categoryId?: boolean
     ageRatingId?: boolean
+    views?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3153,6 +3426,7 @@ export namespace Prisma {
     userId?: boolean
     categoryId?: boolean
     ageRatingId?: boolean
+    views?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3172,9 +3446,10 @@ export namespace Prisma {
     userId?: boolean
     categoryId?: boolean
     ageRatingId?: boolean
+    views?: boolean
   }
 
-  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "originalName" | "url" | "name" | "mimetype" | "size" | "title" | "description" | "isPublic" | "createdAt" | "userId" | "categoryId" | "ageRatingId", ExtArgs["result"]["video"]>
+  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "originalName" | "url" | "name" | "mimetype" | "size" | "title" | "description" | "isPublic" | "createdAt" | "userId" | "categoryId" | "ageRatingId" | "views", ExtArgs["result"]["video"]>
   export type VideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
@@ -3183,6 +3458,7 @@ export namespace Prisma {
     favoritedBy?: boolean | Video$favoritedByArgs<ExtArgs>
     likedBy?: boolean | Video$likedByArgs<ExtArgs>
     comments?: boolean | Video$commentsArgs<ExtArgs>
+    playlistVideos?: boolean | Video$playlistVideosArgs<ExtArgs>
     _count?: boolean | VideoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3206,6 +3482,7 @@ export namespace Prisma {
       favoritedBy: Prisma.$UserPayload<ExtArgs>[]
       likedBy: Prisma.$UserPayload<ExtArgs>[]
       comments: Prisma.$CommentPayload<ExtArgs>[]
+      playlistVideos: Prisma.$PlayListVideoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3221,6 +3498,7 @@ export namespace Prisma {
       userId: string
       categoryId: string | null
       ageRatingId: string | null
+      views: number
     }, ExtArgs["result"]["video"]>
     composites: {}
   }
@@ -3622,6 +3900,7 @@ export namespace Prisma {
     favoritedBy<T extends Video$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, Video$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     likedBy<T extends Video$likedByArgs<ExtArgs> = {}>(args?: Subset<T, Video$likedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     comments<T extends Video$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Video$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    playlistVideos<T extends Video$playlistVideosArgs<ExtArgs> = {}>(args?: Subset<T, Video$playlistVideosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3664,6 +3943,7 @@ export namespace Prisma {
     readonly userId: FieldRef<"Video", 'String'>
     readonly categoryId: FieldRef<"Video", 'String'>
     readonly ageRatingId: FieldRef<"Video", 'String'>
+    readonly views: FieldRef<"Video", 'Int'>
   }
     
 
@@ -4191,6 +4471,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Video.playlistVideos
+   */
+  export type Video$playlistVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    where?: PlayListVideoWhereInput
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    cursor?: PlayListVideoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlayListVideoScalarFieldEnum | PlayListVideoScalarFieldEnum[]
   }
 
   /**
@@ -8424,6 +8728,2166 @@ export namespace Prisma {
 
 
   /**
+   * Model PlayList
+   */
+
+  export type AggregatePlayList = {
+    _count: PlayListCountAggregateOutputType | null
+    _min: PlayListMinAggregateOutputType | null
+    _max: PlayListMaxAggregateOutputType | null
+  }
+
+  export type PlayListMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type PlayListMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+  }
+
+  export type PlayListCountAggregateOutputType = {
+    id: number
+    title: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    _all: number
+  }
+
+
+  export type PlayListMinAggregateInputType = {
+    id?: true
+    title?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type PlayListMaxAggregateInputType = {
+    id?: true
+    title?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+  }
+
+  export type PlayListCountAggregateInputType = {
+    id?: true
+    title?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type PlayListAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayList to aggregate.
+     */
+    where?: PlayListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayLists to fetch.
+     */
+    orderBy?: PlayListOrderByWithRelationInput | PlayListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayLists
+    **/
+    _count?: true | PlayListCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayListMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayListMaxAggregateInputType
+  }
+
+  export type GetPlayListAggregateType<T extends PlayListAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayList]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayList[P]>
+      : GetScalarType<T[P], AggregatePlayList[P]>
+  }
+
+
+
+
+  export type PlayListGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayListWhereInput
+    orderBy?: PlayListOrderByWithAggregationInput | PlayListOrderByWithAggregationInput[]
+    by: PlayListScalarFieldEnum[] | PlayListScalarFieldEnum
+    having?: PlayListScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayListCountAggregateInputType | true
+    _min?: PlayListMinAggregateInputType
+    _max?: PlayListMaxAggregateInputType
+  }
+
+  export type PlayListGroupByOutputType = {
+    id: string
+    title: string
+    createdAt: Date
+    updatedAt: Date
+    userId: string | null
+    _count: PlayListCountAggregateOutputType | null
+    _min: PlayListMinAggregateOutputType | null
+    _max: PlayListMaxAggregateOutputType | null
+  }
+
+  type GetPlayListGroupByPayload<T extends PlayListGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlayListGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayListGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayListGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayListGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayListSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | PlayList$userArgs<ExtArgs>
+    playListVideos?: boolean | PlayList$playListVideosArgs<ExtArgs>
+    _count?: boolean | PlayListCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playList"]>
+
+  export type PlayListSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | PlayList$userArgs<ExtArgs>
+  }, ExtArgs["result"]["playList"]>
+
+  export type PlayListSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    user?: boolean | PlayList$userArgs<ExtArgs>
+  }, ExtArgs["result"]["playList"]>
+
+  export type PlayListSelectScalar = {
+    id?: boolean
+    title?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+  }
+
+  export type PlayListOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["playList"]>
+  export type PlayListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | PlayList$userArgs<ExtArgs>
+    playListVideos?: boolean | PlayList$playListVideosArgs<ExtArgs>
+    _count?: boolean | PlayListCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PlayListIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | PlayList$userArgs<ExtArgs>
+  }
+  export type PlayListIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | PlayList$userArgs<ExtArgs>
+  }
+
+  export type $PlayListPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlayList"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs> | null
+      playListVideos: Prisma.$PlayListVideoPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      createdAt: Date
+      updatedAt: Date
+      userId: string | null
+    }, ExtArgs["result"]["playList"]>
+    composites: {}
+  }
+
+  type PlayListGetPayload<S extends boolean | null | undefined | PlayListDefaultArgs> = $Result.GetResult<Prisma.$PlayListPayload, S>
+
+  type PlayListCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlayListFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlayListCountAggregateInputType | true
+    }
+
+  export interface PlayListDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlayList'], meta: { name: 'PlayList' } }
+    /**
+     * Find zero or one PlayList that matches the filter.
+     * @param {PlayListFindUniqueArgs} args - Arguments to find a PlayList
+     * @example
+     * // Get one PlayList
+     * const playList = await prisma.playList.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlayListFindUniqueArgs>(args: SelectSubset<T, PlayListFindUniqueArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlayList that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlayListFindUniqueOrThrowArgs} args - Arguments to find a PlayList
+     * @example
+     * // Get one PlayList
+     * const playList = await prisma.playList.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlayListFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayListFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayList that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListFindFirstArgs} args - Arguments to find a PlayList
+     * @example
+     * // Get one PlayList
+     * const playList = await prisma.playList.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlayListFindFirstArgs>(args?: SelectSubset<T, PlayListFindFirstArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayList that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListFindFirstOrThrowArgs} args - Arguments to find a PlayList
+     * @example
+     * // Get one PlayList
+     * const playList = await prisma.playList.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlayListFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayListFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlayLists that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayLists
+     * const playLists = await prisma.playList.findMany()
+     * 
+     * // Get first 10 PlayLists
+     * const playLists = await prisma.playList.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playListWithIdOnly = await prisma.playList.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlayListFindManyArgs>(args?: SelectSubset<T, PlayListFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlayList.
+     * @param {PlayListCreateArgs} args - Arguments to create a PlayList.
+     * @example
+     * // Create one PlayList
+     * const PlayList = await prisma.playList.create({
+     *   data: {
+     *     // ... data to create a PlayList
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlayListCreateArgs>(args: SelectSubset<T, PlayListCreateArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlayLists.
+     * @param {PlayListCreateManyArgs} args - Arguments to create many PlayLists.
+     * @example
+     * // Create many PlayLists
+     * const playList = await prisma.playList.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlayListCreateManyArgs>(args?: SelectSubset<T, PlayListCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlayLists and returns the data saved in the database.
+     * @param {PlayListCreateManyAndReturnArgs} args - Arguments to create many PlayLists.
+     * @example
+     * // Create many PlayLists
+     * const playList = await prisma.playList.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlayLists and only return the `id`
+     * const playListWithIdOnly = await prisma.playList.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlayListCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayListCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlayList.
+     * @param {PlayListDeleteArgs} args - Arguments to delete one PlayList.
+     * @example
+     * // Delete one PlayList
+     * const PlayList = await prisma.playList.delete({
+     *   where: {
+     *     // ... filter to delete one PlayList
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlayListDeleteArgs>(args: SelectSubset<T, PlayListDeleteArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlayList.
+     * @param {PlayListUpdateArgs} args - Arguments to update one PlayList.
+     * @example
+     * // Update one PlayList
+     * const playList = await prisma.playList.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlayListUpdateArgs>(args: SelectSubset<T, PlayListUpdateArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlayLists.
+     * @param {PlayListDeleteManyArgs} args - Arguments to filter PlayLists to delete.
+     * @example
+     * // Delete a few PlayLists
+     * const { count } = await prisma.playList.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlayListDeleteManyArgs>(args?: SelectSubset<T, PlayListDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayLists
+     * const playList = await prisma.playList.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlayListUpdateManyArgs>(args: SelectSubset<T, PlayListUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayLists and returns the data updated in the database.
+     * @param {PlayListUpdateManyAndReturnArgs} args - Arguments to update many PlayLists.
+     * @example
+     * // Update many PlayLists
+     * const playList = await prisma.playList.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlayLists and only return the `id`
+     * const playListWithIdOnly = await prisma.playList.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlayListUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayListUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlayList.
+     * @param {PlayListUpsertArgs} args - Arguments to update or create a PlayList.
+     * @example
+     * // Update or create a PlayList
+     * const playList = await prisma.playList.upsert({
+     *   create: {
+     *     // ... data to create a PlayList
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayList we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlayListUpsertArgs>(args: SelectSubset<T, PlayListUpsertArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlayLists.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListCountArgs} args - Arguments to filter PlayLists to count.
+     * @example
+     * // Count the number of PlayLists
+     * const count = await prisma.playList.count({
+     *   where: {
+     *     // ... the filter for the PlayLists we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayListCountArgs>(
+      args?: Subset<T, PlayListCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayListCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayListAggregateArgs>(args: Subset<T, PlayListAggregateArgs>): Prisma.PrismaPromise<GetPlayListAggregateType<T>>
+
+    /**
+     * Group by PlayList.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayListGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayListGroupByArgs['orderBy'] }
+        : { orderBy?: PlayListGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayListGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayListGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlayList model
+   */
+  readonly fields: PlayListFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayList.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlayListClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends PlayList$userArgs<ExtArgs> = {}>(args?: Subset<T, PlayList$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    playListVideos<T extends PlayList$playListVideosArgs<ExtArgs> = {}>(args?: Subset<T, PlayList$playListVideosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlayList model
+   */
+  interface PlayListFieldRefs {
+    readonly id: FieldRef<"PlayList", 'String'>
+    readonly title: FieldRef<"PlayList", 'String'>
+    readonly createdAt: FieldRef<"PlayList", 'DateTime'>
+    readonly updatedAt: FieldRef<"PlayList", 'DateTime'>
+    readonly userId: FieldRef<"PlayList", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlayList findUnique
+   */
+  export type PlayListFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayList to fetch.
+     */
+    where: PlayListWhereUniqueInput
+  }
+
+  /**
+   * PlayList findUniqueOrThrow
+   */
+  export type PlayListFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayList to fetch.
+     */
+    where: PlayListWhereUniqueInput
+  }
+
+  /**
+   * PlayList findFirst
+   */
+  export type PlayListFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayList to fetch.
+     */
+    where?: PlayListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayLists to fetch.
+     */
+    orderBy?: PlayListOrderByWithRelationInput | PlayListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayLists.
+     */
+    cursor?: PlayListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayLists.
+     */
+    distinct?: PlayListScalarFieldEnum | PlayListScalarFieldEnum[]
+  }
+
+  /**
+   * PlayList findFirstOrThrow
+   */
+  export type PlayListFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayList to fetch.
+     */
+    where?: PlayListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayLists to fetch.
+     */
+    orderBy?: PlayListOrderByWithRelationInput | PlayListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayLists.
+     */
+    cursor?: PlayListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayLists.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayLists.
+     */
+    distinct?: PlayListScalarFieldEnum | PlayListScalarFieldEnum[]
+  }
+
+  /**
+   * PlayList findMany
+   */
+  export type PlayListFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayLists to fetch.
+     */
+    where?: PlayListWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayLists to fetch.
+     */
+    orderBy?: PlayListOrderByWithRelationInput | PlayListOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayLists.
+     */
+    cursor?: PlayListWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayLists from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayLists.
+     */
+    skip?: number
+    distinct?: PlayListScalarFieldEnum | PlayListScalarFieldEnum[]
+  }
+
+  /**
+   * PlayList create
+   */
+  export type PlayListCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlayList.
+     */
+    data: XOR<PlayListCreateInput, PlayListUncheckedCreateInput>
+  }
+
+  /**
+   * PlayList createMany
+   */
+  export type PlayListCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlayLists.
+     */
+    data: PlayListCreateManyInput | PlayListCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlayList createManyAndReturn
+   */
+  export type PlayListCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlayLists.
+     */
+    data: PlayListCreateManyInput | PlayListCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayList update
+   */
+  export type PlayListUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlayList.
+     */
+    data: XOR<PlayListUpdateInput, PlayListUncheckedUpdateInput>
+    /**
+     * Choose, which PlayList to update.
+     */
+    where: PlayListWhereUniqueInput
+  }
+
+  /**
+   * PlayList updateMany
+   */
+  export type PlayListUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlayLists.
+     */
+    data: XOR<PlayListUpdateManyMutationInput, PlayListUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayLists to update
+     */
+    where?: PlayListWhereInput
+    /**
+     * Limit how many PlayLists to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayList updateManyAndReturn
+   */
+  export type PlayListUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * The data used to update PlayLists.
+     */
+    data: XOR<PlayListUpdateManyMutationInput, PlayListUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayLists to update
+     */
+    where?: PlayListWhereInput
+    /**
+     * Limit how many PlayLists to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayList upsert
+   */
+  export type PlayListUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlayList to update in case it exists.
+     */
+    where: PlayListWhereUniqueInput
+    /**
+     * In case the PlayList found by the `where` argument doesn't exist, create a new PlayList with this data.
+     */
+    create: XOR<PlayListCreateInput, PlayListUncheckedCreateInput>
+    /**
+     * In case the PlayList was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayListUpdateInput, PlayListUncheckedUpdateInput>
+  }
+
+  /**
+   * PlayList delete
+   */
+  export type PlayListDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+    /**
+     * Filter which PlayList to delete.
+     */
+    where: PlayListWhereUniqueInput
+  }
+
+  /**
+   * PlayList deleteMany
+   */
+  export type PlayListDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayLists to delete
+     */
+    where?: PlayListWhereInput
+    /**
+     * Limit how many PlayLists to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayList.user
+   */
+  export type PlayList$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * PlayList.playListVideos
+   */
+  export type PlayList$playListVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    where?: PlayListVideoWhereInput
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    cursor?: PlayListVideoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlayListVideoScalarFieldEnum | PlayListVideoScalarFieldEnum[]
+  }
+
+  /**
+   * PlayList without action
+   */
+  export type PlayListDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayList
+     */
+    select?: PlayListSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayList
+     */
+    omit?: PlayListOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PlayListVideo
+   */
+
+  export type AggregatePlayListVideo = {
+    _count: PlayListVideoCountAggregateOutputType | null
+    _min: PlayListVideoMinAggregateOutputType | null
+    _max: PlayListVideoMaxAggregateOutputType | null
+  }
+
+  export type PlayListVideoMinAggregateOutputType = {
+    id: string | null
+    playlistId: string | null
+    videoId: string | null
+    addedAt: Date | null
+  }
+
+  export type PlayListVideoMaxAggregateOutputType = {
+    id: string | null
+    playlistId: string | null
+    videoId: string | null
+    addedAt: Date | null
+  }
+
+  export type PlayListVideoCountAggregateOutputType = {
+    id: number
+    playlistId: number
+    videoId: number
+    addedAt: number
+    _all: number
+  }
+
+
+  export type PlayListVideoMinAggregateInputType = {
+    id?: true
+    playlistId?: true
+    videoId?: true
+    addedAt?: true
+  }
+
+  export type PlayListVideoMaxAggregateInputType = {
+    id?: true
+    playlistId?: true
+    videoId?: true
+    addedAt?: true
+  }
+
+  export type PlayListVideoCountAggregateInputType = {
+    id?: true
+    playlistId?: true
+    videoId?: true
+    addedAt?: true
+    _all?: true
+  }
+
+  export type PlayListVideoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayListVideo to aggregate.
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayListVideos to fetch.
+     */
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PlayListVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayListVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayListVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PlayListVideos
+    **/
+    _count?: true | PlayListVideoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PlayListVideoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PlayListVideoMaxAggregateInputType
+  }
+
+  export type GetPlayListVideoAggregateType<T extends PlayListVideoAggregateArgs> = {
+        [P in keyof T & keyof AggregatePlayListVideo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePlayListVideo[P]>
+      : GetScalarType<T[P], AggregatePlayListVideo[P]>
+  }
+
+
+
+
+  export type PlayListVideoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlayListVideoWhereInput
+    orderBy?: PlayListVideoOrderByWithAggregationInput | PlayListVideoOrderByWithAggregationInput[]
+    by: PlayListVideoScalarFieldEnum[] | PlayListVideoScalarFieldEnum
+    having?: PlayListVideoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PlayListVideoCountAggregateInputType | true
+    _min?: PlayListVideoMinAggregateInputType
+    _max?: PlayListVideoMaxAggregateInputType
+  }
+
+  export type PlayListVideoGroupByOutputType = {
+    id: string
+    playlistId: string
+    videoId: string
+    addedAt: Date
+    _count: PlayListVideoCountAggregateOutputType | null
+    _min: PlayListVideoMinAggregateOutputType | null
+    _max: PlayListVideoMaxAggregateOutputType | null
+  }
+
+  type GetPlayListVideoGroupByPayload<T extends PlayListVideoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PlayListVideoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PlayListVideoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PlayListVideoGroupByOutputType[P]>
+            : GetScalarType<T[P], PlayListVideoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PlayListVideoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    playlistId?: boolean
+    videoId?: boolean
+    addedAt?: boolean
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playListVideo"]>
+
+  export type PlayListVideoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    playlistId?: boolean
+    videoId?: boolean
+    addedAt?: boolean
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playListVideo"]>
+
+  export type PlayListVideoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    playlistId?: boolean
+    videoId?: boolean
+    addedAt?: boolean
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["playListVideo"]>
+
+  export type PlayListVideoSelectScalar = {
+    id?: boolean
+    playlistId?: boolean
+    videoId?: boolean
+    addedAt?: boolean
+  }
+
+  export type PlayListVideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "playlistId" | "videoId" | "addedAt", ExtArgs["result"]["playListVideo"]>
+  export type PlayListVideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }
+  export type PlayListVideoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }
+  export type PlayListVideoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    playlist?: boolean | PlayListDefaultArgs<ExtArgs>
+    video?: boolean | VideoDefaultArgs<ExtArgs>
+  }
+
+  export type $PlayListVideoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PlayListVideo"
+    objects: {
+      playlist: Prisma.$PlayListPayload<ExtArgs>
+      video: Prisma.$VideoPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      playlistId: string
+      videoId: string
+      addedAt: Date
+    }, ExtArgs["result"]["playListVideo"]>
+    composites: {}
+  }
+
+  type PlayListVideoGetPayload<S extends boolean | null | undefined | PlayListVideoDefaultArgs> = $Result.GetResult<Prisma.$PlayListVideoPayload, S>
+
+  type PlayListVideoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PlayListVideoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PlayListVideoCountAggregateInputType | true
+    }
+
+  export interface PlayListVideoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PlayListVideo'], meta: { name: 'PlayListVideo' } }
+    /**
+     * Find zero or one PlayListVideo that matches the filter.
+     * @param {PlayListVideoFindUniqueArgs} args - Arguments to find a PlayListVideo
+     * @example
+     * // Get one PlayListVideo
+     * const playListVideo = await prisma.playListVideo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PlayListVideoFindUniqueArgs>(args: SelectSubset<T, PlayListVideoFindUniqueArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PlayListVideo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PlayListVideoFindUniqueOrThrowArgs} args - Arguments to find a PlayListVideo
+     * @example
+     * // Get one PlayListVideo
+     * const playListVideo = await prisma.playListVideo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PlayListVideoFindUniqueOrThrowArgs>(args: SelectSubset<T, PlayListVideoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayListVideo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoFindFirstArgs} args - Arguments to find a PlayListVideo
+     * @example
+     * // Get one PlayListVideo
+     * const playListVideo = await prisma.playListVideo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PlayListVideoFindFirstArgs>(args?: SelectSubset<T, PlayListVideoFindFirstArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PlayListVideo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoFindFirstOrThrowArgs} args - Arguments to find a PlayListVideo
+     * @example
+     * // Get one PlayListVideo
+     * const playListVideo = await prisma.playListVideo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PlayListVideoFindFirstOrThrowArgs>(args?: SelectSubset<T, PlayListVideoFindFirstOrThrowArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PlayListVideos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PlayListVideos
+     * const playListVideos = await prisma.playListVideo.findMany()
+     * 
+     * // Get first 10 PlayListVideos
+     * const playListVideos = await prisma.playListVideo.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const playListVideoWithIdOnly = await prisma.playListVideo.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PlayListVideoFindManyArgs>(args?: SelectSubset<T, PlayListVideoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PlayListVideo.
+     * @param {PlayListVideoCreateArgs} args - Arguments to create a PlayListVideo.
+     * @example
+     * // Create one PlayListVideo
+     * const PlayListVideo = await prisma.playListVideo.create({
+     *   data: {
+     *     // ... data to create a PlayListVideo
+     *   }
+     * })
+     * 
+     */
+    create<T extends PlayListVideoCreateArgs>(args: SelectSubset<T, PlayListVideoCreateArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PlayListVideos.
+     * @param {PlayListVideoCreateManyArgs} args - Arguments to create many PlayListVideos.
+     * @example
+     * // Create many PlayListVideos
+     * const playListVideo = await prisma.playListVideo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PlayListVideoCreateManyArgs>(args?: SelectSubset<T, PlayListVideoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PlayListVideos and returns the data saved in the database.
+     * @param {PlayListVideoCreateManyAndReturnArgs} args - Arguments to create many PlayListVideos.
+     * @example
+     * // Create many PlayListVideos
+     * const playListVideo = await prisma.playListVideo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PlayListVideos and only return the `id`
+     * const playListVideoWithIdOnly = await prisma.playListVideo.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PlayListVideoCreateManyAndReturnArgs>(args?: SelectSubset<T, PlayListVideoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PlayListVideo.
+     * @param {PlayListVideoDeleteArgs} args - Arguments to delete one PlayListVideo.
+     * @example
+     * // Delete one PlayListVideo
+     * const PlayListVideo = await prisma.playListVideo.delete({
+     *   where: {
+     *     // ... filter to delete one PlayListVideo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PlayListVideoDeleteArgs>(args: SelectSubset<T, PlayListVideoDeleteArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PlayListVideo.
+     * @param {PlayListVideoUpdateArgs} args - Arguments to update one PlayListVideo.
+     * @example
+     * // Update one PlayListVideo
+     * const playListVideo = await prisma.playListVideo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PlayListVideoUpdateArgs>(args: SelectSubset<T, PlayListVideoUpdateArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PlayListVideos.
+     * @param {PlayListVideoDeleteManyArgs} args - Arguments to filter PlayListVideos to delete.
+     * @example
+     * // Delete a few PlayListVideos
+     * const { count } = await prisma.playListVideo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PlayListVideoDeleteManyArgs>(args?: SelectSubset<T, PlayListVideoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayListVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PlayListVideos
+     * const playListVideo = await prisma.playListVideo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PlayListVideoUpdateManyArgs>(args: SelectSubset<T, PlayListVideoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PlayListVideos and returns the data updated in the database.
+     * @param {PlayListVideoUpdateManyAndReturnArgs} args - Arguments to update many PlayListVideos.
+     * @example
+     * // Update many PlayListVideos
+     * const playListVideo = await prisma.playListVideo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PlayListVideos and only return the `id`
+     * const playListVideoWithIdOnly = await prisma.playListVideo.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PlayListVideoUpdateManyAndReturnArgs>(args: SelectSubset<T, PlayListVideoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PlayListVideo.
+     * @param {PlayListVideoUpsertArgs} args - Arguments to update or create a PlayListVideo.
+     * @example
+     * // Update or create a PlayListVideo
+     * const playListVideo = await prisma.playListVideo.upsert({
+     *   create: {
+     *     // ... data to create a PlayListVideo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PlayListVideo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PlayListVideoUpsertArgs>(args: SelectSubset<T, PlayListVideoUpsertArgs<ExtArgs>>): Prisma__PlayListVideoClient<$Result.GetResult<Prisma.$PlayListVideoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PlayListVideos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoCountArgs} args - Arguments to filter PlayListVideos to count.
+     * @example
+     * // Count the number of PlayListVideos
+     * const count = await prisma.playListVideo.count({
+     *   where: {
+     *     // ... the filter for the PlayListVideos we want to count
+     *   }
+     * })
+    **/
+    count<T extends PlayListVideoCountArgs>(
+      args?: Subset<T, PlayListVideoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PlayListVideoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PlayListVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PlayListVideoAggregateArgs>(args: Subset<T, PlayListVideoAggregateArgs>): Prisma.PrismaPromise<GetPlayListVideoAggregateType<T>>
+
+    /**
+     * Group by PlayListVideo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PlayListVideoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PlayListVideoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PlayListVideoGroupByArgs['orderBy'] }
+        : { orderBy?: PlayListVideoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PlayListVideoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPlayListVideoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PlayListVideo model
+   */
+  readonly fields: PlayListVideoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PlayListVideo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PlayListVideoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    playlist<T extends PlayListDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlayListDefaultArgs<ExtArgs>>): Prisma__PlayListClient<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    video<T extends VideoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VideoDefaultArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PlayListVideo model
+   */
+  interface PlayListVideoFieldRefs {
+    readonly id: FieldRef<"PlayListVideo", 'String'>
+    readonly playlistId: FieldRef<"PlayListVideo", 'String'>
+    readonly videoId: FieldRef<"PlayListVideo", 'String'>
+    readonly addedAt: FieldRef<"PlayListVideo", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PlayListVideo findUnique
+   */
+  export type PlayListVideoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayListVideo to fetch.
+     */
+    where: PlayListVideoWhereUniqueInput
+  }
+
+  /**
+   * PlayListVideo findUniqueOrThrow
+   */
+  export type PlayListVideoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayListVideo to fetch.
+     */
+    where: PlayListVideoWhereUniqueInput
+  }
+
+  /**
+   * PlayListVideo findFirst
+   */
+  export type PlayListVideoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayListVideo to fetch.
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayListVideos to fetch.
+     */
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayListVideos.
+     */
+    cursor?: PlayListVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayListVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayListVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayListVideos.
+     */
+    distinct?: PlayListVideoScalarFieldEnum | PlayListVideoScalarFieldEnum[]
+  }
+
+  /**
+   * PlayListVideo findFirstOrThrow
+   */
+  export type PlayListVideoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayListVideo to fetch.
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayListVideos to fetch.
+     */
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PlayListVideos.
+     */
+    cursor?: PlayListVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayListVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayListVideos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PlayListVideos.
+     */
+    distinct?: PlayListVideoScalarFieldEnum | PlayListVideoScalarFieldEnum[]
+  }
+
+  /**
+   * PlayListVideo findMany
+   */
+  export type PlayListVideoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter, which PlayListVideos to fetch.
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PlayListVideos to fetch.
+     */
+    orderBy?: PlayListVideoOrderByWithRelationInput | PlayListVideoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PlayListVideos.
+     */
+    cursor?: PlayListVideoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PlayListVideos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PlayListVideos.
+     */
+    skip?: number
+    distinct?: PlayListVideoScalarFieldEnum | PlayListVideoScalarFieldEnum[]
+  }
+
+  /**
+   * PlayListVideo create
+   */
+  export type PlayListVideoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PlayListVideo.
+     */
+    data: XOR<PlayListVideoCreateInput, PlayListVideoUncheckedCreateInput>
+  }
+
+  /**
+   * PlayListVideo createMany
+   */
+  export type PlayListVideoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PlayListVideos.
+     */
+    data: PlayListVideoCreateManyInput | PlayListVideoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PlayListVideo createManyAndReturn
+   */
+  export type PlayListVideoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * The data used to create many PlayListVideos.
+     */
+    data: PlayListVideoCreateManyInput | PlayListVideoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayListVideo update
+   */
+  export type PlayListVideoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PlayListVideo.
+     */
+    data: XOR<PlayListVideoUpdateInput, PlayListVideoUncheckedUpdateInput>
+    /**
+     * Choose, which PlayListVideo to update.
+     */
+    where: PlayListVideoWhereUniqueInput
+  }
+
+  /**
+   * PlayListVideo updateMany
+   */
+  export type PlayListVideoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PlayListVideos.
+     */
+    data: XOR<PlayListVideoUpdateManyMutationInput, PlayListVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayListVideos to update
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * Limit how many PlayListVideos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayListVideo updateManyAndReturn
+   */
+  export type PlayListVideoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * The data used to update PlayListVideos.
+     */
+    data: XOR<PlayListVideoUpdateManyMutationInput, PlayListVideoUncheckedUpdateManyInput>
+    /**
+     * Filter which PlayListVideos to update
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * Limit how many PlayListVideos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PlayListVideo upsert
+   */
+  export type PlayListVideoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PlayListVideo to update in case it exists.
+     */
+    where: PlayListVideoWhereUniqueInput
+    /**
+     * In case the PlayListVideo found by the `where` argument doesn't exist, create a new PlayListVideo with this data.
+     */
+    create: XOR<PlayListVideoCreateInput, PlayListVideoUncheckedCreateInput>
+    /**
+     * In case the PlayListVideo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PlayListVideoUpdateInput, PlayListVideoUncheckedUpdateInput>
+  }
+
+  /**
+   * PlayListVideo delete
+   */
+  export type PlayListVideoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+    /**
+     * Filter which PlayListVideo to delete.
+     */
+    where: PlayListVideoWhereUniqueInput
+  }
+
+  /**
+   * PlayListVideo deleteMany
+   */
+  export type PlayListVideoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PlayListVideos to delete
+     */
+    where?: PlayListVideoWhereInput
+    /**
+     * Limit how many PlayListVideos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PlayListVideo without action
+   */
+  export type PlayListVideoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlayListVideo
+     */
+    select?: PlayListVideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PlayListVideo
+     */
+    omit?: PlayListVideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlayListVideoInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8468,7 +10932,8 @@ export namespace Prisma {
     createdAt: 'createdAt',
     userId: 'userId',
     categoryId: 'categoryId',
-    ageRatingId: 'ageRatingId'
+    ageRatingId: 'ageRatingId',
+    views: 'views'
   };
 
   export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
@@ -8511,6 +10976,27 @@ export namespace Prisma {
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const PlayListScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId'
+  };
+
+  export type PlayListScalarFieldEnum = (typeof PlayListScalarFieldEnum)[keyof typeof PlayListScalarFieldEnum]
+
+
+  export const PlayListVideoScalarFieldEnum: {
+    id: 'id',
+    playlistId: 'playlistId',
+    videoId: 'videoId',
+    addedAt: 'addedAt'
+  };
+
+  export type PlayListVideoScalarFieldEnum = (typeof PlayListVideoScalarFieldEnum)[keyof typeof PlayListVideoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8630,6 +11116,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     following?: UserListRelationFilter
     followers?: UserListRelationFilter
+    playlist?: PlayListListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8651,6 +11138,7 @@ export namespace Prisma {
     comments?: CommentOrderByRelationAggregateInput
     following?: UserOrderByRelationAggregateInput
     followers?: UserOrderByRelationAggregateInput
+    playlist?: PlayListOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8675,6 +11163,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     following?: UserListRelationFilter
     followers?: UserListRelationFilter
+    playlist?: PlayListListRelationFilter
   }, "id" | "nickname" | "email" | "backupEmail">
 
   export type UserOrderByWithAggregationInput = {
@@ -8730,6 +11219,7 @@ export namespace Prisma {
     userId?: StringFilter<"Video"> | string
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
+    views?: IntFilter<"Video"> | number
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     ageRating?: XOR<AgeRatingNullableScalarRelationFilter, AgeRatingWhereInput> | null
@@ -8737,6 +11227,7 @@ export namespace Prisma {
     favoritedBy?: UserListRelationFilter
     likedBy?: UserListRelationFilter
     comments?: CommentListRelationFilter
+    playlistVideos?: PlayListVideoListRelationFilter
   }
 
   export type VideoOrderByWithRelationInput = {
@@ -8753,6 +11244,7 @@ export namespace Prisma {
     userId?: SortOrder
     categoryId?: SortOrderInput | SortOrder
     ageRatingId?: SortOrderInput | SortOrder
+    views?: SortOrder
     author?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     ageRating?: AgeRatingOrderByWithRelationInput
@@ -8760,6 +11252,7 @@ export namespace Prisma {
     favoritedBy?: UserOrderByRelationAggregateInput
     likedBy?: UserOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
+    playlistVideos?: PlayListVideoOrderByRelationAggregateInput
   }
 
   export type VideoWhereUniqueInput = Prisma.AtLeast<{
@@ -8779,6 +11272,7 @@ export namespace Prisma {
     userId?: StringFilter<"Video"> | string
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
+    views?: IntFilter<"Video"> | number
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     ageRating?: XOR<AgeRatingNullableScalarRelationFilter, AgeRatingWhereInput> | null
@@ -8786,6 +11280,7 @@ export namespace Prisma {
     favoritedBy?: UserListRelationFilter
     likedBy?: UserListRelationFilter
     comments?: CommentListRelationFilter
+    playlistVideos?: PlayListVideoListRelationFilter
   }, "id">
 
   export type VideoOrderByWithAggregationInput = {
@@ -8802,6 +11297,7 @@ export namespace Prisma {
     userId?: SortOrder
     categoryId?: SortOrderInput | SortOrder
     ageRatingId?: SortOrderInput | SortOrder
+    views?: SortOrder
     _count?: VideoCountOrderByAggregateInput
     _avg?: VideoAvgOrderByAggregateInput
     _max?: VideoMaxOrderByAggregateInput
@@ -8826,6 +11322,7 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"Video"> | string
     categoryId?: StringNullableWithAggregatesFilter<"Video"> | string | null
     ageRatingId?: StringNullableWithAggregatesFilter<"Video"> | string | null
+    views?: IntWithAggregatesFilter<"Video"> | number
   }
 
   export type TagWhereInput = {
@@ -9026,6 +11523,118 @@ export namespace Prisma {
     videoId?: StringWithAggregatesFilter<"Comment"> | string
   }
 
+  export type PlayListWhereInput = {
+    AND?: PlayListWhereInput | PlayListWhereInput[]
+    OR?: PlayListWhereInput[]
+    NOT?: PlayListWhereInput | PlayListWhereInput[]
+    id?: StringFilter<"PlayList"> | string
+    title?: StringFilter<"PlayList"> | string
+    createdAt?: DateTimeFilter<"PlayList"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayList"> | Date | string
+    userId?: StringNullableFilter<"PlayList"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    playListVideos?: PlayListVideoListRelationFilter
+  }
+
+  export type PlayListOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    playListVideos?: PlayListVideoOrderByRelationAggregateInput
+  }
+
+  export type PlayListWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PlayListWhereInput | PlayListWhereInput[]
+    OR?: PlayListWhereInput[]
+    NOT?: PlayListWhereInput | PlayListWhereInput[]
+    title?: StringFilter<"PlayList"> | string
+    createdAt?: DateTimeFilter<"PlayList"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayList"> | Date | string
+    userId?: StringNullableFilter<"PlayList"> | string | null
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    playListVideos?: PlayListVideoListRelationFilter
+  }, "id">
+
+  export type PlayListOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    _count?: PlayListCountOrderByAggregateInput
+    _max?: PlayListMaxOrderByAggregateInput
+    _min?: PlayListMinOrderByAggregateInput
+  }
+
+  export type PlayListScalarWhereWithAggregatesInput = {
+    AND?: PlayListScalarWhereWithAggregatesInput | PlayListScalarWhereWithAggregatesInput[]
+    OR?: PlayListScalarWhereWithAggregatesInput[]
+    NOT?: PlayListScalarWhereWithAggregatesInput | PlayListScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlayList"> | string
+    title?: StringWithAggregatesFilter<"PlayList"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PlayList"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PlayList"> | Date | string
+    userId?: StringNullableWithAggregatesFilter<"PlayList"> | string | null
+  }
+
+  export type PlayListVideoWhereInput = {
+    AND?: PlayListVideoWhereInput | PlayListVideoWhereInput[]
+    OR?: PlayListVideoWhereInput[]
+    NOT?: PlayListVideoWhereInput | PlayListVideoWhereInput[]
+    id?: StringFilter<"PlayListVideo"> | string
+    playlistId?: StringFilter<"PlayListVideo"> | string
+    videoId?: StringFilter<"PlayListVideo"> | string
+    addedAt?: DateTimeFilter<"PlayListVideo"> | Date | string
+    playlist?: XOR<PlayListScalarRelationFilter, PlayListWhereInput>
+    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+  }
+
+  export type PlayListVideoOrderByWithRelationInput = {
+    id?: SortOrder
+    playlistId?: SortOrder
+    videoId?: SortOrder
+    addedAt?: SortOrder
+    playlist?: PlayListOrderByWithRelationInput
+    video?: VideoOrderByWithRelationInput
+  }
+
+  export type PlayListVideoWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    playlistId_videoId?: PlayListVideoPlaylistIdVideoIdCompoundUniqueInput
+    AND?: PlayListVideoWhereInput | PlayListVideoWhereInput[]
+    OR?: PlayListVideoWhereInput[]
+    NOT?: PlayListVideoWhereInput | PlayListVideoWhereInput[]
+    playlistId?: StringFilter<"PlayListVideo"> | string
+    videoId?: StringFilter<"PlayListVideo"> | string
+    addedAt?: DateTimeFilter<"PlayListVideo"> | Date | string
+    playlist?: XOR<PlayListScalarRelationFilter, PlayListWhereInput>
+    video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
+  }, "id" | "playlistId_videoId">
+
+  export type PlayListVideoOrderByWithAggregationInput = {
+    id?: SortOrder
+    playlistId?: SortOrder
+    videoId?: SortOrder
+    addedAt?: SortOrder
+    _count?: PlayListVideoCountOrderByAggregateInput
+    _max?: PlayListVideoMaxOrderByAggregateInput
+    _min?: PlayListVideoMinOrderByAggregateInput
+  }
+
+  export type PlayListVideoScalarWhereWithAggregatesInput = {
+    AND?: PlayListVideoScalarWhereWithAggregatesInput | PlayListVideoScalarWhereWithAggregatesInput[]
+    OR?: PlayListVideoScalarWhereWithAggregatesInput[]
+    NOT?: PlayListVideoScalarWhereWithAggregatesInput | PlayListVideoScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PlayListVideo"> | string
+    playlistId?: StringWithAggregatesFilter<"PlayListVideo"> | string
+    videoId?: StringWithAggregatesFilter<"PlayListVideo"> | string
+    addedAt?: DateTimeWithAggregatesFilter<"PlayListVideo"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     nickname: string
@@ -9045,6 +11654,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutAuthorInput
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9066,6 +11676,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9087,6 +11698,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9108,6 +11720,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9166,6 +11779,7 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -9173,6 +11787,7 @@ export namespace Prisma {
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateInput = {
@@ -9189,10 +11804,12 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUpdateInput = {
@@ -9206,6 +11823,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -9213,6 +11831,7 @@ export namespace Prisma {
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateInput = {
@@ -9229,10 +11848,12 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoCreateManyInput = {
@@ -9249,6 +11870,7 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
   }
 
   export type VideoUpdateManyMutationInput = {
@@ -9262,6 +11884,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type VideoUncheckedUpdateManyInput = {
@@ -9278,6 +11901,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type TagCreateInput = {
@@ -9479,6 +12103,112 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlayListCreateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutPlaylistInput
+    playListVideos?: PlayListVideoCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlayListUncheckedCreateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    playListVideos?: PlayListVideoUncheckedCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlayListUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutPlaylistNestedInput
+    playListVideos?: PlayListVideoUpdateManyWithoutPlaylistNestedInput
+  }
+
+  export type PlayListUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    playListVideos?: PlayListVideoUncheckedUpdateManyWithoutPlaylistNestedInput
+  }
+
+  export type PlayListCreateManyInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+  }
+
+  export type PlayListUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayListUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PlayListVideoCreateInput = {
+    id?: string
+    addedAt?: Date | string
+    playlist: PlayListCreateNestedOneWithoutPlayListVideosInput
+    video: VideoCreateNestedOneWithoutPlaylistVideosInput
+  }
+
+  export type PlayListVideoUncheckedCreateInput = {
+    id?: string
+    playlistId: string
+    videoId: string
+    addedAt?: Date | string
+  }
+
+  export type PlayListVideoUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlist?: PlayListUpdateOneRequiredWithoutPlayListVideosNestedInput
+    video?: VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput
+  }
+
+  export type PlayListVideoUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    videoId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayListVideoCreateManyInput = {
+    id?: string
+    playlistId: string
+    videoId: string
+    addedAt?: Date | string
+  }
+
+  export type PlayListVideoUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayListVideoUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    videoId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -9549,6 +12279,12 @@ export namespace Prisma {
     none?: UserWhereInput
   }
 
+  export type PlayListListRelationFilter = {
+    every?: PlayListWhereInput
+    some?: PlayListWhereInput
+    none?: PlayListWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -9563,6 +12299,10 @@ export namespace Prisma {
   }
 
   export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayListOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9712,7 +12452,17 @@ export namespace Prisma {
     none?: TagWhereInput
   }
 
+  export type PlayListVideoListRelationFilter = {
+    every?: PlayListVideoWhereInput
+    some?: PlayListVideoWhereInput
+    none?: PlayListVideoWhereInput
+  }
+
   export type TagOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PlayListVideoOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9730,10 +12480,12 @@ export namespace Prisma {
     userId?: SortOrder
     categoryId?: SortOrder
     ageRatingId?: SortOrder
+    views?: SortOrder
   }
 
   export type VideoAvgOrderByAggregateInput = {
     size?: SortOrder
+    views?: SortOrder
   }
 
   export type VideoMaxOrderByAggregateInput = {
@@ -9750,6 +12502,7 @@ export namespace Prisma {
     userId?: SortOrder
     categoryId?: SortOrder
     ageRatingId?: SortOrder
+    views?: SortOrder
   }
 
   export type VideoMinOrderByAggregateInput = {
@@ -9766,10 +12519,12 @@ export namespace Prisma {
     userId?: SortOrder
     categoryId?: SortOrder
     ageRatingId?: SortOrder
+    views?: SortOrder
   }
 
   export type VideoSumOrderByAggregateInput = {
     size?: SortOrder
+    views?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -9882,6 +12637,66 @@ export namespace Prisma {
     videoId?: SortOrder
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
+  export type PlayListCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type PlayListMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type PlayListMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type PlayListScalarRelationFilter = {
+    is?: PlayListWhereInput
+    isNot?: PlayListWhereInput
+  }
+
+  export type PlayListVideoPlaylistIdVideoIdCompoundUniqueInput = {
+    playlistId: string
+    videoId: string
+  }
+
+  export type PlayListVideoCountOrderByAggregateInput = {
+    id?: SortOrder
+    playlistId?: SortOrder
+    videoId?: SortOrder
+    addedAt?: SortOrder
+  }
+
+  export type PlayListVideoMaxOrderByAggregateInput = {
+    id?: SortOrder
+    playlistId?: SortOrder
+    videoId?: SortOrder
+    addedAt?: SortOrder
+  }
+
+  export type PlayListVideoMinOrderByAggregateInput = {
+    id?: SortOrder
+    playlistId?: SortOrder
+    videoId?: SortOrder
+    addedAt?: SortOrder
+  }
+
   export type VideoCreateNestedManyWithoutAuthorInput = {
     create?: XOR<VideoCreateWithoutAuthorInput, VideoUncheckedCreateWithoutAuthorInput> | VideoCreateWithoutAuthorInput[] | VideoUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutAuthorInput | VideoCreateOrConnectWithoutAuthorInput[]
@@ -9920,6 +12735,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
+  export type PlayListCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput> | PlayListCreateWithoutUserInput[] | PlayListUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlayListCreateOrConnectWithoutUserInput | PlayListCreateOrConnectWithoutUserInput[]
+    createMany?: PlayListCreateManyUserInputEnvelope
+    connect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+  }
+
   export type VideoUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<VideoCreateWithoutAuthorInput, VideoUncheckedCreateWithoutAuthorInput> | VideoCreateWithoutAuthorInput[] | VideoUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutAuthorInput | VideoCreateOrConnectWithoutAuthorInput[]
@@ -9956,6 +12778,13 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput> | UserCreateWithoutFollowingInput[] | UserUncheckedCreateWithoutFollowingInput[]
     connectOrCreate?: UserCreateOrConnectWithoutFollowingInput | UserCreateOrConnectWithoutFollowingInput[]
     connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type PlayListUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput> | PlayListCreateWithoutUserInput[] | PlayListUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlayListCreateOrConnectWithoutUserInput | PlayListCreateOrConnectWithoutUserInput[]
+    createMany?: PlayListCreateManyUserInputEnvelope
+    connect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10054,6 +12883,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type PlayListUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput> | PlayListCreateWithoutUserInput[] | PlayListUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlayListCreateOrConnectWithoutUserInput | PlayListCreateOrConnectWithoutUserInput[]
+    upsert?: PlayListUpsertWithWhereUniqueWithoutUserInput | PlayListUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlayListCreateManyUserInputEnvelope
+    set?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    disconnect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    delete?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    connect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    update?: PlayListUpdateWithWhereUniqueWithoutUserInput | PlayListUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlayListUpdateManyWithWhereWithoutUserInput | PlayListUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlayListScalarWhereInput | PlayListScalarWhereInput[]
+  }
+
   export type VideoUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<VideoCreateWithoutAuthorInput, VideoUncheckedCreateWithoutAuthorInput> | VideoCreateWithoutAuthorInput[] | VideoUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutAuthorInput | VideoCreateOrConnectWithoutAuthorInput[]
@@ -10134,6 +12977,20 @@ export namespace Prisma {
     deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
+  export type PlayListUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput> | PlayListCreateWithoutUserInput[] | PlayListUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PlayListCreateOrConnectWithoutUserInput | PlayListCreateOrConnectWithoutUserInput[]
+    upsert?: PlayListUpsertWithWhereUniqueWithoutUserInput | PlayListUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PlayListCreateManyUserInputEnvelope
+    set?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    disconnect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    delete?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    connect?: PlayListWhereUniqueInput | PlayListWhereUniqueInput[]
+    update?: PlayListUpdateWithWhereUniqueWithoutUserInput | PlayListUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PlayListUpdateManyWithWhereWithoutUserInput | PlayListUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PlayListScalarWhereInput | PlayListScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutVideosInput = {
     create?: XOR<UserCreateWithoutVideosInput, UserUncheckedCreateWithoutVideosInput>
     connectOrCreate?: UserCreateOrConnectWithoutVideosInput
@@ -10177,6 +13034,13 @@ export namespace Prisma {
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
+  export type PlayListVideoCreateNestedManyWithoutVideoInput = {
+    create?: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput> | PlayListVideoCreateWithoutVideoInput[] | PlayListVideoUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutVideoInput | PlayListVideoCreateOrConnectWithoutVideoInput[]
+    createMany?: PlayListVideoCreateManyVideoInputEnvelope
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+  }
+
   export type TagUncheckedCreateNestedManyWithoutVideosInput = {
     create?: XOR<TagCreateWithoutVideosInput, TagUncheckedCreateWithoutVideosInput> | TagCreateWithoutVideosInput[] | TagUncheckedCreateWithoutVideosInput[]
     connectOrCreate?: TagCreateOrConnectWithoutVideosInput | TagCreateOrConnectWithoutVideosInput[]
@@ -10200,6 +13064,13 @@ export namespace Prisma {
     connectOrCreate?: CommentCreateOrConnectWithoutVideoInput | CommentCreateOrConnectWithoutVideoInput[]
     createMany?: CommentCreateManyVideoInputEnvelope
     connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type PlayListVideoUncheckedCreateNestedManyWithoutVideoInput = {
+    create?: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput> | PlayListVideoCreateWithoutVideoInput[] | PlayListVideoUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutVideoInput | PlayListVideoCreateOrConnectWithoutVideoInput[]
+    createMany?: PlayListVideoCreateManyVideoInputEnvelope
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -10295,6 +13166,20 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
+  export type PlayListVideoUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput> | PlayListVideoCreateWithoutVideoInput[] | PlayListVideoUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutVideoInput | PlayListVideoCreateOrConnectWithoutVideoInput[]
+    upsert?: PlayListVideoUpsertWithWhereUniqueWithoutVideoInput | PlayListVideoUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: PlayListVideoCreateManyVideoInputEnvelope
+    set?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    disconnect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    delete?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    update?: PlayListVideoUpdateWithWhereUniqueWithoutVideoInput | PlayListVideoUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: PlayListVideoUpdateManyWithWhereWithoutVideoInput | PlayListVideoUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
+  }
+
   export type TagUncheckedUpdateManyWithoutVideosNestedInput = {
     create?: XOR<TagCreateWithoutVideosInput, TagUncheckedCreateWithoutVideosInput> | TagCreateWithoutVideosInput[] | TagUncheckedCreateWithoutVideosInput[]
     connectOrCreate?: TagCreateOrConnectWithoutVideosInput | TagCreateOrConnectWithoutVideosInput[]
@@ -10346,6 +13231,20 @@ export namespace Prisma {
     update?: CommentUpdateWithWhereUniqueWithoutVideoInput | CommentUpdateWithWhereUniqueWithoutVideoInput[]
     updateMany?: CommentUpdateManyWithWhereWithoutVideoInput | CommentUpdateManyWithWhereWithoutVideoInput[]
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput = {
+    create?: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput> | PlayListVideoCreateWithoutVideoInput[] | PlayListVideoUncheckedCreateWithoutVideoInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutVideoInput | PlayListVideoCreateOrConnectWithoutVideoInput[]
+    upsert?: PlayListVideoUpsertWithWhereUniqueWithoutVideoInput | PlayListVideoUpsertWithWhereUniqueWithoutVideoInput[]
+    createMany?: PlayListVideoCreateManyVideoInputEnvelope
+    set?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    disconnect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    delete?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    update?: PlayListVideoUpdateWithWhereUniqueWithoutVideoInput | PlayListVideoUpdateWithWhereUniqueWithoutVideoInput[]
+    updateMany?: PlayListVideoUpdateManyWithWhereWithoutVideoInput | PlayListVideoUpdateManyWithWhereWithoutVideoInput[]
+    deleteMany?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
   }
 
   export type VideoCreateNestedManyWithoutTagsInput = {
@@ -10496,6 +13395,92 @@ export namespace Prisma {
     upsert?: VideoUpsertWithoutCommentsInput
     connect?: VideoWhereUniqueInput
     update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutCommentsInput, VideoUpdateWithoutCommentsInput>, VideoUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserCreateNestedOneWithoutPlaylistInput = {
+    create?: XOR<UserCreateWithoutPlaylistInput, UserUncheckedCreateWithoutPlaylistInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlaylistInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PlayListVideoCreateNestedManyWithoutPlaylistInput = {
+    create?: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput> | PlayListVideoCreateWithoutPlaylistInput[] | PlayListVideoUncheckedCreateWithoutPlaylistInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutPlaylistInput | PlayListVideoCreateOrConnectWithoutPlaylistInput[]
+    createMany?: PlayListVideoCreateManyPlaylistInputEnvelope
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+  }
+
+  export type PlayListVideoUncheckedCreateNestedManyWithoutPlaylistInput = {
+    create?: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput> | PlayListVideoCreateWithoutPlaylistInput[] | PlayListVideoUncheckedCreateWithoutPlaylistInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutPlaylistInput | PlayListVideoCreateOrConnectWithoutPlaylistInput[]
+    createMany?: PlayListVideoCreateManyPlaylistInputEnvelope
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneWithoutPlaylistNestedInput = {
+    create?: XOR<UserCreateWithoutPlaylistInput, UserUncheckedCreateWithoutPlaylistInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPlaylistInput
+    upsert?: UserUpsertWithoutPlaylistInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPlaylistInput, UserUpdateWithoutPlaylistInput>, UserUncheckedUpdateWithoutPlaylistInput>
+  }
+
+  export type PlayListVideoUpdateManyWithoutPlaylistNestedInput = {
+    create?: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput> | PlayListVideoCreateWithoutPlaylistInput[] | PlayListVideoUncheckedCreateWithoutPlaylistInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutPlaylistInput | PlayListVideoCreateOrConnectWithoutPlaylistInput[]
+    upsert?: PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput | PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput[]
+    createMany?: PlayListVideoCreateManyPlaylistInputEnvelope
+    set?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    disconnect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    delete?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    update?: PlayListVideoUpdateWithWhereUniqueWithoutPlaylistInput | PlayListVideoUpdateWithWhereUniqueWithoutPlaylistInput[]
+    updateMany?: PlayListVideoUpdateManyWithWhereWithoutPlaylistInput | PlayListVideoUpdateManyWithWhereWithoutPlaylistInput[]
+    deleteMany?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
+  }
+
+  export type PlayListVideoUncheckedUpdateManyWithoutPlaylistNestedInput = {
+    create?: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput> | PlayListVideoCreateWithoutPlaylistInput[] | PlayListVideoUncheckedCreateWithoutPlaylistInput[]
+    connectOrCreate?: PlayListVideoCreateOrConnectWithoutPlaylistInput | PlayListVideoCreateOrConnectWithoutPlaylistInput[]
+    upsert?: PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput | PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput[]
+    createMany?: PlayListVideoCreateManyPlaylistInputEnvelope
+    set?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    disconnect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    delete?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    connect?: PlayListVideoWhereUniqueInput | PlayListVideoWhereUniqueInput[]
+    update?: PlayListVideoUpdateWithWhereUniqueWithoutPlaylistInput | PlayListVideoUpdateWithWhereUniqueWithoutPlaylistInput[]
+    updateMany?: PlayListVideoUpdateManyWithWhereWithoutPlaylistInput | PlayListVideoUpdateManyWithWhereWithoutPlaylistInput[]
+    deleteMany?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
+  }
+
+  export type PlayListCreateNestedOneWithoutPlayListVideosInput = {
+    create?: XOR<PlayListCreateWithoutPlayListVideosInput, PlayListUncheckedCreateWithoutPlayListVideosInput>
+    connectOrCreate?: PlayListCreateOrConnectWithoutPlayListVideosInput
+    connect?: PlayListWhereUniqueInput
+  }
+
+  export type VideoCreateNestedOneWithoutPlaylistVideosInput = {
+    create?: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutPlaylistVideosInput
+    connect?: VideoWhereUniqueInput
+  }
+
+  export type PlayListUpdateOneRequiredWithoutPlayListVideosNestedInput = {
+    create?: XOR<PlayListCreateWithoutPlayListVideosInput, PlayListUncheckedCreateWithoutPlayListVideosInput>
+    connectOrCreate?: PlayListCreateOrConnectWithoutPlayListVideosInput
+    upsert?: PlayListUpsertWithoutPlayListVideosInput
+    connect?: PlayListWhereUniqueInput
+    update?: XOR<XOR<PlayListUpdateToOneWithWhereWithoutPlayListVideosInput, PlayListUpdateWithoutPlayListVideosInput>, PlayListUncheckedUpdateWithoutPlayListVideosInput>
+  }
+
+  export type VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput = {
+    create?: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutPlaylistVideosInput
+    upsert?: VideoUpsertWithoutPlaylistVideosInput
+    connect?: VideoWhereUniqueInput
+    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutPlaylistVideosInput, VideoUpdateWithoutPlaylistVideosInput>, VideoUncheckedUpdateWithoutPlaylistVideosInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10683,12 +13668,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutAuthorInput = {
@@ -10704,10 +13691,12 @@ export namespace Prisma {
     createdAt?: Date | string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutAuthorInput = {
@@ -10731,12 +13720,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutFavoritedByInput = {
@@ -10753,9 +13744,11 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutFavoritedByInput = {
@@ -10774,12 +13767,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutLikedByInput = {
@@ -10796,9 +13791,11 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutLikedByInput = {
@@ -10850,6 +13847,7 @@ export namespace Prisma {
     likesVideo?: VideoCreateNestedManyWithoutLikedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     following?: UserCreateNestedManyWithoutFollowersInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -10870,6 +13868,7 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedCreateNestedManyWithoutLikedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -10895,6 +13894,7 @@ export namespace Prisma {
     likesVideo?: VideoCreateNestedManyWithoutLikedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -10915,11 +13915,38 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedCreateNestedManyWithoutLikedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutFollowingInput, UserUncheckedCreateWithoutFollowingInput>
+  }
+
+  export type PlayListCreateWithoutUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playListVideos?: PlayListVideoCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlayListUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    playListVideos?: PlayListVideoUncheckedCreateNestedManyWithoutPlaylistInput
+  }
+
+  export type PlayListCreateOrConnectWithoutUserInput = {
+    where: PlayListWhereUniqueInput
+    create: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlayListCreateManyUserInputEnvelope = {
+    data: PlayListCreateManyUserInput | PlayListCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type VideoUpsertWithWhereUniqueWithoutAuthorInput = {
@@ -10955,6 +13982,7 @@ export namespace Prisma {
     userId?: StringFilter<"Video"> | string
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
+    views?: IntFilter<"Video"> | number
   }
 
   export type VideoUpsertWithWhereUniqueWithoutFavoritedByInput = {
@@ -11067,6 +14095,33 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutFollowingInput>
   }
 
+  export type PlayListUpsertWithWhereUniqueWithoutUserInput = {
+    where: PlayListWhereUniqueInput
+    update: XOR<PlayListUpdateWithoutUserInput, PlayListUncheckedUpdateWithoutUserInput>
+    create: XOR<PlayListCreateWithoutUserInput, PlayListUncheckedCreateWithoutUserInput>
+  }
+
+  export type PlayListUpdateWithWhereUniqueWithoutUserInput = {
+    where: PlayListWhereUniqueInput
+    data: XOR<PlayListUpdateWithoutUserInput, PlayListUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PlayListUpdateManyWithWhereWithoutUserInput = {
+    where: PlayListScalarWhereInput
+    data: XOR<PlayListUpdateManyMutationInput, PlayListUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PlayListScalarWhereInput = {
+    AND?: PlayListScalarWhereInput | PlayListScalarWhereInput[]
+    OR?: PlayListScalarWhereInput[]
+    NOT?: PlayListScalarWhereInput | PlayListScalarWhereInput[]
+    id?: StringFilter<"PlayList"> | string
+    title?: StringFilter<"PlayList"> | string
+    createdAt?: DateTimeFilter<"PlayList"> | Date | string
+    updatedAt?: DateTimeFilter<"PlayList"> | Date | string
+    userId?: StringNullableFilter<"PlayList"> | string | null
+  }
+
   export type UserCreateWithoutVideosInput = {
     id?: string
     nickname: string
@@ -11085,6 +14140,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutAuthorInput
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVideosInput = {
@@ -11105,6 +14161,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVideosInput = {
@@ -11181,6 +14238,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutAuthorInput
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteVideosInput = {
@@ -11201,6 +14259,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteVideosInput = {
@@ -11226,6 +14285,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutAuthorInput
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutLikesVideoInput = {
@@ -11246,6 +14306,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutLikesVideoInput = {
@@ -11279,6 +14340,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PlayListVideoCreateWithoutVideoInput = {
+    id?: string
+    addedAt?: Date | string
+    playlist: PlayListCreateNestedOneWithoutPlayListVideosInput
+  }
+
+  export type PlayListVideoUncheckedCreateWithoutVideoInput = {
+    id?: string
+    playlistId: string
+    addedAt?: Date | string
+  }
+
+  export type PlayListVideoCreateOrConnectWithoutVideoInput = {
+    where: PlayListVideoWhereUniqueInput
+    create: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput>
+  }
+
+  export type PlayListVideoCreateManyVideoInputEnvelope = {
+    data: PlayListVideoCreateManyVideoInput | PlayListVideoCreateManyVideoInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutVideosInput = {
     update: XOR<UserUpdateWithoutVideosInput, UserUncheckedUpdateWithoutVideosInput>
     create: XOR<UserCreateWithoutVideosInput, UserUncheckedCreateWithoutVideosInput>
@@ -11308,6 +14391,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVideosInput = {
@@ -11328,6 +14412,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CategoryUpsertWithoutVideosInput = {
@@ -11449,6 +14534,32 @@ export namespace Prisma {
     data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutVideoInput>
   }
 
+  export type PlayListVideoUpsertWithWhereUniqueWithoutVideoInput = {
+    where: PlayListVideoWhereUniqueInput
+    update: XOR<PlayListVideoUpdateWithoutVideoInput, PlayListVideoUncheckedUpdateWithoutVideoInput>
+    create: XOR<PlayListVideoCreateWithoutVideoInput, PlayListVideoUncheckedCreateWithoutVideoInput>
+  }
+
+  export type PlayListVideoUpdateWithWhereUniqueWithoutVideoInput = {
+    where: PlayListVideoWhereUniqueInput
+    data: XOR<PlayListVideoUpdateWithoutVideoInput, PlayListVideoUncheckedUpdateWithoutVideoInput>
+  }
+
+  export type PlayListVideoUpdateManyWithWhereWithoutVideoInput = {
+    where: PlayListVideoScalarWhereInput
+    data: XOR<PlayListVideoUpdateManyMutationInput, PlayListVideoUncheckedUpdateManyWithoutVideoInput>
+  }
+
+  export type PlayListVideoScalarWhereInput = {
+    AND?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
+    OR?: PlayListVideoScalarWhereInput[]
+    NOT?: PlayListVideoScalarWhereInput | PlayListVideoScalarWhereInput[]
+    id?: StringFilter<"PlayListVideo"> | string
+    playlistId?: StringFilter<"PlayListVideo"> | string
+    videoId?: StringFilter<"PlayListVideo"> | string
+    addedAt?: DateTimeFilter<"PlayListVideo"> | Date | string
+  }
+
   export type VideoCreateWithoutTagsInput = {
     id?: string
     originalName: string
@@ -11460,12 +14571,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutTagsInput = {
@@ -11482,9 +14595,11 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutTagsInput = {
@@ -11519,12 +14634,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutCategoryInput = {
@@ -11540,10 +14657,12 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutCategoryInput = {
@@ -11583,12 +14702,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
     comments?: CommentCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutAgeRatingInput = {
@@ -11604,10 +14725,12 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     categoryId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutAgeRatingInput = {
@@ -11654,6 +14777,7 @@ export namespace Prisma {
     likesVideo?: VideoCreateNestedManyWithoutLikedByInput
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -11674,6 +14798,7 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedCreateNestedManyWithoutLikedByInput
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -11692,12 +14817,14 @@ export namespace Prisma {
     description?: string | null
     isPublic?: boolean
     createdAt?: Date | string
+    views?: number
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
     favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserCreateNestedManyWithoutLikesVideoInput
+    playlistVideos?: PlayListVideoCreateNestedManyWithoutVideoInput
   }
 
   export type VideoUncheckedCreateWithoutCommentsInput = {
@@ -11714,9 +14841,11 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
+    playlistVideos?: PlayListVideoUncheckedCreateNestedManyWithoutVideoInput
   }
 
   export type VideoCreateOrConnectWithoutCommentsInput = {
@@ -11753,6 +14882,7 @@ export namespace Prisma {
     likesVideo?: VideoUpdateManyWithoutLikedByNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -11773,6 +14903,7 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedUpdateManyWithoutLikedByNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type VideoUpsertWithoutCommentsInput = {
@@ -11797,12 +14928,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutCommentsInput = {
@@ -11819,9 +14952,297 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
+  }
+
+  export type UserCreateWithoutPlaylistInput = {
+    id?: string
+    nickname: string
+    email: string
+    backupEmail?: string | null
+    passwordHash: string
+    about?: string | null
+    birthDate?: string | null
+    passwordChangeAt?: Date | string | null
+    avatarFileName?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    videos?: VideoCreateNestedManyWithoutAuthorInput
+    favoriteVideos?: VideoCreateNestedManyWithoutFavoritedByInput
+    likesVideo?: VideoCreateNestedManyWithoutLikedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    following?: UserCreateNestedManyWithoutFollowersInput
+    followers?: UserCreateNestedManyWithoutFollowingInput
+  }
+
+  export type UserUncheckedCreateWithoutPlaylistInput = {
+    id?: string
+    nickname: string
+    email: string
+    backupEmail?: string | null
+    passwordHash: string
+    about?: string | null
+    birthDate?: string | null
+    passwordChangeAt?: Date | string | null
+    avatarFileName?: string | null
+    avatarUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
+    favoriteVideos?: VideoUncheckedCreateNestedManyWithoutFavoritedByInput
+    likesVideo?: VideoUncheckedCreateNestedManyWithoutLikedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    following?: UserUncheckedCreateNestedManyWithoutFollowersInput
+    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
+  }
+
+  export type UserCreateOrConnectWithoutPlaylistInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPlaylistInput, UserUncheckedCreateWithoutPlaylistInput>
+  }
+
+  export type PlayListVideoCreateWithoutPlaylistInput = {
+    id?: string
+    addedAt?: Date | string
+    video: VideoCreateNestedOneWithoutPlaylistVideosInput
+  }
+
+  export type PlayListVideoUncheckedCreateWithoutPlaylistInput = {
+    id?: string
+    videoId: string
+    addedAt?: Date | string
+  }
+
+  export type PlayListVideoCreateOrConnectWithoutPlaylistInput = {
+    where: PlayListVideoWhereUniqueInput
+    create: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput>
+  }
+
+  export type PlayListVideoCreateManyPlaylistInputEnvelope = {
+    data: PlayListVideoCreateManyPlaylistInput | PlayListVideoCreateManyPlaylistInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutPlaylistInput = {
+    update: XOR<UserUpdateWithoutPlaylistInput, UserUncheckedUpdateWithoutPlaylistInput>
+    create: XOR<UserCreateWithoutPlaylistInput, UserUncheckedCreateWithoutPlaylistInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPlaylistInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPlaylistInput, UserUncheckedUpdateWithoutPlaylistInput>
+  }
+
+  export type UserUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    backupEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    about?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videos?: VideoUpdateManyWithoutAuthorNestedInput
+    favoriteVideos?: VideoUpdateManyWithoutFavoritedByNestedInput
+    likesVideo?: VideoUpdateManyWithoutLikedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    following?: UserUpdateManyWithoutFollowersNestedInput
+    followers?: UserUpdateManyWithoutFollowingNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nickname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    backupEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    about?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
+    favoriteVideos?: VideoUncheckedUpdateManyWithoutFavoritedByNestedInput
+    likesVideo?: VideoUncheckedUpdateManyWithoutLikedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
+    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+  }
+
+  export type PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput = {
+    where: PlayListVideoWhereUniqueInput
+    update: XOR<PlayListVideoUpdateWithoutPlaylistInput, PlayListVideoUncheckedUpdateWithoutPlaylistInput>
+    create: XOR<PlayListVideoCreateWithoutPlaylistInput, PlayListVideoUncheckedCreateWithoutPlaylistInput>
+  }
+
+  export type PlayListVideoUpdateWithWhereUniqueWithoutPlaylistInput = {
+    where: PlayListVideoWhereUniqueInput
+    data: XOR<PlayListVideoUpdateWithoutPlaylistInput, PlayListVideoUncheckedUpdateWithoutPlaylistInput>
+  }
+
+  export type PlayListVideoUpdateManyWithWhereWithoutPlaylistInput = {
+    where: PlayListVideoScalarWhereInput
+    data: XOR<PlayListVideoUpdateManyMutationInput, PlayListVideoUncheckedUpdateManyWithoutPlaylistInput>
+  }
+
+  export type PlayListCreateWithoutPlayListVideosInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutPlaylistInput
+  }
+
+  export type PlayListUncheckedCreateWithoutPlayListVideosInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+  }
+
+  export type PlayListCreateOrConnectWithoutPlayListVideosInput = {
+    where: PlayListWhereUniqueInput
+    create: XOR<PlayListCreateWithoutPlayListVideosInput, PlayListUncheckedCreateWithoutPlayListVideosInput>
+  }
+
+  export type VideoCreateWithoutPlaylistVideosInput = {
+    id?: string
+    originalName: string
+    url: string
+    name: string
+    mimetype: string
+    size: number
+    title: string
+    description?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    views?: number
+    author: UserCreateNestedOneWithoutVideosInput
+    category?: CategoryCreateNestedOneWithoutVideosInput
+    ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
+    tags?: TagCreateNestedManyWithoutVideosInput
+    favoritedBy?: UserCreateNestedManyWithoutFavoriteVideosInput
+    likedBy?: UserCreateNestedManyWithoutLikesVideoInput
+    comments?: CommentCreateNestedManyWithoutVideoInput
+  }
+
+  export type VideoUncheckedCreateWithoutPlaylistVideosInput = {
+    id?: string
+    originalName: string
+    url: string
+    name: string
+    mimetype: string
+    size: number
+    title: string
+    description?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    userId: string
+    categoryId?: string | null
+    ageRatingId?: string | null
+    views?: number
+    tags?: TagUncheckedCreateNestedManyWithoutVideosInput
+    favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
+    likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
+    comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
+  }
+
+  export type VideoCreateOrConnectWithoutPlaylistVideosInput = {
+    where: VideoWhereUniqueInput
+    create: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
+  }
+
+  export type PlayListUpsertWithoutPlayListVideosInput = {
+    update: XOR<PlayListUpdateWithoutPlayListVideosInput, PlayListUncheckedUpdateWithoutPlayListVideosInput>
+    create: XOR<PlayListCreateWithoutPlayListVideosInput, PlayListUncheckedCreateWithoutPlayListVideosInput>
+    where?: PlayListWhereInput
+  }
+
+  export type PlayListUpdateToOneWithWhereWithoutPlayListVideosInput = {
+    where?: PlayListWhereInput
+    data: XOR<PlayListUpdateWithoutPlayListVideosInput, PlayListUncheckedUpdateWithoutPlayListVideosInput>
+  }
+
+  export type PlayListUpdateWithoutPlayListVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutPlaylistNestedInput
+  }
+
+  export type PlayListUncheckedUpdateWithoutPlayListVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type VideoUpsertWithoutPlaylistVideosInput = {
+    update: XOR<VideoUpdateWithoutPlaylistVideosInput, VideoUncheckedUpdateWithoutPlaylistVideosInput>
+    create: XOR<VideoCreateWithoutPlaylistVideosInput, VideoUncheckedCreateWithoutPlaylistVideosInput>
+    where?: VideoWhereInput
+  }
+
+  export type VideoUpdateToOneWithWhereWithoutPlaylistVideosInput = {
+    where?: VideoWhereInput
+    data: XOR<VideoUpdateWithoutPlaylistVideosInput, VideoUncheckedUpdateWithoutPlaylistVideosInput>
+  }
+
+  export type VideoUpdateWithoutPlaylistVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mimetype?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
+    author?: UserUpdateOneRequiredWithoutVideosNestedInput
+    category?: CategoryUpdateOneWithoutVideosNestedInput
+    ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
+    tags?: TagUpdateManyWithoutVideosNestedInput
+    favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
+    likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
+    comments?: CommentUpdateManyWithoutVideoNestedInput
+  }
+
+  export type VideoUncheckedUpdateWithoutPlaylistVideosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    mimetype?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
+    tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
+    favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
+    likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoCreateManyAuthorInput = {
@@ -11837,6 +15258,7 @@ export namespace Prisma {
     createdAt?: Date | string
     categoryId?: string | null
     ageRatingId?: string | null
+    views?: number
   }
 
   export type CommentCreateManyAuthorInput = {
@@ -11845,6 +15267,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     videoId: string
+  }
+
+  export type PlayListCreateManyUserInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type VideoUpdateWithoutAuthorInput = {
@@ -11858,12 +15287,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutAuthorInput = {
@@ -11879,10 +15310,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutAuthorInput = {
@@ -11898,6 +15331,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type VideoUpdateWithoutFavoritedByInput = {
@@ -11911,12 +15345,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutFavoritedByInput = {
@@ -11933,9 +15369,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutFavoritedByInput = {
@@ -11952,6 +15390,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type VideoUpdateWithoutLikedByInput = {
@@ -11965,12 +15404,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutLikedByInput = {
@@ -11987,9 +15428,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutLikedByInput = {
@@ -12006,6 +15449,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type CommentUpdateWithoutAuthorInput = {
@@ -12050,6 +15494,7 @@ export namespace Prisma {
     likesVideo?: VideoUpdateManyWithoutLikedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -12070,6 +15515,7 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedUpdateManyWithoutLikedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowersInput = {
@@ -12105,6 +15551,7 @@ export namespace Prisma {
     likesVideo?: VideoUpdateManyWithoutLikedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -12125,6 +15572,7 @@ export namespace Prisma {
     likesVideo?: VideoUncheckedUpdateManyWithoutLikedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowingInput = {
@@ -12142,12 +15590,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PlayListUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playListVideos?: PlayListVideoUpdateManyWithoutPlaylistNestedInput
+  }
+
+  export type PlayListUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playListVideos?: PlayListVideoUncheckedUpdateManyWithoutPlaylistNestedInput
+  }
+
+  export type PlayListUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommentCreateManyVideoInput = {
     id?: string
     text: string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+  }
+
+  export type PlayListVideoCreateManyVideoInput = {
+    id?: string
+    playlistId: string
+    addedAt?: Date | string
   }
 
   export type TagUpdateWithoutVideosInput = {
@@ -12186,6 +15663,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteVideosInput = {
@@ -12206,6 +15684,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteVideosInput = {
@@ -12241,6 +15720,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesVideoInput = {
@@ -12261,6 +15741,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
+    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutLikesVideoInput = {
@@ -12302,6 +15783,24 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlayListVideoUpdateWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    playlist?: PlayListUpdateOneRequiredWithoutPlayListVideosNestedInput
+  }
+
+  export type PlayListVideoUncheckedUpdateWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayListVideoUncheckedUpdateManyWithoutVideoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    playlistId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type VideoUpdateWithoutTagsInput = {
     id?: StringFieldUpdateOperationsInput | string
     originalName?: StringFieldUpdateOperationsInput | string
@@ -12313,12 +15812,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutTagsInput = {
@@ -12335,9 +15836,11 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutTagsInput = {
@@ -12354,6 +15857,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type VideoCreateManyCategoryInput = {
@@ -12369,6 +15873,7 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     ageRatingId?: string | null
+    views?: number
   }
 
   export type VideoUpdateWithoutCategoryInput = {
@@ -12382,12 +15887,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutCategoryInput = {
@@ -12403,10 +15910,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutCategoryInput = {
@@ -12422,6 +15931,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
   }
 
   export type VideoCreateManyAgeRatingInput = {
@@ -12437,6 +15947,7 @@ export namespace Prisma {
     createdAt?: Date | string
     userId: string
     categoryId?: string | null
+    views?: number
   }
 
   export type VideoUpdateWithoutAgeRatingInput = {
@@ -12450,12 +15961,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    views?: IntFieldUpdateOperationsInput | number
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateWithoutAgeRatingInput = {
@@ -12471,10 +15984,12 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
+    playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
   }
 
   export type VideoUncheckedUpdateManyWithoutAgeRatingInput = {
@@ -12490,6 +16005,31 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PlayListVideoCreateManyPlaylistInput = {
+    id?: string
+    videoId: string
+    addedAt?: Date | string
+  }
+
+  export type PlayListVideoUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    video?: VideoUpdateOneRequiredWithoutPlaylistVideosNestedInput
+  }
+
+  export type PlayListVideoUncheckedUpdateWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    videoId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PlayListVideoUncheckedUpdateManyWithoutPlaylistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    videoId?: StringFieldUpdateOperationsInput | string
+    addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
