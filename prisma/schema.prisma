@@ -8,25 +8,27 @@ datasource db {
 }
 
 model User {
-  id               String     @id @default(uuid())
-  nickname         String     @unique
-  email            String     @unique
-  backupEmail      String?    @unique @map("backup_email")
-  passwordHash     String
-  about            String?
-  birthDate        String?    @map("birth_date")
-  passwordChangeAt DateTime?  @default(now()) @map("password_change_at")
-  avatarFileName   String?    @map("avatar_file_name")
-  avatarUrl        String?    @map("avatar_url")
-  createdAt        DateTime   @default(now()) @map("created_at")
-  updatedAt        DateTime   @updatedAt @map("updated_at")
-  videos           Video[]
-  favoriteVideos   Video[]    @relation("FavoriteVideos")
-  likesVideo       Video[]    @relation("LikesVideo")
-  comments         Comment[]
-  following        User[]     @relation("UserFollowing")
-  followers        User[]     @relation("UserFollowing")
-  playlist         PlayList[]
+  id                 String      @id @default(uuid())
+  nickname           String      @unique
+  email              String      @unique
+  backupEmail        String?     @unique @map("backup_email")
+  passwordHash       String
+  about              String?
+  birthDate          String?     @map("birth_date")
+  passwordChangeAt   DateTime?   @default(now()) @map("password_change_at")
+  avatarFileName     String?     @map("avatar_file_name")
+  avatarUrl          String?     @map("avatar_url")
+  createdAt          DateTime    @default(now()) @map("created_at")
+  updatedAt          DateTime    @updatedAt @map("updated_at")
+  videos             Video[]
+  favoriteVideos     Video[]     @relation("FavoriteVideos")
+  likesVideo         Video[]     @relation("LikesVideo")
+  comments           Comment[]
+  following          User[]      @relation("UserFollowing")
+  followers          User[]      @relation("UserFollowing")
+  playlist           PlayList[]
+  reportedComplaints Complaint[] @relation("ReporterComplaints")
+  reviewedComplaints Complaint[] @relation("ModeratorComplaints")
 
   @@index([nickname])
 }
@@ -36,6 +38,7 @@ model Video {
   originalName   String          @map("original_name")
   url            String
   name           String
+  thumbnailUrl   String?         @map("thumbnail_url")
   mimetype       String
   size           Int
   title          String
@@ -53,6 +56,7 @@ model Video {
   likedBy        User[]          @relation("LikesVideo")
   views          Int             @default(0)
   comments       Comment[]
+  complaints     Complaint[]     @relation("VideoComplaints")
   playlistVideos PlayListVideo[]
 }
 
@@ -84,7 +88,7 @@ model Comment {
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [userId], references: [id])
   userId    String
-  video     Video    @relation(fields: [videoId], references: [id])
+  video     Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
   videoId   String
 
   @@index([videoId])
@@ -112,4 +116,28 @@ model PlayListVideo {
   @@unique([playlistId, videoId])
   @@index([playlistId])
   @@index([videoId])
+}
+
+model Complaint {
+  id           String          @id @default(uuid())
+  reporter     User            @relation("ReporterComplaints", fields: [reporterId], references: [id])
+  reporterId   String          @map("reporter_id")
+  video        Video           @relation("VideoComplaints", fields: [videoId], references: [id])
+  videoId      String          @map("video_id")
+  reason       String
+  blockReason  String?
+  status       ComplaintStatus @relation("ComplaintStatusComplaints", fields: [statusId], references: [id])
+  statusId     String          @map("status_id")
+  reviewedBy   User?           @relation("ModeratorComplaints", fields: [reviewedById], references: [id])
+  reviewedById String?         @map("reviewed_by_id")
+  createdAt    DateTime        @default(now()) @map("created_at")
+  reviewedAt   DateTime?       @map("reviewed_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+}
+
+model ComplaintStatus {
+  id         String      @id @default(uuid())
+  code       String      @unique
+  name       String
+  complaints Complaint[] @relation("ComplaintStatusComplaints")
 }

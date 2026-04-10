@@ -140,6 +140,7 @@ exports.Prisma.VideoScalarFieldEnum = {
   originalName: 'originalName',
   url: 'url',
   name: 'name',
+  thumbnailUrl: 'thumbnailUrl',
   mimetype: 'mimetype',
   size: 'size',
   title: 'title',
@@ -194,6 +195,25 @@ exports.Prisma.PlayListVideoScalarFieldEnum = {
   addedAt: 'addedAt'
 };
 
+exports.Prisma.ComplaintScalarFieldEnum = {
+  id: 'id',
+  reporterId: 'reporterId',
+  videoId: 'videoId',
+  reason: 'reason',
+  blockReason: 'blockReason',
+  statusId: 'statusId',
+  reviewedById: 'reviewedById',
+  createdAt: 'createdAt',
+  reviewedAt: 'reviewedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ComplaintStatusScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -218,7 +238,9 @@ exports.Prisma.ModelName = {
   AgeRating: 'AgeRating',
   Comment: 'Comment',
   PlayList: 'PlayList',
-  PlayListVideo: 'PlayListVideo'
+  PlayListVideo: 'PlayListVideo',
+  Complaint: 'Complaint',
+  ComplaintStatus: 'ComplaintStatus'
 };
 
 /**

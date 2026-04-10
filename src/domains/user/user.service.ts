@@ -169,10 +169,7 @@ export class UserService {
     });
   }
 
-  async updateAvatar(
-    userId: string,
-    file: Express.Multer.File,
-  ) {
+  async updateAvatar(userId: string, file: Express.Multer.File) {
     await this.getById(userId);
     const uploaded = await this.uploadsService.uploadFile(file, ['avatars']);
     return this.prisma.user.update({
@@ -324,5 +321,55 @@ export class UserService {
       avatarUrl: user.avatarUrl,
       followersCount: user._count.followers,
     }));
+  }
+
+  async getFollowingUsers(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        following: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarUrl: true,
+            _count: {
+              select: {
+                followers: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user.following;
+  }
+  async getUserVideos(authorId: string) {
+    await this.getById(authorId);
+
+    return this.prisma.video.findMany({
+      where: {
+        userId: authorId,
+        isPublic: true,
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+            avatarUrl: true,
+          },
+        },
+        category: true,
+        ageRating: true,
+        tags: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 }

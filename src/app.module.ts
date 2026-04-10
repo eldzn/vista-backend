@@ -10,6 +10,7 @@ import { VideoModule } from './domains/videos/video.module';
 import { CommentsModule } from './domains/comments/comment.module';
 import { PlaylistsModule } from './domains/playlists/playlists.module';
 import { UploadsModule } from './domains/uploads/uploads.module';
+import { ComplaintModule } from './domains/complaints/complaint.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UploadsModule } from './domains/uploads/uploads.module';
     CommentsModule,
     UploadsModule,
     PlaylistsModule,
+    ComplaintModule
   ],
 })
 export class AppModule {}

@@ -94,7 +94,7 @@ export class VideoService {
     file: Express.Multer.File,
     dto: CreateVideoDto,
   ) {
-    const uploadedFile = await this.uploadsService.uploadFile(file, ['videos'])
+    const uploadedFile = await this.uploadsService.uploadFile(file, ['videos']);
     return this.prisma.$transaction(async (tx) => {
       await this.userService.getById(userId, tx);
       const category = await this.getCategoryById(dto.categoryId, tx);
@@ -184,7 +184,11 @@ export class VideoService {
       throw new NotFoundException('Video not found!');
     }
 
-    const filePath = path.join(process.cwd(), 'uploads/videos', video.originalName);
+    const filePath = path.join(
+      process.cwd(),
+      'uploads/videos',
+      video.originalName,
+    );
 
     if (!fs.existsSync(filePath)) {
       throw new NotFoundException('File not found on disk');
@@ -229,7 +233,7 @@ export class VideoService {
             id: true,
             nickname: true,
             avatarFileName: true,
-            avatarUrl: true
+            avatarUrl: true,
           },
         },
         category: true,
@@ -254,7 +258,14 @@ export class VideoService {
         },
       },
       include: {
-        author: { select: { id: true, nickname: true, avatarFileName: true, avatarUrl: true } },
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+            avatarUrl: true,
+          },
+        },
         category: true,
         ageRating: true,
         tags: true,
@@ -271,7 +282,14 @@ export class VideoService {
         isPublic: true,
       },
       include: {
-        author: { select: { id: true, nickname: true, avatarFileName: true, avatarUrl: true } },
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarFileName: true,
+            avatarUrl: true,
+          },
+        },
         category: true,
         ageRating: true,
         tags: true,
@@ -449,5 +467,26 @@ export class VideoService {
       },
     });
     return !!favorite;
+  }
+
+  async deleteVideo(userId: string, videoId: string) {
+    await this.userService.getById(userId);
+
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+      select: { id: true, userId: true },
+    });
+
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+
+    if (video.userId !== userId) {
+      throw new ForbiddenException('You can only delete your own videos');
+    }
+
+    return this.prisma.video.delete({
+      where: { id: videoId },
+    });
   }
 }

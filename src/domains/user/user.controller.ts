@@ -186,4 +186,21 @@ export class UserController {
     const users = await this.userService.getPopularUsers(limitNum);
     return { users };
   }
+
+  @Get('following')
+  @UseGuards(AuthGuard('jwt'))
+  async getFollowingUsers(@Req() req: AuthenticatedRequest) {
+    const userId = req.user?.id;
+    return this.userService.getFollowingUsers(userId);
+  }
+
+  @Get(':id/videos')
+  async getUserVideos(@Param('id') authorId: string) {
+    return this.userService.getUserVideos(authorId);
+  }
+
+  @Get(':id')
+  async getUserById(@Param('id') id: string) {
+    return this.userService.getById(id);
+  }
 }
