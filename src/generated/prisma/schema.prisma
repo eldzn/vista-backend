@@ -28,7 +28,6 @@ model User {
   followers          User[]      @relation("UserFollowing")
   playlist           PlayList[]
   reportedComplaints Complaint[] @relation("ReporterComplaints")
-  reviewedComplaints Complaint[] @relation("ModeratorComplaints")
 
   @@index([nickname])
 }
@@ -119,25 +118,12 @@ model PlayListVideo {
 }
 
 model Complaint {
-  id           String          @id @default(uuid())
-  reporter     User            @relation("ReporterComplaints", fields: [reporterId], references: [id])
-  reporterId   String          @map("reporter_id")
-  video        Video           @relation("VideoComplaints", fields: [videoId], references: [id])
-  videoId      String          @map("video_id")
-  reason       String
-  blockReason  String?
-  status       ComplaintStatus @relation("ComplaintStatusComplaints", fields: [statusId], references: [id])
-  statusId     String          @map("status_id")
-  reviewedBy   User?           @relation("ModeratorComplaints", fields: [reviewedById], references: [id])
-  reviewedById String?         @map("reviewed_by_id")
-  createdAt    DateTime        @default(now()) @map("created_at")
-  reviewedAt   DateTime?       @map("reviewed_at")
-  updatedAt    DateTime        @updatedAt @map("updated_at")
-}
-
-model ComplaintStatus {
-  id         String      @id @default(uuid())
-  code       String      @unique
-  name       String
-  complaints Complaint[] @relation("ComplaintStatusComplaints")
+  id         String   @id @default(uuid())
+  reporter   User     @relation("ReporterComplaints", fields: [reporterId], references: [id])
+  reporterId String   @map("reporter_id")
+  video      Video    @relation("VideoComplaints", fields: [videoId], references: [id])
+  videoId    String   @map("video_id")
+  reason     String
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 }
