@@ -58,11 +58,6 @@ export type PlayListVideo = $Result.DefaultSelection<Prisma.$PlayListVideoPayloa
  * 
  */
 export type Complaint = $Result.DefaultSelection<Prisma.$ComplaintPayload>
-/**
- * Model ComplaintStatus
- * 
- */
-export type ComplaintStatus = $Result.DefaultSelection<Prisma.$ComplaintStatusPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -274,16 +269,6 @@ export class PrismaClient<
     * ```
     */
   get complaint(): Prisma.ComplaintDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.complaintStatus`: Exposes CRUD operations for the **ComplaintStatus** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ComplaintStatuses
-    * const complaintStatuses = await prisma.complaintStatus.findMany()
-    * ```
-    */
-  get complaintStatus(): Prisma.ComplaintStatusDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -726,8 +711,7 @@ export namespace Prisma {
     Comment: 'Comment',
     PlayList: 'PlayList',
     PlayListVideo: 'PlayListVideo',
-    Complaint: 'Complaint',
-    ComplaintStatus: 'ComplaintStatus'
+    Complaint: 'Complaint'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -743,7 +727,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "video" | "tag" | "category" | "ageRating" | "comment" | "playList" | "playListVideo" | "complaint" | "complaintStatus"
+      modelProps: "user" | "video" | "tag" | "category" | "ageRating" | "comment" | "playList" | "playListVideo" | "complaint"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1413,80 +1397,6 @@ export namespace Prisma {
           }
         }
       }
-      ComplaintStatus: {
-        payload: Prisma.$ComplaintStatusPayload<ExtArgs>
-        fields: Prisma.ComplaintStatusFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ComplaintStatusFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ComplaintStatusFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          findFirst: {
-            args: Prisma.ComplaintStatusFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ComplaintStatusFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          findMany: {
-            args: Prisma.ComplaintStatusFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>[]
-          }
-          create: {
-            args: Prisma.ComplaintStatusCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          createMany: {
-            args: Prisma.ComplaintStatusCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ComplaintStatusCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>[]
-          }
-          delete: {
-            args: Prisma.ComplaintStatusDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          update: {
-            args: Prisma.ComplaintStatusUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          deleteMany: {
-            args: Prisma.ComplaintStatusDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ComplaintStatusUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ComplaintStatusUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>[]
-          }
-          upsert: {
-            args: Prisma.ComplaintStatusUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ComplaintStatusPayload>
-          }
-          aggregate: {
-            args: Prisma.ComplaintStatusAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateComplaintStatus>
-          }
-          groupBy: {
-            args: Prisma.ComplaintStatusGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ComplaintStatusGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ComplaintStatusCountArgs<ExtArgs>
-            result: $Utils.Optional<ComplaintStatusCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -1604,7 +1514,6 @@ export namespace Prisma {
     playList?: PlayListOmit
     playListVideo?: PlayListVideoOmit
     complaint?: ComplaintOmit
-    complaintStatus?: ComplaintStatusOmit
   }
 
   /* Types for Logging */
@@ -1693,7 +1602,6 @@ export namespace Prisma {
     followers: number
     playlist: number
     reportedComplaints: number
-    reviewedComplaints: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1705,7 +1613,6 @@ export namespace Prisma {
     followers?: boolean | UserCountOutputTypeCountFollowersArgs
     playlist?: boolean | UserCountOutputTypeCountPlaylistArgs
     reportedComplaints?: boolean | UserCountOutputTypeCountReportedComplaintsArgs
-    reviewedComplaints?: boolean | UserCountOutputTypeCountReviewedComplaintsArgs
   }
 
   // Custom InputTypes
@@ -1772,13 +1679,6 @@ export namespace Prisma {
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountReportedComplaintsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ComplaintWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountReviewedComplaintsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ComplaintWhereInput
   }
 
@@ -1980,37 +1880,6 @@ export namespace Prisma {
    */
   export type PlayListCountOutputTypeCountPlayListVideosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PlayListVideoWhereInput
-  }
-
-
-  /**
-   * Count Type ComplaintStatusCountOutputType
-   */
-
-  export type ComplaintStatusCountOutputType = {
-    complaints: number
-  }
-
-  export type ComplaintStatusCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    complaints?: boolean | ComplaintStatusCountOutputTypeCountComplaintsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ComplaintStatusCountOutputType without action
-   */
-  export type ComplaintStatusCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatusCountOutputType
-     */
-    select?: ComplaintStatusCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ComplaintStatusCountOutputType without action
-   */
-  export type ComplaintStatusCountOutputTypeCountComplaintsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ComplaintWhereInput
   }
 
 
@@ -2246,7 +2115,6 @@ export namespace Prisma {
     followers?: boolean | User$followersArgs<ExtArgs>
     playlist?: boolean | User$playlistArgs<ExtArgs>
     reportedComplaints?: boolean | User$reportedComplaintsArgs<ExtArgs>
-    reviewedComplaints?: boolean | User$reviewedComplaintsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2305,7 +2173,6 @@ export namespace Prisma {
     followers?: boolean | User$followersArgs<ExtArgs>
     playlist?: boolean | User$playlistArgs<ExtArgs>
     reportedComplaints?: boolean | User$reportedComplaintsArgs<ExtArgs>
-    reviewedComplaints?: boolean | User$reviewedComplaintsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2322,7 +2189,6 @@ export namespace Prisma {
       followers: Prisma.$UserPayload<ExtArgs>[]
       playlist: Prisma.$PlayListPayload<ExtArgs>[]
       reportedComplaints: Prisma.$ComplaintPayload<ExtArgs>[]
-      reviewedComplaints: Prisma.$ComplaintPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2739,7 +2605,6 @@ export namespace Prisma {
     followers<T extends User$followersArgs<ExtArgs> = {}>(args?: Subset<T, User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     playlist<T extends User$playlistArgs<ExtArgs> = {}>(args?: Subset<T, User$playlistArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlayListPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reportedComplaints<T extends User$reportedComplaintsArgs<ExtArgs> = {}>(args?: Subset<T, User$reportedComplaintsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    reviewedComplaints<T extends User$reviewedComplaintsArgs<ExtArgs> = {}>(args?: Subset<T, User$reviewedComplaintsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3361,30 +3226,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.reviewedComplaints
-   */
-  export type User$reviewedComplaintsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Complaint
-     */
-    select?: ComplaintSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Complaint
-     */
-    omit?: ComplaintOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintInclude<ExtArgs> | null
-    where?: ComplaintWhereInput
-    orderBy?: ComplaintOrderByWithRelationInput | ComplaintOrderByWithRelationInput[]
-    cursor?: ComplaintWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ComplaintScalarFieldEnum | ComplaintScalarFieldEnum[]
-  }
-
-  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3441,6 +3282,9 @@ export namespace Prisma {
     categoryId: string | null
     ageRatingId: string | null
     views: number | null
+    blockReason: string | null
+    isBlocked: boolean | null
+    blockedAt: Date | null
   }
 
   export type VideoMaxAggregateOutputType = {
@@ -3459,6 +3303,9 @@ export namespace Prisma {
     categoryId: string | null
     ageRatingId: string | null
     views: number | null
+    blockReason: string | null
+    isBlocked: boolean | null
+    blockedAt: Date | null
   }
 
   export type VideoCountAggregateOutputType = {
@@ -3477,6 +3324,9 @@ export namespace Prisma {
     categoryId: number
     ageRatingId: number
     views: number
+    blockReason: number
+    isBlocked: number
+    blockedAt: number
     _all: number
   }
 
@@ -3507,6 +3357,9 @@ export namespace Prisma {
     categoryId?: true
     ageRatingId?: true
     views?: true
+    blockReason?: true
+    isBlocked?: true
+    blockedAt?: true
   }
 
   export type VideoMaxAggregateInputType = {
@@ -3525,6 +3378,9 @@ export namespace Prisma {
     categoryId?: true
     ageRatingId?: true
     views?: true
+    blockReason?: true
+    isBlocked?: true
+    blockedAt?: true
   }
 
   export type VideoCountAggregateInputType = {
@@ -3543,6 +3399,9 @@ export namespace Prisma {
     categoryId?: true
     ageRatingId?: true
     views?: true
+    blockReason?: true
+    isBlocked?: true
+    blockedAt?: true
     _all?: true
   }
 
@@ -3648,6 +3507,9 @@ export namespace Prisma {
     categoryId: string | null
     ageRatingId: string | null
     views: number
+    blockReason: string | null
+    isBlocked: boolean
+    blockedAt: Date | null
     _count: VideoCountAggregateOutputType | null
     _avg: VideoAvgAggregateOutputType | null
     _sum: VideoSumAggregateOutputType | null
@@ -3685,6 +3547,9 @@ export namespace Prisma {
     categoryId?: boolean
     ageRatingId?: boolean
     views?: boolean
+    blockReason?: boolean
+    isBlocked?: boolean
+    blockedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3713,6 +3578,9 @@ export namespace Prisma {
     categoryId?: boolean
     ageRatingId?: boolean
     views?: boolean
+    blockReason?: boolean
+    isBlocked?: boolean
+    blockedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3734,6 +3602,9 @@ export namespace Prisma {
     categoryId?: boolean
     ageRatingId?: boolean
     views?: boolean
+    blockReason?: boolean
+    isBlocked?: boolean
+    blockedAt?: boolean
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
     ageRating?: boolean | Video$ageRatingArgs<ExtArgs>
@@ -3755,9 +3626,12 @@ export namespace Prisma {
     categoryId?: boolean
     ageRatingId?: boolean
     views?: boolean
+    blockReason?: boolean
+    isBlocked?: boolean
+    blockedAt?: boolean
   }
 
-  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "originalName" | "url" | "name" | "thumbnailUrl" | "mimetype" | "size" | "title" | "description" | "isPublic" | "createdAt" | "userId" | "categoryId" | "ageRatingId" | "views", ExtArgs["result"]["video"]>
+  export type VideoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "originalName" | "url" | "name" | "thumbnailUrl" | "mimetype" | "size" | "title" | "description" | "isPublic" | "createdAt" | "userId" | "categoryId" | "ageRatingId" | "views" | "blockReason" | "isBlocked" | "blockedAt", ExtArgs["result"]["video"]>
   export type VideoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | UserDefaultArgs<ExtArgs>
     category?: boolean | Video$categoryArgs<ExtArgs>
@@ -3810,6 +3684,9 @@ export namespace Prisma {
       categoryId: string | null
       ageRatingId: string | null
       views: number
+      blockReason: string | null
+      isBlocked: boolean
+      blockedAt: Date | null
     }, ExtArgs["result"]["video"]>
     composites: {}
   }
@@ -4257,6 +4134,9 @@ export namespace Prisma {
     readonly categoryId: FieldRef<"Video", 'String'>
     readonly ageRatingId: FieldRef<"Video", 'String'>
     readonly views: FieldRef<"Video", 'Int'>
+    readonly blockReason: FieldRef<"Video", 'String'>
+    readonly isBlocked: FieldRef<"Video", 'Boolean'>
+    readonly blockedAt: FieldRef<"Video", 'DateTime'>
   }
     
 
@@ -11240,10 +11120,7 @@ export namespace Prisma {
     videoId: string | null
     reason: string | null
     blockReason: string | null
-    statusId: string | null
-    reviewedById: string | null
     createdAt: Date | null
-    reviewedAt: Date | null
     updatedAt: Date | null
   }
 
@@ -11253,10 +11130,7 @@ export namespace Prisma {
     videoId: string | null
     reason: string | null
     blockReason: string | null
-    statusId: string | null
-    reviewedById: string | null
     createdAt: Date | null
-    reviewedAt: Date | null
     updatedAt: Date | null
   }
 
@@ -11266,10 +11140,7 @@ export namespace Prisma {
     videoId: number
     reason: number
     blockReason: number
-    statusId: number
-    reviewedById: number
     createdAt: number
-    reviewedAt: number
     updatedAt: number
     _all: number
   }
@@ -11281,10 +11152,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
-    statusId?: true
-    reviewedById?: true
     createdAt?: true
-    reviewedAt?: true
     updatedAt?: true
   }
 
@@ -11294,10 +11162,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
-    statusId?: true
-    reviewedById?: true
     createdAt?: true
-    reviewedAt?: true
     updatedAt?: true
   }
 
@@ -11307,10 +11172,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
-    statusId?: true
-    reviewedById?: true
     createdAt?: true
-    reviewedAt?: true
     updatedAt?: true
     _all?: true
   }
@@ -11393,10 +11255,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason: string | null
-    statusId: string
-    reviewedById: string | null
     createdAt: Date
-    reviewedAt: Date | null
     updatedAt: Date
     _count: ComplaintCountAggregateOutputType | null
     _min: ComplaintMinAggregateOutputType | null
@@ -11423,15 +11282,10 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
-    statusId?: boolean
-    reviewedById?: boolean
     createdAt?: boolean
-    reviewedAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }, ExtArgs["result"]["complaint"]>
 
   export type ComplaintSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11440,15 +11294,10 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
-    statusId?: boolean
-    reviewedById?: boolean
     createdAt?: boolean
-    reviewedAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }, ExtArgs["result"]["complaint"]>
 
   export type ComplaintSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11457,15 +11306,10 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
-    statusId?: boolean
-    reviewedById?: boolean
     createdAt?: boolean
-    reviewedAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }, ExtArgs["result"]["complaint"]>
 
   export type ComplaintSelectScalar = {
@@ -11474,31 +11318,22 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
-    statusId?: boolean
-    reviewedById?: boolean
     createdAt?: boolean
-    reviewedAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ComplaintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "videoId" | "reason" | "blockReason" | "statusId" | "reviewedById" | "createdAt" | "reviewedAt" | "updatedAt", ExtArgs["result"]["complaint"]>
+  export type ComplaintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "videoId" | "reason" | "blockReason" | "createdAt" | "updatedAt", ExtArgs["result"]["complaint"]>
   export type ComplaintInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }
   export type ComplaintIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }
   export type ComplaintIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
-    status?: boolean | ComplaintStatusDefaultArgs<ExtArgs>
-    reviewedBy?: boolean | Complaint$reviewedByArgs<ExtArgs>
   }
 
   export type $ComplaintPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11506,8 +11341,6 @@ export namespace Prisma {
     objects: {
       reporter: Prisma.$UserPayload<ExtArgs>
       video: Prisma.$VideoPayload<ExtArgs>
-      status: Prisma.$ComplaintStatusPayload<ExtArgs>
-      reviewedBy: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11515,10 +11348,7 @@ export namespace Prisma {
       videoId: string
       reason: string
       blockReason: string | null
-      statusId: string
-      reviewedById: string | null
       createdAt: Date
-      reviewedAt: Date | null
       updatedAt: Date
     }, ExtArgs["result"]["complaint"]>
     composites: {}
@@ -11916,8 +11746,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reporter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     video<T extends VideoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VideoDefaultArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    status<T extends ComplaintStatusDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplaintStatusDefaultArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    reviewedBy<T extends Complaint$reviewedByArgs<ExtArgs> = {}>(args?: Subset<T, Complaint$reviewedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11952,10 +11780,7 @@ export namespace Prisma {
     readonly videoId: FieldRef<"Complaint", 'String'>
     readonly reason: FieldRef<"Complaint", 'String'>
     readonly blockReason: FieldRef<"Complaint", 'String'>
-    readonly statusId: FieldRef<"Complaint", 'String'>
-    readonly reviewedById: FieldRef<"Complaint", 'String'>
     readonly createdAt: FieldRef<"Complaint", 'DateTime'>
-    readonly reviewedAt: FieldRef<"Complaint", 'DateTime'>
     readonly updatedAt: FieldRef<"Complaint", 'DateTime'>
   }
     
@@ -12353,25 +12178,6 @@ export namespace Prisma {
   }
 
   /**
-   * Complaint.reviewedBy
-   */
-  export type Complaint$reviewedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
    * Complaint without action
    */
   export type ComplaintDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12387,1050 +12193,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ComplaintInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model ComplaintStatus
-   */
-
-  export type AggregateComplaintStatus = {
-    _count: ComplaintStatusCountAggregateOutputType | null
-    _min: ComplaintStatusMinAggregateOutputType | null
-    _max: ComplaintStatusMaxAggregateOutputType | null
-  }
-
-  export type ComplaintStatusMinAggregateOutputType = {
-    id: string | null
-    code: string | null
-    name: string | null
-  }
-
-  export type ComplaintStatusMaxAggregateOutputType = {
-    id: string | null
-    code: string | null
-    name: string | null
-  }
-
-  export type ComplaintStatusCountAggregateOutputType = {
-    id: number
-    code: number
-    name: number
-    _all: number
-  }
-
-
-  export type ComplaintStatusMinAggregateInputType = {
-    id?: true
-    code?: true
-    name?: true
-  }
-
-  export type ComplaintStatusMaxAggregateInputType = {
-    id?: true
-    code?: true
-    name?: true
-  }
-
-  export type ComplaintStatusCountAggregateInputType = {
-    id?: true
-    code?: true
-    name?: true
-    _all?: true
-  }
-
-  export type ComplaintStatusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ComplaintStatus to aggregate.
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ComplaintStatuses to fetch.
-     */
-    orderBy?: ComplaintStatusOrderByWithRelationInput | ComplaintStatusOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ComplaintStatusWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ComplaintStatuses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ComplaintStatuses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ComplaintStatuses
-    **/
-    _count?: true | ComplaintStatusCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ComplaintStatusMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ComplaintStatusMaxAggregateInputType
-  }
-
-  export type GetComplaintStatusAggregateType<T extends ComplaintStatusAggregateArgs> = {
-        [P in keyof T & keyof AggregateComplaintStatus]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateComplaintStatus[P]>
-      : GetScalarType<T[P], AggregateComplaintStatus[P]>
-  }
-
-
-
-
-  export type ComplaintStatusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ComplaintStatusWhereInput
-    orderBy?: ComplaintStatusOrderByWithAggregationInput | ComplaintStatusOrderByWithAggregationInput[]
-    by: ComplaintStatusScalarFieldEnum[] | ComplaintStatusScalarFieldEnum
-    having?: ComplaintStatusScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ComplaintStatusCountAggregateInputType | true
-    _min?: ComplaintStatusMinAggregateInputType
-    _max?: ComplaintStatusMaxAggregateInputType
-  }
-
-  export type ComplaintStatusGroupByOutputType = {
-    id: string
-    code: string
-    name: string
-    _count: ComplaintStatusCountAggregateOutputType | null
-    _min: ComplaintStatusMinAggregateOutputType | null
-    _max: ComplaintStatusMaxAggregateOutputType | null
-  }
-
-  type GetComplaintStatusGroupByPayload<T extends ComplaintStatusGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ComplaintStatusGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ComplaintStatusGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ComplaintStatusGroupByOutputType[P]>
-            : GetScalarType<T[P], ComplaintStatusGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ComplaintStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    name?: boolean
-    complaints?: boolean | ComplaintStatus$complaintsArgs<ExtArgs>
-    _count?: boolean | ComplaintStatusCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["complaintStatus"]>
-
-  export type ComplaintStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["complaintStatus"]>
-
-  export type ComplaintStatusSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    code?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["complaintStatus"]>
-
-  export type ComplaintStatusSelectScalar = {
-    id?: boolean
-    code?: boolean
-    name?: boolean
-  }
-
-  export type ComplaintStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name", ExtArgs["result"]["complaintStatus"]>
-  export type ComplaintStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    complaints?: boolean | ComplaintStatus$complaintsArgs<ExtArgs>
-    _count?: boolean | ComplaintStatusCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type ComplaintStatusIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ComplaintStatusIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $ComplaintStatusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ComplaintStatus"
-    objects: {
-      complaints: Prisma.$ComplaintPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      code: string
-      name: string
-    }, ExtArgs["result"]["complaintStatus"]>
-    composites: {}
-  }
-
-  type ComplaintStatusGetPayload<S extends boolean | null | undefined | ComplaintStatusDefaultArgs> = $Result.GetResult<Prisma.$ComplaintStatusPayload, S>
-
-  type ComplaintStatusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ComplaintStatusFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ComplaintStatusCountAggregateInputType | true
-    }
-
-  export interface ComplaintStatusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ComplaintStatus'], meta: { name: 'ComplaintStatus' } }
-    /**
-     * Find zero or one ComplaintStatus that matches the filter.
-     * @param {ComplaintStatusFindUniqueArgs} args - Arguments to find a ComplaintStatus
-     * @example
-     * // Get one ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ComplaintStatusFindUniqueArgs>(args: SelectSubset<T, ComplaintStatusFindUniqueArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ComplaintStatus that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ComplaintStatusFindUniqueOrThrowArgs} args - Arguments to find a ComplaintStatus
-     * @example
-     * // Get one ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ComplaintStatusFindUniqueOrThrowArgs>(args: SelectSubset<T, ComplaintStatusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ComplaintStatus that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusFindFirstArgs} args - Arguments to find a ComplaintStatus
-     * @example
-     * // Get one ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ComplaintStatusFindFirstArgs>(args?: SelectSubset<T, ComplaintStatusFindFirstArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ComplaintStatus that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusFindFirstOrThrowArgs} args - Arguments to find a ComplaintStatus
-     * @example
-     * // Get one ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ComplaintStatusFindFirstOrThrowArgs>(args?: SelectSubset<T, ComplaintStatusFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ComplaintStatuses that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ComplaintStatuses
-     * const complaintStatuses = await prisma.complaintStatus.findMany()
-     * 
-     * // Get first 10 ComplaintStatuses
-     * const complaintStatuses = await prisma.complaintStatus.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const complaintStatusWithIdOnly = await prisma.complaintStatus.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ComplaintStatusFindManyArgs>(args?: SelectSubset<T, ComplaintStatusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ComplaintStatus.
-     * @param {ComplaintStatusCreateArgs} args - Arguments to create a ComplaintStatus.
-     * @example
-     * // Create one ComplaintStatus
-     * const ComplaintStatus = await prisma.complaintStatus.create({
-     *   data: {
-     *     // ... data to create a ComplaintStatus
-     *   }
-     * })
-     * 
-     */
-    create<T extends ComplaintStatusCreateArgs>(args: SelectSubset<T, ComplaintStatusCreateArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ComplaintStatuses.
-     * @param {ComplaintStatusCreateManyArgs} args - Arguments to create many ComplaintStatuses.
-     * @example
-     * // Create many ComplaintStatuses
-     * const complaintStatus = await prisma.complaintStatus.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ComplaintStatusCreateManyArgs>(args?: SelectSubset<T, ComplaintStatusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ComplaintStatuses and returns the data saved in the database.
-     * @param {ComplaintStatusCreateManyAndReturnArgs} args - Arguments to create many ComplaintStatuses.
-     * @example
-     * // Create many ComplaintStatuses
-     * const complaintStatus = await prisma.complaintStatus.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ComplaintStatuses and only return the `id`
-     * const complaintStatusWithIdOnly = await prisma.complaintStatus.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ComplaintStatusCreateManyAndReturnArgs>(args?: SelectSubset<T, ComplaintStatusCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ComplaintStatus.
-     * @param {ComplaintStatusDeleteArgs} args - Arguments to delete one ComplaintStatus.
-     * @example
-     * // Delete one ComplaintStatus
-     * const ComplaintStatus = await prisma.complaintStatus.delete({
-     *   where: {
-     *     // ... filter to delete one ComplaintStatus
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ComplaintStatusDeleteArgs>(args: SelectSubset<T, ComplaintStatusDeleteArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ComplaintStatus.
-     * @param {ComplaintStatusUpdateArgs} args - Arguments to update one ComplaintStatus.
-     * @example
-     * // Update one ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ComplaintStatusUpdateArgs>(args: SelectSubset<T, ComplaintStatusUpdateArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ComplaintStatuses.
-     * @param {ComplaintStatusDeleteManyArgs} args - Arguments to filter ComplaintStatuses to delete.
-     * @example
-     * // Delete a few ComplaintStatuses
-     * const { count } = await prisma.complaintStatus.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ComplaintStatusDeleteManyArgs>(args?: SelectSubset<T, ComplaintStatusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ComplaintStatuses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ComplaintStatuses
-     * const complaintStatus = await prisma.complaintStatus.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ComplaintStatusUpdateManyArgs>(args: SelectSubset<T, ComplaintStatusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ComplaintStatuses and returns the data updated in the database.
-     * @param {ComplaintStatusUpdateManyAndReturnArgs} args - Arguments to update many ComplaintStatuses.
-     * @example
-     * // Update many ComplaintStatuses
-     * const complaintStatus = await prisma.complaintStatus.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ComplaintStatuses and only return the `id`
-     * const complaintStatusWithIdOnly = await prisma.complaintStatus.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ComplaintStatusUpdateManyAndReturnArgs>(args: SelectSubset<T, ComplaintStatusUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ComplaintStatus.
-     * @param {ComplaintStatusUpsertArgs} args - Arguments to update or create a ComplaintStatus.
-     * @example
-     * // Update or create a ComplaintStatus
-     * const complaintStatus = await prisma.complaintStatus.upsert({
-     *   create: {
-     *     // ... data to create a ComplaintStatus
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ComplaintStatus we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ComplaintStatusUpsertArgs>(args: SelectSubset<T, ComplaintStatusUpsertArgs<ExtArgs>>): Prisma__ComplaintStatusClient<$Result.GetResult<Prisma.$ComplaintStatusPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ComplaintStatuses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusCountArgs} args - Arguments to filter ComplaintStatuses to count.
-     * @example
-     * // Count the number of ComplaintStatuses
-     * const count = await prisma.complaintStatus.count({
-     *   where: {
-     *     // ... the filter for the ComplaintStatuses we want to count
-     *   }
-     * })
-    **/
-    count<T extends ComplaintStatusCountArgs>(
-      args?: Subset<T, ComplaintStatusCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ComplaintStatusCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ComplaintStatus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ComplaintStatusAggregateArgs>(args: Subset<T, ComplaintStatusAggregateArgs>): Prisma.PrismaPromise<GetComplaintStatusAggregateType<T>>
-
-    /**
-     * Group by ComplaintStatus.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ComplaintStatusGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ComplaintStatusGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ComplaintStatusGroupByArgs['orderBy'] }
-        : { orderBy?: ComplaintStatusGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ComplaintStatusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComplaintStatusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ComplaintStatus model
-   */
-  readonly fields: ComplaintStatusFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ComplaintStatus.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ComplaintStatusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    complaints<T extends ComplaintStatus$complaintsArgs<ExtArgs> = {}>(args?: Subset<T, ComplaintStatus$complaintsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ComplaintStatus model
-   */
-  interface ComplaintStatusFieldRefs {
-    readonly id: FieldRef<"ComplaintStatus", 'String'>
-    readonly code: FieldRef<"ComplaintStatus", 'String'>
-    readonly name: FieldRef<"ComplaintStatus", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ComplaintStatus findUnique
-   */
-  export type ComplaintStatusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter, which ComplaintStatus to fetch.
-     */
-    where: ComplaintStatusWhereUniqueInput
-  }
-
-  /**
-   * ComplaintStatus findUniqueOrThrow
-   */
-  export type ComplaintStatusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter, which ComplaintStatus to fetch.
-     */
-    where: ComplaintStatusWhereUniqueInput
-  }
-
-  /**
-   * ComplaintStatus findFirst
-   */
-  export type ComplaintStatusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter, which ComplaintStatus to fetch.
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ComplaintStatuses to fetch.
-     */
-    orderBy?: ComplaintStatusOrderByWithRelationInput | ComplaintStatusOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ComplaintStatuses.
-     */
-    cursor?: ComplaintStatusWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ComplaintStatuses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ComplaintStatuses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ComplaintStatuses.
-     */
-    distinct?: ComplaintStatusScalarFieldEnum | ComplaintStatusScalarFieldEnum[]
-  }
-
-  /**
-   * ComplaintStatus findFirstOrThrow
-   */
-  export type ComplaintStatusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter, which ComplaintStatus to fetch.
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ComplaintStatuses to fetch.
-     */
-    orderBy?: ComplaintStatusOrderByWithRelationInput | ComplaintStatusOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ComplaintStatuses.
-     */
-    cursor?: ComplaintStatusWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ComplaintStatuses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ComplaintStatuses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ComplaintStatuses.
-     */
-    distinct?: ComplaintStatusScalarFieldEnum | ComplaintStatusScalarFieldEnum[]
-  }
-
-  /**
-   * ComplaintStatus findMany
-   */
-  export type ComplaintStatusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter, which ComplaintStatuses to fetch.
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ComplaintStatuses to fetch.
-     */
-    orderBy?: ComplaintStatusOrderByWithRelationInput | ComplaintStatusOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ComplaintStatuses.
-     */
-    cursor?: ComplaintStatusWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ComplaintStatuses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ComplaintStatuses.
-     */
-    skip?: number
-    distinct?: ComplaintStatusScalarFieldEnum | ComplaintStatusScalarFieldEnum[]
-  }
-
-  /**
-   * ComplaintStatus create
-   */
-  export type ComplaintStatusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ComplaintStatus.
-     */
-    data: XOR<ComplaintStatusCreateInput, ComplaintStatusUncheckedCreateInput>
-  }
-
-  /**
-   * ComplaintStatus createMany
-   */
-  export type ComplaintStatusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ComplaintStatuses.
-     */
-    data: ComplaintStatusCreateManyInput | ComplaintStatusCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ComplaintStatus createManyAndReturn
-   */
-  export type ComplaintStatusCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * The data used to create many ComplaintStatuses.
-     */
-    data: ComplaintStatusCreateManyInput | ComplaintStatusCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ComplaintStatus update
-   */
-  export type ComplaintStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ComplaintStatus.
-     */
-    data: XOR<ComplaintStatusUpdateInput, ComplaintStatusUncheckedUpdateInput>
-    /**
-     * Choose, which ComplaintStatus to update.
-     */
-    where: ComplaintStatusWhereUniqueInput
-  }
-
-  /**
-   * ComplaintStatus updateMany
-   */
-  export type ComplaintStatusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ComplaintStatuses.
-     */
-    data: XOR<ComplaintStatusUpdateManyMutationInput, ComplaintStatusUncheckedUpdateManyInput>
-    /**
-     * Filter which ComplaintStatuses to update
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * Limit how many ComplaintStatuses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ComplaintStatus updateManyAndReturn
-   */
-  export type ComplaintStatusUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * The data used to update ComplaintStatuses.
-     */
-    data: XOR<ComplaintStatusUpdateManyMutationInput, ComplaintStatusUncheckedUpdateManyInput>
-    /**
-     * Filter which ComplaintStatuses to update
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * Limit how many ComplaintStatuses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ComplaintStatus upsert
-   */
-  export type ComplaintStatusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ComplaintStatus to update in case it exists.
-     */
-    where: ComplaintStatusWhereUniqueInput
-    /**
-     * In case the ComplaintStatus found by the `where` argument doesn't exist, create a new ComplaintStatus with this data.
-     */
-    create: XOR<ComplaintStatusCreateInput, ComplaintStatusUncheckedCreateInput>
-    /**
-     * In case the ComplaintStatus was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ComplaintStatusUpdateInput, ComplaintStatusUncheckedUpdateInput>
-  }
-
-  /**
-   * ComplaintStatus delete
-   */
-  export type ComplaintStatusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
-    /**
-     * Filter which ComplaintStatus to delete.
-     */
-    where: ComplaintStatusWhereUniqueInput
-  }
-
-  /**
-   * ComplaintStatus deleteMany
-   */
-  export type ComplaintStatusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ComplaintStatuses to delete
-     */
-    where?: ComplaintStatusWhereInput
-    /**
-     * Limit how many ComplaintStatuses to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ComplaintStatus.complaints
-   */
-  export type ComplaintStatus$complaintsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Complaint
-     */
-    select?: ComplaintSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Complaint
-     */
-    omit?: ComplaintOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintInclude<ExtArgs> | null
-    where?: ComplaintWhereInput
-    orderBy?: ComplaintOrderByWithRelationInput | ComplaintOrderByWithRelationInput[]
-    cursor?: ComplaintWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ComplaintScalarFieldEnum | ComplaintScalarFieldEnum[]
-  }
-
-  /**
-   * ComplaintStatus without action
-   */
-  export type ComplaintStatusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ComplaintStatus
-     */
-    select?: ComplaintStatusSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ComplaintStatus
-     */
-    omit?: ComplaintStatusOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ComplaintStatusInclude<ExtArgs> | null
   }
 
 
@@ -13481,7 +12243,10 @@ export namespace Prisma {
     userId: 'userId',
     categoryId: 'categoryId',
     ageRatingId: 'ageRatingId',
-    views: 'views'
+    views: 'views',
+    blockReason: 'blockReason',
+    isBlocked: 'isBlocked',
+    blockedAt: 'blockedAt'
   };
 
   export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
@@ -13553,23 +12318,11 @@ export namespace Prisma {
     videoId: 'videoId',
     reason: 'reason',
     blockReason: 'blockReason',
-    statusId: 'statusId',
-    reviewedById: 'reviewedById',
     createdAt: 'createdAt',
-    reviewedAt: 'reviewedAt',
     updatedAt: 'updatedAt'
   };
 
   export type ComplaintScalarFieldEnum = (typeof ComplaintScalarFieldEnum)[keyof typeof ComplaintScalarFieldEnum]
-
-
-  export const ComplaintStatusScalarFieldEnum: {
-    id: 'id',
-    code: 'code',
-    name: 'name'
-  };
-
-  export type ComplaintStatusScalarFieldEnum = (typeof ComplaintStatusScalarFieldEnum)[keyof typeof ComplaintStatusScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13691,7 +12444,6 @@ export namespace Prisma {
     followers?: UserListRelationFilter
     playlist?: PlayListListRelationFilter
     reportedComplaints?: ComplaintListRelationFilter
-    reviewedComplaints?: ComplaintListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13715,7 +12467,6 @@ export namespace Prisma {
     followers?: UserOrderByRelationAggregateInput
     playlist?: PlayListOrderByRelationAggregateInput
     reportedComplaints?: ComplaintOrderByRelationAggregateInput
-    reviewedComplaints?: ComplaintOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13742,7 +12493,6 @@ export namespace Prisma {
     followers?: UserListRelationFilter
     playlist?: PlayListListRelationFilter
     reportedComplaints?: ComplaintListRelationFilter
-    reviewedComplaints?: ComplaintListRelationFilter
   }, "id" | "nickname" | "email" | "backupEmail">
 
   export type UserOrderByWithAggregationInput = {
@@ -13800,6 +12550,9 @@ export namespace Prisma {
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
     views?: IntFilter<"Video"> | number
+    blockReason?: StringNullableFilter<"Video"> | string | null
+    isBlocked?: BoolFilter<"Video"> | boolean
+    blockedAt?: DateTimeNullableFilter<"Video"> | Date | string | null
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     ageRating?: XOR<AgeRatingNullableScalarRelationFilter, AgeRatingWhereInput> | null
@@ -13827,6 +12580,9 @@ export namespace Prisma {
     categoryId?: SortOrderInput | SortOrder
     ageRatingId?: SortOrderInput | SortOrder
     views?: SortOrder
+    blockReason?: SortOrderInput | SortOrder
+    isBlocked?: SortOrder
+    blockedAt?: SortOrderInput | SortOrder
     author?: UserOrderByWithRelationInput
     category?: CategoryOrderByWithRelationInput
     ageRating?: AgeRatingOrderByWithRelationInput
@@ -13857,6 +12613,9 @@ export namespace Prisma {
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
     views?: IntFilter<"Video"> | number
+    blockReason?: StringNullableFilter<"Video"> | string | null
+    isBlocked?: BoolFilter<"Video"> | boolean
+    blockedAt?: DateTimeNullableFilter<"Video"> | Date | string | null
     author?: XOR<UserScalarRelationFilter, UserWhereInput>
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     ageRating?: XOR<AgeRatingNullableScalarRelationFilter, AgeRatingWhereInput> | null
@@ -13884,6 +12643,9 @@ export namespace Prisma {
     categoryId?: SortOrderInput | SortOrder
     ageRatingId?: SortOrderInput | SortOrder
     views?: SortOrder
+    blockReason?: SortOrderInput | SortOrder
+    isBlocked?: SortOrder
+    blockedAt?: SortOrderInput | SortOrder
     _count?: VideoCountOrderByAggregateInput
     _avg?: VideoAvgOrderByAggregateInput
     _max?: VideoMaxOrderByAggregateInput
@@ -13910,6 +12672,9 @@ export namespace Prisma {
     categoryId?: StringNullableWithAggregatesFilter<"Video"> | string | null
     ageRatingId?: StringNullableWithAggregatesFilter<"Video"> | string | null
     views?: IntWithAggregatesFilter<"Video"> | number
+    blockReason?: StringNullableWithAggregatesFilter<"Video"> | string | null
+    isBlocked?: BoolWithAggregatesFilter<"Video"> | boolean
+    blockedAt?: DateTimeNullableWithAggregatesFilter<"Video"> | Date | string | null
   }
 
   export type TagWhereInput = {
@@ -14231,15 +12996,10 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
-    statusId?: StringFilter<"Complaint"> | string
-    reviewedById?: StringNullableFilter<"Complaint"> | string | null
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
-    reviewedAt?: DateTimeNullableFilter<"Complaint"> | Date | string | null
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
     reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
     video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
-    status?: XOR<ComplaintStatusScalarRelationFilter, ComplaintStatusWhereInput>
-    reviewedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type ComplaintOrderByWithRelationInput = {
@@ -14248,19 +13008,15 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrderInput | SortOrder
-    statusId?: SortOrder
-    reviewedById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    reviewedAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     reporter?: UserOrderByWithRelationInput
     video?: VideoOrderByWithRelationInput
-    status?: ComplaintStatusOrderByWithRelationInput
-    reviewedBy?: UserOrderByWithRelationInput
   }
 
   export type ComplaintWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    reporterId_videoId?: ComplaintReporterIdVideoIdCompoundUniqueInput
     AND?: ComplaintWhereInput | ComplaintWhereInput[]
     OR?: ComplaintWhereInput[]
     NOT?: ComplaintWhereInput | ComplaintWhereInput[]
@@ -14268,16 +13024,11 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
-    statusId?: StringFilter<"Complaint"> | string
-    reviewedById?: StringNullableFilter<"Complaint"> | string | null
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
-    reviewedAt?: DateTimeNullableFilter<"Complaint"> | Date | string | null
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
     reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
     video?: XOR<VideoScalarRelationFilter, VideoWhereInput>
-    status?: XOR<ComplaintStatusScalarRelationFilter, ComplaintStatusWhereInput>
-    reviewedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id">
+  }, "id" | "reporterId_videoId">
 
   export type ComplaintOrderByWithAggregationInput = {
     id?: SortOrder
@@ -14285,10 +13036,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrderInput | SortOrder
-    statusId?: SortOrder
-    reviewedById?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    reviewedAt?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     _count?: ComplaintCountOrderByAggregateInput
     _max?: ComplaintMaxOrderByAggregateInput
@@ -14304,56 +13052,8 @@ export namespace Prisma {
     videoId?: StringWithAggregatesFilter<"Complaint"> | string
     reason?: StringWithAggregatesFilter<"Complaint"> | string
     blockReason?: StringNullableWithAggregatesFilter<"Complaint"> | string | null
-    statusId?: StringWithAggregatesFilter<"Complaint"> | string
-    reviewedById?: StringNullableWithAggregatesFilter<"Complaint"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
-    reviewedAt?: DateTimeNullableWithAggregatesFilter<"Complaint"> | Date | string | null
     updatedAt?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
-  }
-
-  export type ComplaintStatusWhereInput = {
-    AND?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
-    OR?: ComplaintStatusWhereInput[]
-    NOT?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
-    id?: StringFilter<"ComplaintStatus"> | string
-    code?: StringFilter<"ComplaintStatus"> | string
-    name?: StringFilter<"ComplaintStatus"> | string
-    complaints?: ComplaintListRelationFilter
-  }
-
-  export type ComplaintStatusOrderByWithRelationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    name?: SortOrder
-    complaints?: ComplaintOrderByRelationAggregateInput
-  }
-
-  export type ComplaintStatusWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    code?: string
-    AND?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
-    OR?: ComplaintStatusWhereInput[]
-    NOT?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
-    name?: StringFilter<"ComplaintStatus"> | string
-    complaints?: ComplaintListRelationFilter
-  }, "id" | "code">
-
-  export type ComplaintStatusOrderByWithAggregationInput = {
-    id?: SortOrder
-    code?: SortOrder
-    name?: SortOrder
-    _count?: ComplaintStatusCountOrderByAggregateInput
-    _max?: ComplaintStatusMaxOrderByAggregateInput
-    _min?: ComplaintStatusMinOrderByAggregateInput
-  }
-
-  export type ComplaintStatusScalarWhereWithAggregatesInput = {
-    AND?: ComplaintStatusScalarWhereWithAggregatesInput | ComplaintStatusScalarWhereWithAggregatesInput[]
-    OR?: ComplaintStatusScalarWhereWithAggregatesInput[]
-    NOT?: ComplaintStatusScalarWhereWithAggregatesInput | ComplaintStatusScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ComplaintStatus"> | string
-    code?: StringWithAggregatesFilter<"ComplaintStatus"> | string
-    name?: StringWithAggregatesFilter<"ComplaintStatus"> | string
   }
 
   export type UserCreateInput = {
@@ -14377,7 +13077,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14401,7 +13100,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUpdateInput = {
@@ -14425,7 +13123,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14449,7 +13146,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14510,6 +13206,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -14537,6 +13236,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -14558,6 +13260,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -14585,6 +13290,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -14609,6 +13317,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
   }
 
   export type VideoUpdateManyMutationInput = {
@@ -14624,6 +13335,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VideoUncheckedUpdateManyInput = {
@@ -14642,6 +13356,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TagCreateInput = {
@@ -14954,12 +13671,9 @@ export namespace Prisma {
     reason: string
     blockReason?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
     reporter: UserCreateNestedOneWithoutReportedComplaintsInput
     video: VideoCreateNestedOneWithoutComplaintsInput
-    status: ComplaintStatusCreateNestedOneWithoutComplaintsInput
-    reviewedBy?: UserCreateNestedOneWithoutReviewedComplaintsInput
   }
 
   export type ComplaintUncheckedCreateInput = {
@@ -14968,10 +13682,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -14980,12 +13691,9 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
     video?: VideoUpdateOneRequiredWithoutComplaintsNestedInput
-    status?: ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput
-    reviewedBy?: UserUpdateOneWithoutReviewedComplaintsNestedInput
   }
 
   export type ComplaintUncheckedUpdateInput = {
@@ -14994,10 +13702,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15007,10 +13712,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -15019,7 +13721,6 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15029,57 +13730,8 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ComplaintStatusCreateInput = {
-    id?: string
-    code: string
-    name: string
-    complaints?: ComplaintCreateNestedManyWithoutStatusInput
-  }
-
-  export type ComplaintStatusUncheckedCreateInput = {
-    id?: string
-    code: string
-    name: string
-    complaints?: ComplaintUncheckedCreateNestedManyWithoutStatusInput
-  }
-
-  export type ComplaintStatusUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    complaints?: ComplaintUpdateManyWithoutStatusNestedInput
-  }
-
-  export type ComplaintStatusUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    complaints?: ComplaintUncheckedUpdateManyWithoutStatusNestedInput
-  }
-
-  export type ComplaintStatusCreateManyInput = {
-    id?: string
-    code: string
-    name: string
-  }
-
-  export type ComplaintStatusUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ComplaintStatusUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -15365,6 +14017,9 @@ export namespace Prisma {
     categoryId?: SortOrder
     ageRatingId?: SortOrder
     views?: SortOrder
+    blockReason?: SortOrder
+    isBlocked?: SortOrder
+    blockedAt?: SortOrder
   }
 
   export type VideoAvgOrderByAggregateInput = {
@@ -15388,6 +14043,9 @@ export namespace Prisma {
     categoryId?: SortOrder
     ageRatingId?: SortOrder
     views?: SortOrder
+    blockReason?: SortOrder
+    isBlocked?: SortOrder
+    blockedAt?: SortOrder
   }
 
   export type VideoMinOrderByAggregateInput = {
@@ -15406,6 +14064,9 @@ export namespace Prisma {
     categoryId?: SortOrder
     ageRatingId?: SortOrder
     views?: SortOrder
+    blockReason?: SortOrder
+    isBlocked?: SortOrder
+    blockedAt?: SortOrder
   }
 
   export type VideoSumOrderByAggregateInput = {
@@ -15583,9 +14244,9 @@ export namespace Prisma {
     addedAt?: SortOrder
   }
 
-  export type ComplaintStatusScalarRelationFilter = {
-    is?: ComplaintStatusWhereInput
-    isNot?: ComplaintStatusWhereInput
+  export type ComplaintReporterIdVideoIdCompoundUniqueInput = {
+    reporterId: string
+    videoId: string
   }
 
   export type ComplaintCountOrderByAggregateInput = {
@@ -15594,10 +14255,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
-    statusId?: SortOrder
-    reviewedById?: SortOrder
     createdAt?: SortOrder
-    reviewedAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -15607,10 +14265,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
-    statusId?: SortOrder
-    reviewedById?: SortOrder
     createdAt?: SortOrder
-    reviewedAt?: SortOrder
     updatedAt?: SortOrder
   }
 
@@ -15620,29 +14275,8 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
-    statusId?: SortOrder
-    reviewedById?: SortOrder
     createdAt?: SortOrder
-    reviewedAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type ComplaintStatusCountOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    name?: SortOrder
-  }
-
-  export type ComplaintStatusMaxOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    name?: SortOrder
-  }
-
-  export type ComplaintStatusMinOrderByAggregateInput = {
-    id?: SortOrder
-    code?: SortOrder
-    name?: SortOrder
   }
 
   export type VideoCreateNestedManyWithoutAuthorInput = {
@@ -15697,13 +14331,6 @@ export namespace Prisma {
     connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
   }
 
-  export type ComplaintCreateNestedManyWithoutReviewedByInput = {
-    create?: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput> | ComplaintCreateWithoutReviewedByInput[] | ComplaintUncheckedCreateWithoutReviewedByInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutReviewedByInput | ComplaintCreateOrConnectWithoutReviewedByInput[]
-    createMany?: ComplaintCreateManyReviewedByInputEnvelope
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-  }
-
   export type VideoUncheckedCreateNestedManyWithoutAuthorInput = {
     create?: XOR<VideoCreateWithoutAuthorInput, VideoUncheckedCreateWithoutAuthorInput> | VideoCreateWithoutAuthorInput[] | VideoUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutAuthorInput | VideoCreateOrConnectWithoutAuthorInput[]
@@ -15753,13 +14380,6 @@ export namespace Prisma {
     create?: XOR<ComplaintCreateWithoutReporterInput, ComplaintUncheckedCreateWithoutReporterInput> | ComplaintCreateWithoutReporterInput[] | ComplaintUncheckedCreateWithoutReporterInput[]
     connectOrCreate?: ComplaintCreateOrConnectWithoutReporterInput | ComplaintCreateOrConnectWithoutReporterInput[]
     createMany?: ComplaintCreateManyReporterInputEnvelope
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-  }
-
-  export type ComplaintUncheckedCreateNestedManyWithoutReviewedByInput = {
-    create?: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput> | ComplaintCreateWithoutReviewedByInput[] | ComplaintUncheckedCreateWithoutReviewedByInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutReviewedByInput | ComplaintCreateOrConnectWithoutReviewedByInput[]
-    createMany?: ComplaintCreateManyReviewedByInputEnvelope
     connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
   }
 
@@ -15887,20 +14507,6 @@ export namespace Prisma {
     deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
   }
 
-  export type ComplaintUpdateManyWithoutReviewedByNestedInput = {
-    create?: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput> | ComplaintCreateWithoutReviewedByInput[] | ComplaintUncheckedCreateWithoutReviewedByInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutReviewedByInput | ComplaintCreateOrConnectWithoutReviewedByInput[]
-    upsert?: ComplaintUpsertWithWhereUniqueWithoutReviewedByInput | ComplaintUpsertWithWhereUniqueWithoutReviewedByInput[]
-    createMany?: ComplaintCreateManyReviewedByInputEnvelope
-    set?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    disconnect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    delete?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    update?: ComplaintUpdateWithWhereUniqueWithoutReviewedByInput | ComplaintUpdateWithWhereUniqueWithoutReviewedByInput[]
-    updateMany?: ComplaintUpdateManyWithWhereWithoutReviewedByInput | ComplaintUpdateManyWithWhereWithoutReviewedByInput[]
-    deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
-  }
-
   export type VideoUncheckedUpdateManyWithoutAuthorNestedInput = {
     create?: XOR<VideoCreateWithoutAuthorInput, VideoUncheckedCreateWithoutAuthorInput> | VideoCreateWithoutAuthorInput[] | VideoUncheckedCreateWithoutAuthorInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutAuthorInput | VideoCreateOrConnectWithoutAuthorInput[]
@@ -16006,20 +14612,6 @@ export namespace Prisma {
     connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
     update?: ComplaintUpdateWithWhereUniqueWithoutReporterInput | ComplaintUpdateWithWhereUniqueWithoutReporterInput[]
     updateMany?: ComplaintUpdateManyWithWhereWithoutReporterInput | ComplaintUpdateManyWithWhereWithoutReporterInput[]
-    deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
-  }
-
-  export type ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput = {
-    create?: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput> | ComplaintCreateWithoutReviewedByInput[] | ComplaintUncheckedCreateWithoutReviewedByInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutReviewedByInput | ComplaintCreateOrConnectWithoutReviewedByInput[]
-    upsert?: ComplaintUpsertWithWhereUniqueWithoutReviewedByInput | ComplaintUpsertWithWhereUniqueWithoutReviewedByInput[]
-    createMany?: ComplaintCreateManyReviewedByInputEnvelope
-    set?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    disconnect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    delete?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    update?: ComplaintUpdateWithWhereUniqueWithoutReviewedByInput | ComplaintUpdateWithWhereUniqueWithoutReviewedByInput[]
-    updateMany?: ComplaintUpdateManyWithWhereWithoutReviewedByInput | ComplaintUpdateManyWithWhereWithoutReviewedByInput[]
     deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
   }
 
@@ -16569,18 +15161,6 @@ export namespace Prisma {
     connect?: VideoWhereUniqueInput
   }
 
-  export type ComplaintStatusCreateNestedOneWithoutComplaintsInput = {
-    create?: XOR<ComplaintStatusCreateWithoutComplaintsInput, ComplaintStatusUncheckedCreateWithoutComplaintsInput>
-    connectOrCreate?: ComplaintStatusCreateOrConnectWithoutComplaintsInput
-    connect?: ComplaintStatusWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutReviewedComplaintsInput = {
-    create?: XOR<UserCreateWithoutReviewedComplaintsInput, UserUncheckedCreateWithoutReviewedComplaintsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReviewedComplaintsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type UserUpdateOneRequiredWithoutReportedComplaintsNestedInput = {
     create?: XOR<UserCreateWithoutReportedComplaintsInput, UserUncheckedCreateWithoutReportedComplaintsInput>
     connectOrCreate?: UserCreateOrConnectWithoutReportedComplaintsInput
@@ -16595,66 +15175,6 @@ export namespace Prisma {
     upsert?: VideoUpsertWithoutComplaintsInput
     connect?: VideoWhereUniqueInput
     update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutComplaintsInput, VideoUpdateWithoutComplaintsInput>, VideoUncheckedUpdateWithoutComplaintsInput>
-  }
-
-  export type ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput = {
-    create?: XOR<ComplaintStatusCreateWithoutComplaintsInput, ComplaintStatusUncheckedCreateWithoutComplaintsInput>
-    connectOrCreate?: ComplaintStatusCreateOrConnectWithoutComplaintsInput
-    upsert?: ComplaintStatusUpsertWithoutComplaintsInput
-    connect?: ComplaintStatusWhereUniqueInput
-    update?: XOR<XOR<ComplaintStatusUpdateToOneWithWhereWithoutComplaintsInput, ComplaintStatusUpdateWithoutComplaintsInput>, ComplaintStatusUncheckedUpdateWithoutComplaintsInput>
-  }
-
-  export type UserUpdateOneWithoutReviewedComplaintsNestedInput = {
-    create?: XOR<UserCreateWithoutReviewedComplaintsInput, UserUncheckedCreateWithoutReviewedComplaintsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutReviewedComplaintsInput
-    upsert?: UserUpsertWithoutReviewedComplaintsInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutReviewedComplaintsInput, UserUpdateWithoutReviewedComplaintsInput>, UserUncheckedUpdateWithoutReviewedComplaintsInput>
-  }
-
-  export type ComplaintCreateNestedManyWithoutStatusInput = {
-    create?: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput> | ComplaintCreateWithoutStatusInput[] | ComplaintUncheckedCreateWithoutStatusInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutStatusInput | ComplaintCreateOrConnectWithoutStatusInput[]
-    createMany?: ComplaintCreateManyStatusInputEnvelope
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-  }
-
-  export type ComplaintUncheckedCreateNestedManyWithoutStatusInput = {
-    create?: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput> | ComplaintCreateWithoutStatusInput[] | ComplaintUncheckedCreateWithoutStatusInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutStatusInput | ComplaintCreateOrConnectWithoutStatusInput[]
-    createMany?: ComplaintCreateManyStatusInputEnvelope
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-  }
-
-  export type ComplaintUpdateManyWithoutStatusNestedInput = {
-    create?: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput> | ComplaintCreateWithoutStatusInput[] | ComplaintUncheckedCreateWithoutStatusInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutStatusInput | ComplaintCreateOrConnectWithoutStatusInput[]
-    upsert?: ComplaintUpsertWithWhereUniqueWithoutStatusInput | ComplaintUpsertWithWhereUniqueWithoutStatusInput[]
-    createMany?: ComplaintCreateManyStatusInputEnvelope
-    set?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    disconnect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    delete?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    update?: ComplaintUpdateWithWhereUniqueWithoutStatusInput | ComplaintUpdateWithWhereUniqueWithoutStatusInput[]
-    updateMany?: ComplaintUpdateManyWithWhereWithoutStatusInput | ComplaintUpdateManyWithWhereWithoutStatusInput[]
-    deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
-  }
-
-  export type ComplaintUncheckedUpdateManyWithoutStatusNestedInput = {
-    create?: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput> | ComplaintCreateWithoutStatusInput[] | ComplaintUncheckedCreateWithoutStatusInput[]
-    connectOrCreate?: ComplaintCreateOrConnectWithoutStatusInput | ComplaintCreateOrConnectWithoutStatusInput[]
-    upsert?: ComplaintUpsertWithWhereUniqueWithoutStatusInput | ComplaintUpsertWithWhereUniqueWithoutStatusInput[]
-    createMany?: ComplaintCreateManyStatusInputEnvelope
-    set?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    disconnect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    delete?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    connect?: ComplaintWhereUniqueInput | ComplaintWhereUniqueInput[]
-    update?: ComplaintUpdateWithWhereUniqueWithoutStatusInput | ComplaintUpdateWithWhereUniqueWithoutStatusInput[]
-    updateMany?: ComplaintUpdateManyWithWhereWithoutStatusInput | ComplaintUpdateManyWithWhereWithoutStatusInput[]
-    deleteMany?: ComplaintScalarWhereInput | ComplaintScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16844,6 +15364,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
@@ -16869,6 +15392,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -16900,6 +15426,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -16926,6 +15455,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
@@ -16951,6 +15483,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -16977,6 +15512,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
@@ -17035,7 +15573,6 @@ export namespace Prisma {
     following?: UserCreateNestedManyWithoutFollowersInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutFollowersInput = {
@@ -17058,7 +15595,6 @@ export namespace Prisma {
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutFollowersInput = {
@@ -17086,7 +15622,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutFollowingInput = {
@@ -17109,7 +15644,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutFollowingInput = {
@@ -17148,11 +15682,8 @@ export namespace Prisma {
     reason: string
     blockReason?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
     video: VideoCreateNestedOneWithoutComplaintsInput
-    status: ComplaintStatusCreateNestedOneWithoutComplaintsInput
-    reviewedBy?: UserCreateNestedOneWithoutReviewedComplaintsInput
   }
 
   export type ComplaintUncheckedCreateWithoutReporterInput = {
@@ -17160,10 +15691,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -17174,40 +15702,6 @@ export namespace Prisma {
 
   export type ComplaintCreateManyReporterInputEnvelope = {
     data: ComplaintCreateManyReporterInput | ComplaintCreateManyReporterInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ComplaintCreateWithoutReviewedByInput = {
-    id?: string
-    reason: string
-    blockReason?: string | null
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-    reporter: UserCreateNestedOneWithoutReportedComplaintsInput
-    video: VideoCreateNestedOneWithoutComplaintsInput
-    status: ComplaintStatusCreateNestedOneWithoutComplaintsInput
-  }
-
-  export type ComplaintUncheckedCreateWithoutReviewedByInput = {
-    id?: string
-    reporterId: string
-    videoId: string
-    reason: string
-    blockReason?: string | null
-    statusId: string
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-  }
-
-  export type ComplaintCreateOrConnectWithoutReviewedByInput = {
-    where: ComplaintWhereUniqueInput
-    create: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput>
-  }
-
-  export type ComplaintCreateManyReviewedByInputEnvelope = {
-    data: ComplaintCreateManyReviewedByInput | ComplaintCreateManyReviewedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -17246,6 +15740,9 @@ export namespace Prisma {
     categoryId?: StringNullableFilter<"Video"> | string | null
     ageRatingId?: StringNullableFilter<"Video"> | string | null
     views?: IntFilter<"Video"> | number
+    blockReason?: StringNullableFilter<"Video"> | string | null
+    isBlocked?: BoolFilter<"Video"> | boolean
+    blockedAt?: DateTimeNullableFilter<"Video"> | Date | string | null
   }
 
   export type VideoUpsertWithWhereUniqueWithoutFavoritedByInput = {
@@ -17410,27 +15907,8 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
-    statusId?: StringFilter<"Complaint"> | string
-    reviewedById?: StringNullableFilter<"Complaint"> | string | null
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
-    reviewedAt?: DateTimeNullableFilter<"Complaint"> | Date | string | null
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
-  }
-
-  export type ComplaintUpsertWithWhereUniqueWithoutReviewedByInput = {
-    where: ComplaintWhereUniqueInput
-    update: XOR<ComplaintUpdateWithoutReviewedByInput, ComplaintUncheckedUpdateWithoutReviewedByInput>
-    create: XOR<ComplaintCreateWithoutReviewedByInput, ComplaintUncheckedCreateWithoutReviewedByInput>
-  }
-
-  export type ComplaintUpdateWithWhereUniqueWithoutReviewedByInput = {
-    where: ComplaintWhereUniqueInput
-    data: XOR<ComplaintUpdateWithoutReviewedByInput, ComplaintUncheckedUpdateWithoutReviewedByInput>
-  }
-
-  export type ComplaintUpdateManyWithWhereWithoutReviewedByInput = {
-    where: ComplaintScalarWhereInput
-    data: XOR<ComplaintUpdateManyMutationInput, ComplaintUncheckedUpdateManyWithoutReviewedByInput>
   }
 
   export type UserCreateWithoutVideosInput = {
@@ -17453,7 +15931,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutVideosInput = {
@@ -17476,7 +15953,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutVideosInput = {
@@ -17555,7 +16031,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutFavoriteVideosInput = {
@@ -17578,7 +16053,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutFavoriteVideosInput = {
@@ -17606,7 +16080,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutLikesVideoInput = {
@@ -17629,7 +16102,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutLikesVideoInput = {
@@ -17668,11 +16140,8 @@ export namespace Prisma {
     reason: string
     blockReason?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
     reporter: UserCreateNestedOneWithoutReportedComplaintsInput
-    status: ComplaintStatusCreateNestedOneWithoutComplaintsInput
-    reviewedBy?: UserCreateNestedOneWithoutReviewedComplaintsInput
   }
 
   export type ComplaintUncheckedCreateWithoutVideoInput = {
@@ -17680,10 +16149,7 @@ export namespace Prisma {
     reporterId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -17750,7 +16216,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVideosInput = {
@@ -17773,7 +16238,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type CategoryUpsertWithoutVideosInput = {
@@ -17950,6 +16414,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -17976,6 +16443,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
     comments?: CommentUncheckedCreateNestedManyWithoutVideoInput
@@ -18017,6 +16487,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
@@ -18042,6 +16515,9 @@ export namespace Prisma {
     userId: string
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -18089,6 +16565,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     tags?: TagCreateNestedManyWithoutVideosInput
@@ -18114,6 +16593,9 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -18168,7 +16650,6 @@ export namespace Prisma {
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -18191,7 +16672,6 @@ export namespace Prisma {
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -18212,6 +16692,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -18238,6 +16721,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -18281,7 +16767,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -18304,7 +16789,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type VideoUpsertWithoutCommentsInput = {
@@ -18331,6 +16815,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -18357,6 +16844,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -18384,7 +16874,6 @@ export namespace Prisma {
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutPlaylistInput = {
@@ -18407,7 +16896,6 @@ export namespace Prisma {
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutPlaylistInput = {
@@ -18468,7 +16956,6 @@ export namespace Prisma {
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPlaylistInput = {
@@ -18491,7 +16978,6 @@ export namespace Prisma {
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type PlayListVideoUpsertWithWhereUniqueWithoutPlaylistInput = {
@@ -18544,6 +17030,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -18570,6 +17059,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -18633,6 +17125,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -18659,6 +17154,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -18686,7 +17184,6 @@ export namespace Prisma {
     following?: UserCreateNestedManyWithoutFollowersInput
     followers?: UserCreateNestedManyWithoutFollowingInput
     playlist?: PlayListCreateNestedManyWithoutUserInput
-    reviewedComplaints?: ComplaintCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserUncheckedCreateWithoutReportedComplaintsInput = {
@@ -18709,7 +17206,6 @@ export namespace Prisma {
     following?: UserUncheckedCreateNestedManyWithoutFollowersInput
     followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
     playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
-    reviewedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReviewedByInput
   }
 
   export type UserCreateOrConnectWithoutReportedComplaintsInput = {
@@ -18730,6 +17226,9 @@ export namespace Prisma {
     isPublic?: boolean
     createdAt?: Date | string
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     author: UserCreateNestedOneWithoutVideosInput
     category?: CategoryCreateNestedOneWithoutVideosInput
     ageRating?: AgeRatingCreateNestedOneWithoutVideosInput
@@ -18756,6 +17255,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
     tags?: TagUncheckedCreateNestedManyWithoutVideosInput
     favoritedBy?: UserUncheckedCreateNestedManyWithoutFavoriteVideosInput
     likedBy?: UserUncheckedCreateNestedManyWithoutLikesVideoInput
@@ -18766,74 +17268,6 @@ export namespace Prisma {
   export type VideoCreateOrConnectWithoutComplaintsInput = {
     where: VideoWhereUniqueInput
     create: XOR<VideoCreateWithoutComplaintsInput, VideoUncheckedCreateWithoutComplaintsInput>
-  }
-
-  export type ComplaintStatusCreateWithoutComplaintsInput = {
-    id?: string
-    code: string
-    name: string
-  }
-
-  export type ComplaintStatusUncheckedCreateWithoutComplaintsInput = {
-    id?: string
-    code: string
-    name: string
-  }
-
-  export type ComplaintStatusCreateOrConnectWithoutComplaintsInput = {
-    where: ComplaintStatusWhereUniqueInput
-    create: XOR<ComplaintStatusCreateWithoutComplaintsInput, ComplaintStatusUncheckedCreateWithoutComplaintsInput>
-  }
-
-  export type UserCreateWithoutReviewedComplaintsInput = {
-    id?: string
-    nickname: string
-    email: string
-    backupEmail?: string | null
-    passwordHash: string
-    about?: string | null
-    birthDate?: string | null
-    passwordChangeAt?: Date | string | null
-    avatarFileName?: string | null
-    avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    videos?: VideoCreateNestedManyWithoutAuthorInput
-    favoriteVideos?: VideoCreateNestedManyWithoutFavoritedByInput
-    likesVideo?: VideoCreateNestedManyWithoutLikedByInput
-    comments?: CommentCreateNestedManyWithoutAuthorInput
-    following?: UserCreateNestedManyWithoutFollowersInput
-    followers?: UserCreateNestedManyWithoutFollowingInput
-    playlist?: PlayListCreateNestedManyWithoutUserInput
-    reportedComplaints?: ComplaintCreateNestedManyWithoutReporterInput
-  }
-
-  export type UserUncheckedCreateWithoutReviewedComplaintsInput = {
-    id?: string
-    nickname: string
-    email: string
-    backupEmail?: string | null
-    passwordHash: string
-    about?: string | null
-    birthDate?: string | null
-    passwordChangeAt?: Date | string | null
-    avatarFileName?: string | null
-    avatarUrl?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
-    favoriteVideos?: VideoUncheckedCreateNestedManyWithoutFavoritedByInput
-    likesVideo?: VideoUncheckedCreateNestedManyWithoutLikedByInput
-    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
-    following?: UserUncheckedCreateNestedManyWithoutFollowersInput
-    followers?: UserUncheckedCreateNestedManyWithoutFollowingInput
-    playlist?: PlayListUncheckedCreateNestedManyWithoutUserInput
-    reportedComplaints?: ComplaintUncheckedCreateNestedManyWithoutReporterInput
-  }
-
-  export type UserCreateOrConnectWithoutReviewedComplaintsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutReviewedComplaintsInput, UserUncheckedCreateWithoutReviewedComplaintsInput>
   }
 
   export type UserUpsertWithoutReportedComplaintsInput = {
@@ -18867,7 +17301,6 @@ export namespace Prisma {
     following?: UserUpdateManyWithoutFollowersNestedInput
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReportedComplaintsInput = {
@@ -18890,7 +17323,6 @@ export namespace Prisma {
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type VideoUpsertWithoutComplaintsInput = {
@@ -18917,6 +17349,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -18943,141 +17378,14 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
     playlistVideos?: PlayListVideoUncheckedUpdateManyWithoutVideoNestedInput
-  }
-
-  export type ComplaintStatusUpsertWithoutComplaintsInput = {
-    update: XOR<ComplaintStatusUpdateWithoutComplaintsInput, ComplaintStatusUncheckedUpdateWithoutComplaintsInput>
-    create: XOR<ComplaintStatusCreateWithoutComplaintsInput, ComplaintStatusUncheckedCreateWithoutComplaintsInput>
-    where?: ComplaintStatusWhereInput
-  }
-
-  export type ComplaintStatusUpdateToOneWithWhereWithoutComplaintsInput = {
-    where?: ComplaintStatusWhereInput
-    data: XOR<ComplaintStatusUpdateWithoutComplaintsInput, ComplaintStatusUncheckedUpdateWithoutComplaintsInput>
-  }
-
-  export type ComplaintStatusUpdateWithoutComplaintsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ComplaintStatusUncheckedUpdateWithoutComplaintsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UserUpsertWithoutReviewedComplaintsInput = {
-    update: XOR<UserUpdateWithoutReviewedComplaintsInput, UserUncheckedUpdateWithoutReviewedComplaintsInput>
-    create: XOR<UserCreateWithoutReviewedComplaintsInput, UserUncheckedCreateWithoutReviewedComplaintsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutReviewedComplaintsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutReviewedComplaintsInput, UserUncheckedUpdateWithoutReviewedComplaintsInput>
-  }
-
-  export type UserUpdateWithoutReviewedComplaintsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    backupEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    about?: NullableStringFieldUpdateOperationsInput | string | null
-    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    videos?: VideoUpdateManyWithoutAuthorNestedInput
-    favoriteVideos?: VideoUpdateManyWithoutFavoritedByNestedInput
-    likesVideo?: VideoUpdateManyWithoutLikedByNestedInput
-    comments?: CommentUpdateManyWithoutAuthorNestedInput
-    following?: UserUpdateManyWithoutFollowersNestedInput
-    followers?: UserUpdateManyWithoutFollowingNestedInput
-    playlist?: PlayListUpdateManyWithoutUserNestedInput
-    reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutReviewedComplaintsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nickname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    backupEmail?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    about?: NullableStringFieldUpdateOperationsInput | string | null
-    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
-    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
-    favoriteVideos?: VideoUncheckedUpdateManyWithoutFavoritedByNestedInput
-    likesVideo?: VideoUncheckedUpdateManyWithoutLikedByNestedInput
-    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
-    following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
-    followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
-    playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
-    reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-  }
-
-  export type ComplaintCreateWithoutStatusInput = {
-    id?: string
-    reason: string
-    blockReason?: string | null
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-    reporter: UserCreateNestedOneWithoutReportedComplaintsInput
-    video: VideoCreateNestedOneWithoutComplaintsInput
-    reviewedBy?: UserCreateNestedOneWithoutReviewedComplaintsInput
-  }
-
-  export type ComplaintUncheckedCreateWithoutStatusInput = {
-    id?: string
-    reporterId: string
-    videoId: string
-    reason: string
-    blockReason?: string | null
-    reviewedById?: string | null
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-  }
-
-  export type ComplaintCreateOrConnectWithoutStatusInput = {
-    where: ComplaintWhereUniqueInput
-    create: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput>
-  }
-
-  export type ComplaintCreateManyStatusInputEnvelope = {
-    data: ComplaintCreateManyStatusInput | ComplaintCreateManyStatusInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ComplaintUpsertWithWhereUniqueWithoutStatusInput = {
-    where: ComplaintWhereUniqueInput
-    update: XOR<ComplaintUpdateWithoutStatusInput, ComplaintUncheckedUpdateWithoutStatusInput>
-    create: XOR<ComplaintCreateWithoutStatusInput, ComplaintUncheckedCreateWithoutStatusInput>
-  }
-
-  export type ComplaintUpdateWithWhereUniqueWithoutStatusInput = {
-    where: ComplaintWhereUniqueInput
-    data: XOR<ComplaintUpdateWithoutStatusInput, ComplaintUncheckedUpdateWithoutStatusInput>
-  }
-
-  export type ComplaintUpdateManyWithWhereWithoutStatusInput = {
-    where: ComplaintScalarWhereInput
-    data: XOR<ComplaintUpdateManyMutationInput, ComplaintUncheckedUpdateManyWithoutStatusInput>
   }
 
   export type VideoCreateManyAuthorInput = {
@@ -19095,6 +17403,9 @@ export namespace Prisma {
     categoryId?: string | null
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
   }
 
   export type CommentCreateManyAuthorInput = {
@@ -19117,22 +17428,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-  }
-
-  export type ComplaintCreateManyReviewedByInput = {
-    id?: string
-    reporterId: string
-    videoId: string
-    reason: string
-    blockReason?: string | null
-    statusId: string
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -19149,6 +17445,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
@@ -19174,6 +17473,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -19197,6 +17499,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VideoUpdateWithoutFavoritedByInput = {
@@ -19212,6 +17517,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -19238,6 +17546,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
@@ -19261,6 +17572,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VideoUpdateWithoutLikedByInput = {
@@ -19276,6 +17590,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -19302,6 +17619,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
@@ -19325,6 +17645,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CommentUpdateWithoutAuthorInput = {
@@ -19371,7 +17694,6 @@ export namespace Prisma {
     following?: UserUpdateManyWithoutFollowersNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -19394,7 +17716,6 @@ export namespace Prisma {
     following?: UserUncheckedUpdateManyWithoutFollowersNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowersInput = {
@@ -19432,7 +17753,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -19455,7 +17775,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFollowingInput = {
@@ -19501,11 +17820,8 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     video?: VideoUpdateOneRequiredWithoutComplaintsNestedInput
-    status?: ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput
-    reviewedBy?: UserUpdateOneWithoutReviewedComplaintsNestedInput
   }
 
   export type ComplaintUncheckedUpdateWithoutReporterInput = {
@@ -19513,10 +17829,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19525,46 +17838,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ComplaintUpdateWithoutReviewedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
-    video?: VideoUpdateOneRequiredWithoutComplaintsNestedInput
-    status?: ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput
-  }
-
-  export type ComplaintUncheckedUpdateWithoutReviewedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reporterId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ComplaintUncheckedUpdateManyWithoutReviewedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reporterId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19581,10 +17855,7 @@ export namespace Prisma {
     reporterId: string
     reason: string
     blockReason?: string | null
-    statusId: string
-    reviewedById?: string | null
     createdAt?: Date | string
-    reviewedAt?: Date | string | null
     updatedAt?: Date | string
   }
 
@@ -19632,7 +17903,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFavoriteVideosInput = {
@@ -19655,7 +17925,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutFavoriteVideosInput = {
@@ -19693,7 +17962,6 @@ export namespace Prisma {
     followers?: UserUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLikesVideoInput = {
@@ -19716,7 +17984,6 @@ export namespace Prisma {
     followers?: UserUncheckedUpdateManyWithoutFollowingNestedInput
     playlist?: PlayListUncheckedUpdateManyWithoutUserNestedInput
     reportedComplaints?: ComplaintUncheckedUpdateManyWithoutReporterNestedInput
-    reviewedComplaints?: ComplaintUncheckedUpdateManyWithoutReviewedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutLikesVideoInput = {
@@ -19763,11 +18030,8 @@ export namespace Prisma {
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
-    status?: ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput
-    reviewedBy?: UserUpdateOneWithoutReviewedComplaintsNestedInput
   }
 
   export type ComplaintUncheckedUpdateWithoutVideoInput = {
@@ -19775,10 +18039,7 @@ export namespace Prisma {
     reporterId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19787,10 +18048,7 @@ export namespace Prisma {
     reporterId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    statusId?: StringFieldUpdateOperationsInput | string
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19825,6 +18083,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
@@ -19851,6 +18112,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
     comments?: CommentUncheckedUpdateManyWithoutVideoNestedInput
@@ -19874,6 +18138,9 @@ export namespace Prisma {
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VideoCreateManyCategoryInput = {
@@ -19891,6 +18158,9 @@ export namespace Prisma {
     userId: string
     ageRatingId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
   }
 
   export type VideoUpdateWithoutCategoryInput = {
@@ -19906,6 +18176,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     ageRating?: AgeRatingUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
@@ -19931,6 +18204,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -19954,6 +18230,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     ageRatingId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VideoCreateManyAgeRatingInput = {
@@ -19971,6 +18250,9 @@ export namespace Prisma {
     userId: string
     categoryId?: string | null
     views?: number
+    blockReason?: string | null
+    isBlocked?: boolean
+    blockedAt?: Date | string | null
   }
 
   export type VideoUpdateWithoutAgeRatingInput = {
@@ -19986,6 +18268,9 @@ export namespace Prisma {
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     author?: UserUpdateOneRequiredWithoutVideosNestedInput
     category?: CategoryUpdateOneWithoutVideosNestedInput
     tags?: TagUpdateManyWithoutVideosNestedInput
@@ -20011,6 +18296,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tags?: TagUncheckedUpdateManyWithoutVideosNestedInput
     favoritedBy?: UserUncheckedUpdateManyWithoutFavoriteVideosNestedInput
     likedBy?: UserUncheckedUpdateManyWithoutLikesVideoNestedInput
@@ -20034,6 +18322,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     categoryId?: NullableStringFieldUpdateOperationsInput | string | null
     views?: IntFieldUpdateOperationsInput | number
+    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    isBlocked?: BoolFieldUpdateOperationsInput | boolean
+    blockedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PlayListVideoCreateManyPlaylistInput = {
@@ -20058,54 +18349,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     videoId?: StringFieldUpdateOperationsInput | string
     addedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ComplaintCreateManyStatusInput = {
-    id?: string
-    reporterId: string
-    videoId: string
-    reason: string
-    blockReason?: string | null
-    reviewedById?: string | null
-    createdAt?: Date | string
-    reviewedAt?: Date | string | null
-    updatedAt?: Date | string
-  }
-
-  export type ComplaintUpdateWithoutStatusInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
-    video?: VideoUpdateOneRequiredWithoutComplaintsNestedInput
-    reviewedBy?: UserUpdateOneWithoutReviewedComplaintsNestedInput
-  }
-
-  export type ComplaintUncheckedUpdateWithoutStatusInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reporterId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ComplaintUncheckedUpdateManyWithoutStatusInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    reporterId?: StringFieldUpdateOperationsInput | string
-    videoId?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blockReason?: NullableStringFieldUpdateOperationsInput | string | null
-    reviewedById?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reviewedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

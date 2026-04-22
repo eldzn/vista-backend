@@ -57,6 +57,9 @@ model Video {
   comments       Comment[]
   complaints     Complaint[]     @relation("VideoComplaints")
   playlistVideos PlayListVideo[]
+  blockReason    String?         @map("block_reason")
+  isBlocked      Boolean         @default(false)
+  blockedAt      DateTime?       @map("blocked_at")
 }
 
 model Tag {
@@ -118,12 +121,15 @@ model PlayListVideo {
 }
 
 model Complaint {
-  id         String   @id @default(uuid())
-  reporter   User     @relation("ReporterComplaints", fields: [reporterId], references: [id])
-  reporterId String   @map("reporter_id")
-  video      Video    @relation("VideoComplaints", fields: [videoId], references: [id])
-  videoId    String   @map("video_id")
-  reason     String
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  reporter    User     @relation("ReporterComplaints", fields: [reporterId], references: [id])
+  reporterId  String   @map("reporter_id")
+  video       Video    @relation("VideoComplaints", fields: [videoId], references: [id])
+  videoId     String   @map("video_id")
+  reason      String
+  blockReason String?  @map("block_reason")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([reporterId, videoId])
 }

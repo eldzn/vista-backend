@@ -3,6 +3,7 @@ import { ComplaintsService } from './complaints.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthenticatedRequest } from '../../types/authenticated-request';
 import { CreateComplaintsDto } from './dtos/create-complaints.dto';
+import { BlockComplaintsDto } from './dtos/block-complaints.dto';
 
 @Controller('complaints')
 export class ComplaintsController {
@@ -19,5 +20,11 @@ export class ComplaintsController {
   @UseGuards(AuthGuard('jwt'))
   async getListComplaints() {
     return this.complaintsService.getListComplaints()
+  }
+
+  @Post(':videoId/block')
+  @UseGuards(AuthGuard('jwt'))
+  async blockVideo(@Body() dto: BlockComplaintsDto, @Param('videoId') videoId: string) {
+    return this.complaintsService.blockVideo(videoId, dto)
   }
 }

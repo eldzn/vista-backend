@@ -150,7 +150,10 @@ exports.Prisma.VideoScalarFieldEnum = {
   userId: 'userId',
   categoryId: 'categoryId',
   ageRatingId: 'ageRatingId',
-  views: 'views'
+  views: 'views',
+  blockReason: 'blockReason',
+  isBlocked: 'isBlocked',
+  blockedAt: 'blockedAt'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
@@ -201,17 +204,8 @@ exports.Prisma.ComplaintScalarFieldEnum = {
   videoId: 'videoId',
   reason: 'reason',
   blockReason: 'blockReason',
-  statusId: 'statusId',
-  reviewedById: 'reviewedById',
   createdAt: 'createdAt',
-  reviewedAt: 'reviewedAt',
   updatedAt: 'updatedAt'
-};
-
-exports.Prisma.ComplaintStatusScalarFieldEnum = {
-  id: 'id',
-  code: 'code',
-  name: 'name'
 };
 
 exports.Prisma.SortOrder = {
@@ -239,8 +233,7 @@ exports.Prisma.ModelName = {
   Comment: 'Comment',
   PlayList: 'PlayList',
   PlayListVideo: 'PlayListVideo',
-  Complaint: 'Complaint',
-  ComplaintStatus: 'ComplaintStatus'
+  Complaint: 'Complaint'
 };
 
 /**
