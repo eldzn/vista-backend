@@ -204,6 +204,7 @@ exports.Prisma.ComplaintScalarFieldEnum = {
   videoId: 'videoId',
   reason: 'reason',
   blockReason: 'blockReason',
+  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -11120,6 +11120,7 @@ export namespace Prisma {
     videoId: string | null
     reason: string | null
     blockReason: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11130,6 +11131,7 @@ export namespace Prisma {
     videoId: string | null
     reason: string | null
     blockReason: string | null
+    status: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11140,6 +11142,7 @@ export namespace Prisma {
     videoId: number
     reason: number
     blockReason: number
+    status: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -11152,6 +11155,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11162,6 +11166,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11172,6 +11177,7 @@ export namespace Prisma {
     videoId?: true
     reason?: true
     blockReason?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -11255,6 +11261,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason: string | null
+    status: string
     createdAt: Date
     updatedAt: Date
     _count: ComplaintCountAggregateOutputType | null
@@ -11282,6 +11289,7 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
@@ -11294,6 +11302,7 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
@@ -11306,6 +11315,7 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reporter?: boolean | UserDefaultArgs<ExtArgs>
@@ -11318,11 +11328,12 @@ export namespace Prisma {
     videoId?: boolean
     reason?: boolean
     blockReason?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ComplaintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "videoId" | "reason" | "blockReason" | "createdAt" | "updatedAt", ExtArgs["result"]["complaint"]>
+  export type ComplaintOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporterId" | "videoId" | "reason" | "blockReason" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["complaint"]>
   export type ComplaintInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reporter?: boolean | UserDefaultArgs<ExtArgs>
     video?: boolean | VideoDefaultArgs<ExtArgs>
@@ -11348,6 +11359,7 @@ export namespace Prisma {
       videoId: string
       reason: string
       blockReason: string | null
+      status: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["complaint"]>
@@ -11780,6 +11792,7 @@ export namespace Prisma {
     readonly videoId: FieldRef<"Complaint", 'String'>
     readonly reason: FieldRef<"Complaint", 'String'>
     readonly blockReason: FieldRef<"Complaint", 'String'>
+    readonly status: FieldRef<"Complaint", 'String'>
     readonly createdAt: FieldRef<"Complaint", 'DateTime'>
     readonly updatedAt: FieldRef<"Complaint", 'DateTime'>
   }
@@ -12318,6 +12331,7 @@ export namespace Prisma {
     videoId: 'videoId',
     reason: 'reason',
     blockReason: 'blockReason',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12996,6 +13010,7 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
+    status?: StringFilter<"Complaint"> | string
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
     reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13008,6 +13023,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     reporter?: UserOrderByWithRelationInput
@@ -13024,6 +13040,7 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
+    status?: StringFilter<"Complaint"> | string
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
     reporter?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13036,6 +13053,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ComplaintCountOrderByAggregateInput
@@ -13052,6 +13070,7 @@ export namespace Prisma {
     videoId?: StringWithAggregatesFilter<"Complaint"> | string
     reason?: StringWithAggregatesFilter<"Complaint"> | string
     blockReason?: StringNullableWithAggregatesFilter<"Complaint"> | string | null
+    status?: StringWithAggregatesFilter<"Complaint"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
   }
@@ -13670,6 +13689,7 @@ export namespace Prisma {
     id?: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     reporter: UserCreateNestedOneWithoutReportedComplaintsInput
@@ -13682,6 +13702,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13690,6 +13711,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
@@ -13702,6 +13724,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13712,6 +13735,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13720,6 +13744,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13730,6 +13755,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14255,6 +14281,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14265,6 +14292,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14275,6 +14303,7 @@ export namespace Prisma {
     videoId?: SortOrder
     reason?: SortOrder
     blockReason?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15681,6 +15710,7 @@ export namespace Prisma {
     id?: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     video: VideoCreateNestedOneWithoutComplaintsInput
@@ -15691,6 +15721,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15907,6 +15938,7 @@ export namespace Prisma {
     videoId?: StringFilter<"Complaint"> | string
     reason?: StringFilter<"Complaint"> | string
     blockReason?: StringNullableFilter<"Complaint"> | string | null
+    status?: StringFilter<"Complaint"> | string
     createdAt?: DateTimeFilter<"Complaint"> | Date | string
     updatedAt?: DateTimeFilter<"Complaint"> | Date | string
   }
@@ -16139,6 +16171,7 @@ export namespace Prisma {
     id?: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     reporter: UserCreateNestedOneWithoutReportedComplaintsInput
@@ -16149,6 +16182,7 @@ export namespace Prisma {
     reporterId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17428,6 +17462,7 @@ export namespace Prisma {
     videoId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17819,6 +17854,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     video?: VideoUpdateOneRequiredWithoutComplaintsNestedInput
@@ -17829,6 +17865,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17838,6 +17875,7 @@ export namespace Prisma {
     videoId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17855,6 +17893,7 @@ export namespace Prisma {
     reporterId: string
     reason: string
     blockReason?: string | null
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18029,6 +18068,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reporter?: UserUpdateOneRequiredWithoutReportedComplaintsNestedInput
@@ -18039,6 +18079,7 @@ export namespace Prisma {
     reporterId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18048,6 +18089,7 @@ export namespace Prisma {
     reporterId?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blockReason?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

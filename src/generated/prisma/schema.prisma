@@ -128,6 +128,7 @@ model Complaint {
   videoId     String   @map("video_id")
   reason      String
   blockReason String?  @map("block_reason")
+  status      String   @default("PENDING")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

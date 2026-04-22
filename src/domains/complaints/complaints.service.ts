@@ -19,6 +19,7 @@ export class ComplaintsService {
           reporterId: userId,
           videoId: videoId,
           reason: dto.reason,
+          status: 'PENDING',
         },
       });
     } catch (e) {
@@ -54,34 +55,88 @@ export class ComplaintsService {
     });
   }
 
+  async declineComplaints(videoId: string) {
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+    if (video.isBlocked) {
+      throw new BadRequestException('Cannot decline complaints for blocked video');
+    }
+    await this.prisma.complaint.updateMany({
+      where: {
+        videoId,
+        status: 'PENDING',
+      },
+      data: {
+        status: 'REJECTED',
+      },
+    });
+    return { message: 'Complaints declined' };
+  }
+
   async blockVideo(videoId: string, dto: BlockComplaintsDto) {
     const video = await this.prisma.video.findUnique({
       where: {
-        id: videoId
-      }
-    })
+        id: videoId,
+      },
+    });
     if (!video) {
-      throw new NotFoundException('Video not found')
+      throw new NotFoundException('Video not found');
+    }
+    if (video.isBlocked) {
+      throw new BadRequestException('Video already blocked');
     }
     await this.prisma.$transaction([
       this.prisma.video.update({
         where: {
-          id: videoId
+          id: videoId,
         },
         data: {
           isBlocked: true,
-          blockReason: dto.blockReason
-        }
+          blockReason: dto.blockReason,
+        },
       }),
       this.prisma.complaint.updateMany({
         where: {
-          videoId
+          videoId,
         },
         data: {
-          blockReason: dto.blockReason
-        }
-      })
-    ])
+          blockReason: dto.blockReason,
+          status: 'APPROVED',
+        },
+      }),
+    ]);
     return { message: 'Video blocked' };
+  }
+
+  async unblockVideo(videoId: string) {
+    const video = await this.prisma.video.findUnique({
+      where: { id: videoId },
+    });
+    if (!video) {
+      throw new NotFoundException('Video not found');
+    }
+    if (!video.isBlocked) {
+      throw new BadRequestException('Video is not blocked');
+    }
+    await this.prisma.$transaction([
+      this.prisma.video.update({
+        where: { id: videoId },
+        data: {
+          isBlocked: false,
+          blockReason: null,
+        },
+      }),
+      this.prisma.complaint.updateMany({
+        where: { videoId },
+        data: {
+          status: 'REVERTED',
+        },
+      }),
+    ]);
+    return { message: 'Video unblocked' };
   }
 }

@@ -16,6 +16,12 @@ export class ComplaintsController {
     return this.complaintsService.createComplaints(userId, videoId, dto)
   }
 
+  @Post(':videoId/decline')
+  @UseGuards(AuthGuard('jwt'))
+  async declineComplaints(@Param('videoId') videoId: string) {
+    return this.complaintsService.declineComplaints(videoId)
+  }
+
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getListComplaints() {
@@ -26,5 +32,11 @@ export class ComplaintsController {
   @UseGuards(AuthGuard('jwt'))
   async blockVideo(@Body() dto: BlockComplaintsDto, @Param('videoId') videoId: string) {
     return this.complaintsService.blockVideo(videoId, dto)
+  }
+
+  @Post(':videoId/unblock')
+  @UseGuards(AuthGuard('jwt'))
+  async unblockVideo(@Param('videoId') videoId: string) {
+    return this.complaintsService.unblockVideo(videoId)
   }
 }
