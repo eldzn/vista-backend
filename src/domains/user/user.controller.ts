@@ -27,6 +27,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ImageFileValidator } from './validators/image-file.validator';
 import { AuthenticatedRequest } from '../../types/authenticated-request';
 import { memoryStorage } from 'Multer';
+import { AddBackupEmailDto } from './dtos/add-backup-email.dto';
 
 @Controller('users')
 export class UserController {
@@ -74,12 +75,12 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'))
   async addBackupEmail(
     @Req() req: Request,
-    @Body() dto: { backupEmail: string },
+    @Body() dto: AddBackupEmailDto,
   ) {
     const userId = (req as any).user?.id;
     const result = await this.userService.addBackupEmail(
       userId,
-      dto.backupEmail,
+      dto,
     );
     return result;
   }

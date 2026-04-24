@@ -40,7 +40,7 @@ export class ComplaintsService {
       include: {
         video: {
           select: {
-            originalName: true,
+            name: true,
           },
         },
         reporter: {

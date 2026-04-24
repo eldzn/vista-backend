@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { UpdateEmailUserDto } from './dtos/update-email.user.dto';
 import { Prisma } from '../../generated/prisma';
 import { UploadsService } from '../uploads/uploads.service';
+import { AddBackupEmailDto } from './dtos/add-backup-email.dto';
 
 @Injectable()
 export class UserService {
@@ -142,18 +143,26 @@ export class UserService {
     });
   }
 
-  async addBackupEmail(userId: string, backupEmail: string) {
+  async addBackupEmail(userId: string, dto: AddBackupEmailDto) {
     await this.getById(userId);
 
     const existing = await this.prisma.user.findFirst({
-      where: { backupEmail },
+      where: {
+        OR: [
+          { email: dto.backupEmail },
+          { backupEmail: dto.backupEmail }
+        ],
+      },
     });
-    if (existing) throw new BadRequestException('Backup email already in use');
+
+    if (existing) {
+      throw new BadRequestException('Данный адрес электронной почты уже используется вами или другим пользователем');
+    }
 
     return this.prisma.user.update({
       where: { id: userId },
       data: {
-        backupEmail,
+        backupEmail: dto.backupEmail,
       },
     });
   }
