@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { CreateComplaintsDto } from './dtos/create-complaints.dto';
 import { Prisma } from '../../generated/prisma';
@@ -17,7 +21,7 @@ export class ComplaintsService {
       return await this.prisma.complaint.create({
         data: {
           reporterId: userId,
-          videoId: videoId,
+          videoId,
           reason: dto.reason,
           status: 'PENDING',
         },
@@ -40,6 +44,7 @@ export class ComplaintsService {
       include: {
         video: {
           select: {
+            id: true,
             name: true,
           },
         },
@@ -49,9 +54,7 @@ export class ComplaintsService {
           },
         },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -59,12 +62,17 @@ export class ComplaintsService {
     const video = await this.prisma.video.findUnique({
       where: { id: videoId },
     });
+
     if (!video) {
       throw new NotFoundException('Video not found');
     }
+
     if (video.isBlocked) {
-      throw new BadRequestException('Cannot decline complaints for blocked video');
+      throw new BadRequestException(
+        'Cannot decline complaints for blocked video',
+      );
     }
+
     await this.prisma.complaint.updateMany({
       where: {
         videoId,
@@ -74,41 +82,41 @@ export class ComplaintsService {
         status: 'REJECTED',
       },
     });
+
     return { message: 'Complaints declined' };
   }
 
   async blockVideo(videoId: string, dto: BlockComplaintsDto) {
     const video = await this.prisma.video.findUnique({
-      where: {
-        id: videoId,
-      },
+      where: { id: videoId },
     });
+
     if (!video) {
       throw new NotFoundException('Video not found');
     }
+
     if (video.isBlocked) {
       throw new BadRequestException('Video already blocked');
     }
+
     await this.prisma.$transaction([
       this.prisma.video.update({
-        where: {
-          id: videoId,
-        },
+        where: { id: videoId },
         data: {
           isBlocked: true,
           blockReason: dto.blockReason,
+          blockedAt: new Date(), // ✅ FIX
         },
       }),
       this.prisma.complaint.updateMany({
-        where: {
-          videoId,
-        },
+        where: { videoId },
         data: {
           blockReason: dto.blockReason,
           status: 'APPROVED',
         },
       }),
     ]);
+
     return { message: 'Video blocked' };
   }
 
@@ -116,18 +124,22 @@ export class ComplaintsService {
     const video = await this.prisma.video.findUnique({
       where: { id: videoId },
     });
+
     if (!video) {
       throw new NotFoundException('Video not found');
     }
+
     if (!video.isBlocked) {
       throw new BadRequestException('Video is not blocked');
     }
+
     await this.prisma.$transaction([
       this.prisma.video.update({
         where: { id: videoId },
         data: {
           isBlocked: false,
           blockReason: null,
+          blockedAt: null, // ✅ FIX
         },
       }),
       this.prisma.complaint.updateMany({
@@ -137,6 +149,28 @@ export class ComplaintsService {
         },
       }),
     ]);
+
     return { message: 'Video unblocked' };
+  }
+
+  async getHiddenVideos() {
+    return this.prisma.video.findMany({
+      where: {
+        isBlocked: true,
+      },
+      include: {
+        author: {
+          select: {
+            id: true,
+            nickname: true,
+            avatarUrl: true,
+            avatarFileName: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 }

@@ -9,3 +9,26 @@ import { ComplaintsController } from './complaints.controller';
   providers: [ComplaintsService],
 })
 export class ComplaintsModule {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

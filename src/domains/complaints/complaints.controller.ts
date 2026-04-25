@@ -9,34 +9,47 @@ import { BlockComplaintsDto } from './dtos/block-complaints.dto';
 export class ComplaintsController {
   constructor(private complaintsService: ComplaintsService) {}
 
+  @Get('hidden')
+  @UseGuards(AuthGuard('jwt'))
+  async getHiddenVideos() {
+    return this.complaintsService.getHiddenVideos();
+  }
+
   @Post(':videoId')
   @UseGuards(AuthGuard('jwt'))
-  async createComplaint(@Req() req: AuthenticatedRequest, @Body() dto: CreateComplaintsDto, @Param('videoId') videoId: string) {
-    const userId = req?.user.id
-    return this.complaintsService.createComplaints(userId, videoId, dto)
+  async createComplaint(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: CreateComplaintsDto,
+    @Param('videoId') videoId: string,
+  ) {
+    const userId = req?.user.id;
+    return this.complaintsService.createComplaints(userId, videoId, dto);
   }
 
   @Post(':videoId/decline')
   @UseGuards(AuthGuard('jwt'))
   async declineComplaints(@Param('videoId') videoId: string) {
-    return this.complaintsService.declineComplaints(videoId)
+    return this.complaintsService.declineComplaints(videoId);
   }
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
   async getListComplaints() {
-    return this.complaintsService.getListComplaints()
+    return this.complaintsService.getListComplaints();
   }
 
   @Post(':videoId/block')
   @UseGuards(AuthGuard('jwt'))
-  async blockVideo(@Body() dto: BlockComplaintsDto, @Param('videoId') videoId: string) {
-    return this.complaintsService.blockVideo(videoId, dto)
+  async blockVideo(
+    @Body() dto: BlockComplaintsDto,
+    @Param('videoId') videoId: string,
+  ) {
+    return this.complaintsService.blockVideo(videoId, dto);
   }
 
   @Post(':videoId/unblock')
   @UseGuards(AuthGuard('jwt'))
   async unblockVideo(@Param('videoId') videoId: string) {
-    return this.complaintsService.unblockVideo(videoId)
+    return this.complaintsService.unblockVideo(videoId);
   }
 }
