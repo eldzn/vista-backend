@@ -1908,6 +1908,7 @@ export namespace Prisma {
     passwordChangeAt: Date | null
     avatarFileName: string | null
     avatarUrl: string | null
+    role: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1923,6 +1924,7 @@ export namespace Prisma {
     passwordChangeAt: Date | null
     avatarFileName: string | null
     avatarUrl: string | null
+    role: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1938,6 +1940,7 @@ export namespace Prisma {
     passwordChangeAt: number
     avatarFileName: number
     avatarUrl: number
+    role: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -1955,6 +1958,7 @@ export namespace Prisma {
     passwordChangeAt?: true
     avatarFileName?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1970,6 +1974,7 @@ export namespace Prisma {
     passwordChangeAt?: true
     avatarFileName?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1985,6 +1990,7 @@ export namespace Prisma {
     passwordChangeAt?: true
     avatarFileName?: true
     avatarUrl?: true
+    role?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2073,6 +2079,7 @@ export namespace Prisma {
     passwordChangeAt: Date | null
     avatarFileName: string | null
     avatarUrl: string | null
+    role: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2105,6 +2112,7 @@ export namespace Prisma {
     passwordChangeAt?: boolean
     avatarFileName?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     videos?: boolean | User$videosArgs<ExtArgs>
@@ -2129,6 +2137,7 @@ export namespace Prisma {
     passwordChangeAt?: boolean
     avatarFileName?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2144,6 +2153,7 @@ export namespace Prisma {
     passwordChangeAt?: boolean
     avatarFileName?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2159,11 +2169,12 @@ export namespace Prisma {
     passwordChangeAt?: boolean
     avatarFileName?: boolean
     avatarUrl?: boolean
+    role?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "email" | "backupEmail" | "passwordHash" | "about" | "birthDate" | "passwordChangeAt" | "avatarFileName" | "avatarUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "email" | "backupEmail" | "passwordHash" | "about" | "birthDate" | "passwordChangeAt" | "avatarFileName" | "avatarUrl" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     videos?: boolean | User$videosArgs<ExtArgs>
     favoriteVideos?: boolean | User$favoriteVideosArgs<ExtArgs>
@@ -2201,6 +2212,7 @@ export namespace Prisma {
       passwordChangeAt: Date | null
       avatarFileName: string | null
       avatarUrl: string | null
+      role: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2644,6 +2656,7 @@ export namespace Prisma {
     readonly passwordChangeAt: FieldRef<"User", 'DateTime'>
     readonly avatarFileName: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -12234,6 +12247,7 @@ export namespace Prisma {
     passwordChangeAt: 'passwordChangeAt',
     avatarFileName: 'avatarFileName',
     avatarUrl: 'avatarUrl',
+    role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -12448,6 +12462,7 @@ export namespace Prisma {
     passwordChangeAt?: DateTimeNullableFilter<"User"> | Date | string | null
     avatarFileName?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     videos?: VideoListRelationFilter
@@ -12471,6 +12486,7 @@ export namespace Prisma {
     passwordChangeAt?: SortOrderInput | SortOrder
     avatarFileName?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     videos?: VideoOrderByRelationAggregateInput
@@ -12497,6 +12513,7 @@ export namespace Prisma {
     passwordChangeAt?: DateTimeNullableFilter<"User"> | Date | string | null
     avatarFileName?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     videos?: VideoListRelationFilter
@@ -12520,6 +12537,7 @@ export namespace Prisma {
     passwordChangeAt?: SortOrderInput | SortOrder
     avatarFileName?: SortOrderInput | SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -12541,6 +12559,7 @@ export namespace Prisma {
     passwordChangeAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     avatarFileName?: StringNullableWithAggregatesFilter<"User"> | string | null
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    role?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -13086,6 +13105,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -13109,6 +13129,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -13132,6 +13153,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -13155,6 +13177,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -13178,6 +13201,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13193,6 +13217,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13208,6 +13233,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13878,6 +13904,7 @@ export namespace Prisma {
     passwordChangeAt?: SortOrder
     avatarFileName?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13893,6 +13920,7 @@ export namespace Prisma {
     passwordChangeAt?: SortOrder
     avatarFileName?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13908,6 +13936,7 @@ export namespace Prisma {
     passwordChangeAt?: SortOrder
     avatarFileName?: SortOrder
     avatarUrl?: SortOrder
+    role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15593,6 +15622,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -15615,6 +15645,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -15642,6 +15673,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -15664,6 +15696,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -15866,6 +15899,7 @@ export namespace Prisma {
     passwordChangeAt?: DateTimeNullableFilter<"User"> | Date | string | null
     avatarFileName?: StringNullableFilter<"User"> | string | null
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
   }
@@ -15954,6 +15988,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     favoriteVideos?: VideoCreateNestedManyWithoutFavoritedByInput
@@ -15976,6 +16011,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     favoriteVideos?: VideoUncheckedCreateNestedManyWithoutFavoritedByInput
@@ -16054,6 +16090,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -16076,6 +16113,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -16103,6 +16141,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -16125,6 +16164,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -16241,6 +16281,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     favoriteVideos?: VideoUpdateManyWithoutFavoritedByNestedInput
@@ -16263,6 +16304,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     favoriteVideos?: VideoUncheckedUpdateManyWithoutFavoritedByNestedInput
@@ -16675,6 +16717,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -16697,6 +16740,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -16792,6 +16836,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -16814,6 +16859,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -16899,6 +16945,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -16921,6 +16968,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -16981,6 +17029,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -17003,6 +17052,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17209,6 +17259,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoCreateNestedManyWithoutAuthorInput
@@ -17231,6 +17282,7 @@ export namespace Prisma {
     passwordChangeAt?: Date | string | null
     avatarFileName?: string | null
     avatarUrl?: string | null
+    role?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     videos?: VideoUncheckedCreateNestedManyWithoutAuthorInput
@@ -17326,6 +17378,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -17348,6 +17401,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17720,6 +17774,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -17742,6 +17797,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17764,6 +17820,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17779,6 +17836,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -17801,6 +17859,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17823,6 +17882,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17933,6 +17993,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -17955,6 +18016,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -17977,6 +18039,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17992,6 +18055,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUpdateManyWithoutAuthorNestedInput
@@ -18014,6 +18078,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     videos?: VideoUncheckedUpdateManyWithoutAuthorNestedInput
@@ -18036,6 +18101,7 @@ export namespace Prisma {
     passwordChangeAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     avatarFileName?: NullableStringFieldUpdateOperationsInput | string | null
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

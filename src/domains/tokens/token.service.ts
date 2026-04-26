@@ -5,7 +5,8 @@ import { ConfigService } from '@nestjs/config';
 export type TokenPayload = {
   sub: string;
   email: string;
-}
+  role: string;
+};
 
 @Injectable()
 export class TokenService {
@@ -14,14 +15,14 @@ export class TokenService {
     private config: ConfigService,
   ) {}
 
-  generateAccessToken(payload: TokenPayload) {
+  generateAccessToken(payload: TokenPayload): string {
     return this.jwt.sign(payload, {
       secret: this.config.get<string>('JWT_ACCESS_SECRET'),
       expiresIn: this.config.get<string>('JWT_ACCESS_EXPIRES_IN'),
     } as any);
   }
 
-  generateRefreshToken(payload: TokenPayload, rememberMe: boolean) {
+  generateRefreshToken(payload: TokenPayload, rememberMe: boolean): string {
     const expiresIn = rememberMe
       ? this.config.getOrThrow<string>('JWT_REFRESH_REMEMBER_ME_EXPIRES_IN')
       : this.config.getOrThrow<string>('JWT_REFRESH_EXPIRES_IN');
@@ -32,7 +33,7 @@ export class TokenService {
     } as any);
   }
 
-  verifyRefreshToken(token: string) {
+  verifyRefreshToken(token: string): TokenPayload | null {
     try {
       return this.jwt.verify<TokenPayload>(token, {
         secret: this.config.getOrThrow<string>('JWT_REFRESH_SECRET'),

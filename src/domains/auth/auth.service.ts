@@ -1,19 +1,13 @@
 import {
   BadRequestException,
-  ConflictException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { SignUpDto } from './dtos/sign-up.dto';
-import * as bcrypt from 'bcrypt';
 import { SignInDto } from './dtos/sign-in.dto';
 import { TokenPayload, TokenService } from '../tokens/token.service';
-
-export type TokenPair = {
-  accessToken: string;
-  refreshToken: string;
-};
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -24,9 +18,7 @@ export class AuthService {
 
   async signUp(dto: SignUpDto) {
     const existingNickname = await this.prisma.user.findFirst({
-      where: {
-        nickname: dto.nickname,
-      },
+      where: { nickname: dto.nickname },
     });
 
     if (existingNickname) {
@@ -34,9 +26,7 @@ export class AuthService {
     }
 
     const existingEmail = await this.prisma.user.findFirst({
-      where: {
-        email: dto.email,
-      },
+      where: { email: dto.email },
     });
 
     if (existingEmail) {
@@ -49,33 +39,25 @@ export class AuthService {
 
     const passwordHash = await bcrypt.hash(dto.password, 10);
 
-    try {
-      const user = await this.prisma.user.create({
-        data: {
-          nickname: dto.nickname,
-          email: dto.email,
-          passwordHash,
-        },
-      });
+    const user = await this.prisma.user.create({
+      data: {
+        nickname: dto.nickname,
+        email: dto.email,
+        passwordHash,
+        role: 'USER',
+      },
+    });
 
-      const { id, nickname, email, about, birthDate, createdAt, updatedAt } = user;
-
-      return {
-        message: 'Sign up successfully!',
-        user: { id, nickname, email, about, birthDate, createdAt, updatedAt },
-      };
-    } catch (error) {
-      throw new ConflictException(error);
-    }
+    return {
+      message: 'Sign up successfully!',
+      user,
+    };
   }
 
   async signIn(dto: SignInDto) {
     const user = await this.prisma.user.findFirst({
       where: {
-        OR: [
-          { email: dto.email },
-          { backupEmail: dto.email },
-        ],
+        OR: [{ email: dto.email }, { backupEmail: dto.email }],
       },
     });
 
@@ -87,6 +69,7 @@ export class AuthService {
       dto.password,
       user.passwordHash,
     );
+
     if (!isPasswordValid) {
       throw new BadRequestException('Invalid credentials');
     }
@@ -94,9 +77,10 @@ export class AuthService {
     const payload: TokenPayload = {
       sub: user.id,
       email: user.email,
+      role: user.role,
     };
 
-    const tokens: TokenPair = this.token.generateTokenPair(
+    const tokens = this.token.generateTokenPair(
       payload,
       dto.rememberMe ?? false,
     );
@@ -104,13 +88,7 @@ export class AuthService {
     return {
       message: 'Sign in successfully!',
       ...tokens,
-      user: {
-        id: user.id,
-        nickname: user.nickname,
-        email: user.email,
-        about: user.about,
-        birthDate: user.birthDate,
-      },
+      user,
     };
   }
 
@@ -130,19 +108,18 @@ export class AuthService {
     }
 
     const tokens = this.token.generateTokenPair(
-      { sub: user.id, email: user.email },
+      {
+        sub: user.id,
+        email: user.email,
+        role: user.role,
+      },
       rememberMe,
     );
+
     return {
       message: 'Tokens refreshed successfully!',
       ...tokens,
-      user: {
-        id: user.id,
-        nickname: user.nickname,
-        email: user.email,
-        about: user.about,
-        birthDate: user.birthDate,
-      },
+      user,
     };
   }
 
