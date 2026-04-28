@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import {
   Body,
   Controller,
@@ -12,12 +11,10 @@ import {
   Post,
   Query,
   Req,
-  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UpdateDataUserDto } from './dtos/update-data-user.dto';
@@ -38,16 +35,19 @@ export class UserController {
   @Header('Cache-Control', 'no-store, no-cache, must-revalidate, private')
   @Header('Pragma', 'no-cache')
   @Header('Expires', '0')
-  async getMe(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const userId = (req as any).user?.id;
+  async getMe(@Req() req: AuthenticatedRequest) {
+    const userId = req.user?.id;
     const user = await this.userService.getDataUser(userId);
     return { message: 'User retrieved', user };
   }
 
   @Patch('me')
   @UseGuards(AuthGuard('jwt'))
-  async updateMe(@Req() req: Request, @Body() dto: UpdateDataUserDto) {
-    const userId = (req as any).user?.id;
+  async updateMe(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: UpdateDataUserDto,
+  ) {
+    const userId = req.user?.id;
     const user = await this.userService.updateDataUser(userId, dto);
     return { message: 'User updated', user };
   }
@@ -55,18 +55,21 @@ export class UserController {
   @Patch('password')
   @UseGuards(AuthGuard('jwt'))
   async updatePassword(
-    @Req() req: Request,
+    @Req() req: AuthenticatedRequest,
     @Body() dto: UpdatePasswordUserDto,
   ) {
-    const userId = (req as any).user?.id;
+    const userId = req.user?.id;
     const password = await this.userService.updatePasswordUser(userId, dto);
     return { message: 'Password updated', password };
   }
 
   @Patch('email')
   @UseGuards(AuthGuard('jwt'))
-  async updateEmail(@Req() req: Request, @Body() dto: UpdateEmailUserDto) {
-    const userId = (req as any).user?.id;
+  async updateEmail(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: UpdateEmailUserDto,
+  ) {
+    const userId = req.user?.id;
     const email = await this.userService.updateEmailUser(userId, dto);
     return { message: 'Email updated', email };
   }
@@ -74,30 +77,25 @@ export class UserController {
   @Patch('backup-email')
   @UseGuards(AuthGuard('jwt'))
   async addBackupEmail(
-    @Req() req: Request,
+    @Req() req: AuthenticatedRequest,
     @Body() dto: AddBackupEmailDto,
   ) {
-    const userId = (req as any).user?.id;
-    const result = await this.userService.addBackupEmail(
-      userId,
-      dto,
-    );
-    return result;
+    const userId = req.user?.id;
+    return await this.userService.addBackupEmail(userId, dto);
   }
 
   @Delete('backup-email')
   @UseGuards(AuthGuard('jwt'))
-  async removeBackupEmail(@Req() req: Request) {
-    const userId = (req as any).user?.id;
-    const result = await this.userService.deleteBackupEmail(userId);
-    return result;
+  async removeBackupEmail(@Req() req: AuthenticatedRequest) {
+    const userId = req.user?.id;
+    return await this.userService.deleteBackupEmail(userId);
   }
 
   @Post('avatar')
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(FileInterceptor('avatar', { storage: memoryStorage() }))
   async uploadAvatar(
-    @Req() req: Request,
+    @Req() req: AuthenticatedRequest,
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addValidator(
@@ -114,7 +112,7 @@ export class UserController {
     )
     file: Express.Multer.File,
   ) {
-    const userId = (req as any).user?.id;
+    const userId = req.user?.id;
     const updatedUser = await this.userService.updateAvatar(userId, file);
 
     return {
@@ -127,8 +125,8 @@ export class UserController {
 
   @Delete('avatar')
   @UseGuards(AuthGuard('jwt'))
-  async deleteAvatar(@Req() req: Request) {
-    const userId = (req as any).user?.id;
+  async deleteAvatar(@Req() req: AuthenticatedRequest) {
+    const userId = req.user?.id;
     const updatedUser = await this.userService.deleteAvatar(userId);
     return { user: updatedUser };
   }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import {
   Body,
   Controller,
@@ -21,6 +20,7 @@ import {
   setRefreshTokenCookie,
 } from '../../utils/cookie.utils';
 import { JwtAuthGuard } from '../tokens/guards/auth.guard';
+import { AuthenticatedRequest } from '../../types/authenticated-request';
 
 @Controller('auth')
 export class AuthController {
@@ -51,8 +51,11 @@ export class AuthController {
   @Post('sign-out')
   @UseGuards(JwtAuthGuard)
   @HttpCode(HttpStatus.OK)
-  signOut(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-    const userId = (req as any).user?.id;
+  signOut(
+    @Req() req: AuthenticatedRequest,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const userId = req.user?.id;
     this.authService.signOut(userId);
     clearAuthCookies(res);
     return { message: 'Signed out successfully!' };
@@ -60,8 +63,8 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(JwtAuthGuard)
-  getMe(@Req() req: Request) {
-    const user = (req as any).user;
+  getMe(@Req() req: AuthenticatedRequest) {
+    const user = req.user;
     return {
       message: 'You are authenticated!',
       user,
@@ -75,20 +78,16 @@ export class AuthController {
     @Body() dto: { rememberMe?: boolean } = {},
     @Res({ passthrough: true }) res: Response,
   ) {
-    const refreshToken = (req as any).cookies?.refreshToken;
-
+    const refreshToken = (req.cookies as { refreshToken?: string }) ?.refreshToken;
     if (!refreshToken) {
       throw new UnauthorizedException('Refresh token not found');
     }
-
     const result = await this.authService.refresh(
       refreshToken,
       dto.rememberMe ?? false,
     );
-
     setAccessTokenCookie(res, result.accessToken);
     setRefreshTokenCookie(res, result.refreshToken, dto.rememberMe ?? false);
-
     return {
       message: result.message,
       user: result.user,

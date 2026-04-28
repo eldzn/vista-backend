@@ -62,17 +62,14 @@ export class ComplaintsService {
     const video = await this.prisma.video.findUnique({
       where: { id: videoId },
     });
-
     if (!video) {
       throw new NotFoundException('Video not found');
     }
-
     if (video.isBlocked) {
       throw new BadRequestException(
         'Cannot decline complaints for blocked video',
       );
     }
-
     await this.prisma.complaint.updateMany({
       where: {
         videoId,
@@ -82,7 +79,6 @@ export class ComplaintsService {
         status: 'REJECTED',
       },
     });
-
     return { message: 'Complaints declined' };
   }
 
@@ -90,22 +86,19 @@ export class ComplaintsService {
     const video = await this.prisma.video.findUnique({
       where: { id: videoId },
     });
-
     if (!video) {
       throw new NotFoundException('Video not found');
     }
-
     if (video.isBlocked) {
       throw new BadRequestException('Video already blocked');
     }
-
     await this.prisma.$transaction([
       this.prisma.video.update({
         where: { id: videoId },
         data: {
           isBlocked: true,
           blockReason: dto.blockReason,
-          blockedAt: new Date(), // ✅ FIX
+          blockedAt: new Date(),
         },
       }),
       this.prisma.complaint.updateMany({
@@ -124,22 +117,19 @@ export class ComplaintsService {
     const video = await this.prisma.video.findUnique({
       where: { id: videoId },
     });
-
     if (!video) {
       throw new NotFoundException('Video not found');
     }
-
     if (!video.isBlocked) {
       throw new BadRequestException('Video is not blocked');
     }
-
     await this.prisma.$transaction([
       this.prisma.video.update({
         where: { id: videoId },
         data: {
           isBlocked: false,
           blockReason: null,
-          blockedAt: null, // ✅ FIX
+          blockedAt: null,
         },
       }),
       this.prisma.complaint.updateMany({
@@ -149,7 +139,6 @@ export class ComplaintsService {
         },
       }),
     ]);
-
     return { message: 'Video unblocked' };
   }
 

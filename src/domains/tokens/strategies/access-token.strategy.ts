@@ -5,6 +5,8 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 
+type Cookies = { accessToken?: string; };
+
 @Injectable()
 export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private configService: ConfigService) {
@@ -12,13 +14,13 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: Request): string | null => {
           if (!request || !request.cookies) return null;
-          return request.cookies.accessToken ?? null;
+          const cookies = request.cookies as Cookies;
+          return cookies.accessToken ?? null;
         },
       ]),
       secretOrKey: configService.getOrThrow<string>('JWT_ACCESS_SECRET'),
     });
   }
-
   validate(payload: TokenPayload) {
     return {
       id: payload.sub,

@@ -11,6 +11,7 @@ import { CommentsModule } from './domains/comments/comment.module';
 import { PlaylistsModule } from './domains/playlists/playlists.module';
 import { UploadsModule } from './domains/uploads/uploads.module';
 import { ComplaintsModule } from './domains/complaints/complaints.module';
+import { AdminModule } from './domains/admin/admin.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { ComplaintsModule } from './domains/complaints/complaints.module';
     CommentsModule,
     UploadsModule,
     PlaylistsModule,
-    ComplaintsModule
+    ComplaintsModule,
+    AdminModule,
   ],
 })
 export class AppModule {}
