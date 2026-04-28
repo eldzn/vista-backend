@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../core/prisma/prisma.service';
-import { SetRoleDto } from './dtos/set-role.dto';
 import { GetDayStatsDto } from './dtos/get-day-stats.dto';
 
 @Injectable()
@@ -49,7 +48,7 @@ export class AdminService {
     });
   }
 
-  async setRole(userId: string, dto: SetRoleDto) {
+  async setRole(userId: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: { id: true, role: true },
@@ -57,17 +56,24 @@ export class AdminService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    if (!['ADMIN', 'MODERATOR'].includes(dto.role)) {
-      throw new BadRequestException('Invalid role');
-    }
-    if (user.role === dto.role) {
-      throw new BadRequestException('User already has this role');
+    let newRole: string;
+    switch (user.role) {
+      case 'USER':
+        newRole = 'MODERATOR';
+        break;
+      case 'MODERATOR':
+        newRole = 'ADMIN';
+        break;
+      case 'ADMIN':
+        throw new BadRequestException('User already has highest role');
+      case 'BLOCKED':
+        throw new BadRequestException('Cannot change role for blocked user');
+      default:
+        newRole = 'USER';
     }
     return this.prisma.user.update({
       where: { id: userId },
-      data: {
-        role: dto.role,
-      },
+      data: { role: newRole },
       select: {
         id: true,
         nickname: true,

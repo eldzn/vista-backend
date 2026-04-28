@@ -10,7 +10,6 @@ import {
 import { AdminService } from './admin.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from '../../types/roles-decorator';
-import { SetRoleDto } from './dtos/set-role.dto';
 import { GetDayStatsDto } from './dtos/get-day-stats.dto';
 
 @Controller('admin')
@@ -42,8 +41,8 @@ export class AdminController {
   @Patch('users/:id/set-role')
   @UseGuards(AuthGuard('jwt'))
   @Roles('ADMIN')
-  async setRole(@Param('id') userId: string, @Body() dto: SetRoleDto) {
-    const user = await this.adminService.setRole(userId, dto);
+  async setRole(@Param('id') userId: string) {
+    const user = await this.adminService.setRole(userId);
     return {
       message: 'Role updated',
       user,
